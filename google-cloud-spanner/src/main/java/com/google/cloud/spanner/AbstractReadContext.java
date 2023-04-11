@@ -601,7 +601,9 @@ abstract class AbstractReadContext
     builder.setSeqno(getSeqNo());
     builder.setQueryOptions(buildQueryOptions(statement.getQueryOptions()));
     builder.setRequestOptions(buildRequestOptions(options));
-    builder.setAutocommit(true);
+    if (!(statement.getSql().contains("update") || statement.getSql().contains("insert"))) {
+      builder.setAutocommit(true);
+    }
     return builder;
   }
 
