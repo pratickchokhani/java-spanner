@@ -431,6 +431,13 @@ public interface ExecuteSqlRequestOrBuilder
   com.google.spanner.v1.RequestOptionsOrBuilder getRequestOptionsOrBuilder();
 
   /**
+   * <code>bool autocommit = 12;</code>
+   *
+   * @return The autocommit.
+   */
+  boolean getAutocommit();
+
+  /**
    *
    *
    * <pre>

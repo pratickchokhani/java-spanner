@@ -554,6 +554,7 @@ public class SpannerClientTest {
             .setSeqno(109325920)
             .setQueryOptions(ExecuteSqlRequest.QueryOptions.newBuilder().build())
             .setRequestOptions(RequestOptions.newBuilder().build())
+            .setAutocommit(true)
             .setDataBoostEnabled(true)
             .build();
 
@@ -575,6 +576,7 @@ public class SpannerClientTest {
     Assert.assertEquals(request.getSeqno(), actualRequest.getSeqno());
     Assert.assertEquals(request.getQueryOptions(), actualRequest.getQueryOptions());
     Assert.assertEquals(request.getRequestOptions(), actualRequest.getRequestOptions());
+    Assert.assertEquals(request.getAutocommit(), actualRequest.getAutocommit());
     Assert.assertEquals(request.getDataBoostEnabled(), actualRequest.getDataBoostEnabled());
     Assert.assertTrue(
         channelProvider.isHeaderSent(
@@ -601,6 +603,7 @@ public class SpannerClientTest {
               .setSeqno(109325920)
               .setQueryOptions(ExecuteSqlRequest.QueryOptions.newBuilder().build())
               .setRequestOptions(RequestOptions.newBuilder().build())
+              .setAutocommit(true)
               .setDataBoostEnabled(true)
               .build();
       client.executeSql(request);
@@ -634,6 +637,7 @@ public class SpannerClientTest {
             .setSeqno(109325920)
             .setQueryOptions(ExecuteSqlRequest.QueryOptions.newBuilder().build())
             .setRequestOptions(RequestOptions.newBuilder().build())
+            .setAutocommit(true)
             .setDataBoostEnabled(true)
             .build();
 
@@ -665,6 +669,7 @@ public class SpannerClientTest {
             .setSeqno(109325920)
             .setQueryOptions(ExecuteSqlRequest.QueryOptions.newBuilder().build())
             .setRequestOptions(RequestOptions.newBuilder().build())
+            .setAutocommit(true)
             .setDataBoostEnabled(true)
             .build();
 

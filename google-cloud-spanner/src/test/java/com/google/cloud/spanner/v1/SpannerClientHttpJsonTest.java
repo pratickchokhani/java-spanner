@@ -598,6 +598,7 @@ public class SpannerClientHttpJsonTest {
             .setSeqno(109325920)
             .setQueryOptions(ExecuteSqlRequest.QueryOptions.newBuilder().build())
             .setRequestOptions(RequestOptions.newBuilder().build())
+            .setAutocommit(true)
             .setDataBoostEnabled(true)
             .build();
 
@@ -640,6 +641,7 @@ public class SpannerClientHttpJsonTest {
               .setSeqno(109325920)
               .setQueryOptions(ExecuteSqlRequest.QueryOptions.newBuilder().build())
               .setRequestOptions(RequestOptions.newBuilder().build())
+              .setAutocommit(true)
               .setDataBoostEnabled(true)
               .build();
       client.executeSql(request);
