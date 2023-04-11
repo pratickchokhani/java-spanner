@@ -155,5 +155,20 @@ public interface TransactionOptionsOrBuilder
    */
   com.google.spanner.v1.TransactionOptions.ReadOnlyOrBuilder getReadOnlyOrBuilder();
 
+  /**
+   * <code>.google.spanner.v1.TransactionOptions.TransactionId transaction_id = 4;</code>
+   *
+   * @return Whether the transactionId field is set.
+   */
+  boolean hasTransactionId();
+  /**
+   * <code>.google.spanner.v1.TransactionOptions.TransactionId transaction_id = 4;</code>
+   *
+   * @return The transactionId.
+   */
+  com.google.spanner.v1.TransactionOptions.TransactionId getTransactionId();
+  /** <code>.google.spanner.v1.TransactionOptions.TransactionId transaction_id = 4;</code> */
+  com.google.spanner.v1.TransactionOptions.TransactionIdOrBuilder getTransactionIdOrBuilder();
+
   public com.google.spanner.v1.TransactionOptions.ModeCase getModeCase();
 }

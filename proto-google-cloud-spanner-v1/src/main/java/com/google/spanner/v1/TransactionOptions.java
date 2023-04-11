@@ -4163,6 +4163,657 @@ public final class TransactionOptions extends com.google.protobuf.GeneratedMessa
     }
   }
 
+  public interface TransactionIdOrBuilder
+      extends
+      // @@protoc_insertion_point(interface_extends:google.spanner.v1.TransactionOptions.TransactionId)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     *
+     *
+     * <pre>
+     * Session generation.
+     * </pre>
+     *
+     * <code>uint32 generation = 2;</code>
+     *
+     * @return The generation.
+     */
+    int getGeneration();
+
+    /**
+     *
+     *
+     * <pre>
+     * Transaction sequence number.
+     * </pre>
+     *
+     * <code>uint32 sequence = 3;</code>
+     *
+     * @return The sequence.
+     */
+    int getSequence();
+  }
+  /**
+   *
+   *
+   * <pre>
+   * Message type to initiate a Partitioned DML transaction.
+   * </pre>
+   *
+   * Protobuf type {@code google.spanner.v1.TransactionOptions.TransactionId}
+   */
+  public static final class TransactionId extends com.google.protobuf.GeneratedMessageV3
+      implements
+      // @@protoc_insertion_point(message_implements:google.spanner.v1.TransactionOptions.TransactionId)
+      TransactionIdOrBuilder {
+    private static final long serialVersionUID = 0L;
+    // Use TransactionId.newBuilder() to construct.
+    private TransactionId(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+
+    private TransactionId() {}
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(UnusedPrivateParameter unused) {
+      return new TransactionId();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet getUnknownFields() {
+      return this.unknownFields;
+    }
+
+    public static final com.google.protobuf.Descriptors.Descriptor getDescriptor() {
+      return com.google.spanner.v1.TransactionProto
+          .internal_static_google_spanner_v1_TransactionOptions_TransactionId_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.google.spanner.v1.TransactionProto
+          .internal_static_google_spanner_v1_TransactionOptions_TransactionId_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              com.google.spanner.v1.TransactionOptions.TransactionId.class,
+              com.google.spanner.v1.TransactionOptions.TransactionId.Builder.class);
+    }
+
+    public static final int GENERATION_FIELD_NUMBER = 2;
+    private int generation_ = 0;
+    /**
+     *
+     *
+     * <pre>
+     * Session generation.
+     * </pre>
+     *
+     * <code>uint32 generation = 2;</code>
+     *
+     * @return The generation.
+     */
+    @java.lang.Override
+    public int getGeneration() {
+      return generation_;
+    }
+
+    public static final int SEQUENCE_FIELD_NUMBER = 3;
+    private int sequence_ = 0;
+    /**
+     *
+     *
+     * <pre>
+     * Transaction sequence number.
+     * </pre>
+     *
+     * <code>uint32 sequence = 3;</code>
+     *
+     * @return The sequence.
+     */
+    @java.lang.Override
+    public int getSequence() {
+      return sequence_;
+    }
+
+    private byte memoizedIsInitialized = -1;
+
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output) throws java.io.IOException {
+      if (generation_ != 0) {
+        output.writeUInt32(2, generation_);
+      }
+      if (sequence_ != 0) {
+        output.writeUInt32(3, sequence_);
+      }
+      getUnknownFields().writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (generation_ != 0) {
+        size += com.google.protobuf.CodedOutputStream.computeUInt32Size(2, generation_);
+      }
+      if (sequence_ != 0) {
+        size += com.google.protobuf.CodedOutputStream.computeUInt32Size(3, sequence_);
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+        return true;
+      }
+      if (!(obj instanceof com.google.spanner.v1.TransactionOptions.TransactionId)) {
+        return super.equals(obj);
+      }
+      com.google.spanner.v1.TransactionOptions.TransactionId other =
+          (com.google.spanner.v1.TransactionOptions.TransactionId) obj;
+
+      if (getGeneration() != other.getGeneration()) return false;
+      if (getSequence() != other.getSequence()) return false;
+      if (!getUnknownFields().equals(other.getUnknownFields())) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + GENERATION_FIELD_NUMBER;
+      hash = (53 * hash) + getGeneration();
+      hash = (37 * hash) + SEQUENCE_FIELD_NUMBER;
+      hash = (53 * hash) + getSequence();
+      hash = (29 * hash) + getUnknownFields().hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static com.google.spanner.v1.TransactionOptions.TransactionId parseFrom(
+        java.nio.ByteBuffer data) throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+
+    public static com.google.spanner.v1.TransactionOptions.TransactionId parseFrom(
+        java.nio.ByteBuffer data, com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+
+    public static com.google.spanner.v1.TransactionOptions.TransactionId parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+
+    public static com.google.spanner.v1.TransactionOptions.TransactionId parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+
+    public static com.google.spanner.v1.TransactionOptions.TransactionId parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+
+    public static com.google.spanner.v1.TransactionOptions.TransactionId parseFrom(
+        byte[] data, com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+
+    public static com.google.spanner.v1.TransactionOptions.TransactionId parseFrom(
+        java.io.InputStream input) throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3.parseWithIOException(PARSER, input);
+    }
+
+    public static com.google.spanner.v1.TransactionOptions.TransactionId parseFrom(
+        java.io.InputStream input, com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3.parseWithIOException(
+          PARSER, input, extensionRegistry);
+    }
+
+    public static com.google.spanner.v1.TransactionOptions.TransactionId parseDelimitedFrom(
+        java.io.InputStream input) throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3.parseDelimitedWithIOException(PARSER, input);
+    }
+
+    public static com.google.spanner.v1.TransactionOptions.TransactionId parseDelimitedFrom(
+        java.io.InputStream input, com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3.parseDelimitedWithIOException(
+          PARSER, input, extensionRegistry);
+    }
+
+    public static com.google.spanner.v1.TransactionOptions.TransactionId parseFrom(
+        com.google.protobuf.CodedInputStream input) throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3.parseWithIOException(PARSER, input);
+    }
+
+    public static com.google.spanner.v1.TransactionOptions.TransactionId parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3.parseWithIOException(
+          PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() {
+      return newBuilder();
+    }
+
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+
+    public static Builder newBuilder(
+        com.google.spanner.v1.TransactionOptions.TransactionId prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     *
+     *
+     * <pre>
+     * Message type to initiate a Partitioned DML transaction.
+     * </pre>
+     *
+     * Protobuf type {@code google.spanner.v1.TransactionOptions.TransactionId}
+     */
+    public static final class Builder
+        extends com.google.protobuf.GeneratedMessageV3.Builder<Builder>
+        implements
+        // @@protoc_insertion_point(builder_implements:google.spanner.v1.TransactionOptions.TransactionId)
+        com.google.spanner.v1.TransactionOptions.TransactionIdOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor getDescriptor() {
+        return com.google.spanner.v1.TransactionProto
+            .internal_static_google_spanner_v1_TransactionOptions_TransactionId_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.google.spanner.v1.TransactionProto
+            .internal_static_google_spanner_v1_TransactionOptions_TransactionId_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                com.google.spanner.v1.TransactionOptions.TransactionId.class,
+                com.google.spanner.v1.TransactionOptions.TransactionId.Builder.class);
+      }
+
+      // Construct using com.google.spanner.v1.TransactionOptions.TransactionId.newBuilder()
+      private Builder() {}
+
+      private Builder(com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+      }
+
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        bitField0_ = 0;
+        generation_ = 0;
+        sequence_ = 0;
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor getDescriptorForType() {
+        return com.google.spanner.v1.TransactionProto
+            .internal_static_google_spanner_v1_TransactionOptions_TransactionId_descriptor;
+      }
+
+      @java.lang.Override
+      public com.google.spanner.v1.TransactionOptions.TransactionId getDefaultInstanceForType() {
+        return com.google.spanner.v1.TransactionOptions.TransactionId.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public com.google.spanner.v1.TransactionOptions.TransactionId build() {
+        com.google.spanner.v1.TransactionOptions.TransactionId result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public com.google.spanner.v1.TransactionOptions.TransactionId buildPartial() {
+        com.google.spanner.v1.TransactionOptions.TransactionId result =
+            new com.google.spanner.v1.TransactionOptions.TransactionId(this);
+        if (bitField0_ != 0) {
+          buildPartial0(result);
+        }
+        onBuilt();
+        return result;
+      }
+
+      private void buildPartial0(com.google.spanner.v1.TransactionOptions.TransactionId result) {
+        int from_bitField0_ = bitField0_;
+        if (((from_bitField0_ & 0x00000001) != 0)) {
+          result.generation_ = generation_;
+        }
+        if (((from_bitField0_ & 0x00000002) != 0)) {
+          result.sequence_ = sequence_;
+        }
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field, java.lang.Object value) {
+        return super.setField(field, value);
+      }
+
+      @java.lang.Override
+      public Builder clearField(com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+
+      @java.lang.Override
+      public Builder clearOneof(com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index,
+          java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field, java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.google.spanner.v1.TransactionOptions.TransactionId) {
+          return mergeFrom((com.google.spanner.v1.TransactionOptions.TransactionId) other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(com.google.spanner.v1.TransactionOptions.TransactionId other) {
+        if (other == com.google.spanner.v1.TransactionOptions.TransactionId.getDefaultInstance())
+          return this;
+        if (other.getGeneration() != 0) {
+          setGeneration(other.getGeneration());
+        }
+        if (other.getSequence() != 0) {
+          setSequence(other.getSequence());
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        if (extensionRegistry == null) {
+          throw new java.lang.NullPointerException();
+        }
+        try {
+          boolean done = false;
+          while (!done) {
+            int tag = input.readTag();
+            switch (tag) {
+              case 0:
+                done = true;
+                break;
+              case 16:
+                {
+                  generation_ = input.readUInt32();
+                  bitField0_ |= 0x00000001;
+                  break;
+                } // case 16
+              case 24:
+                {
+                  sequence_ = input.readUInt32();
+                  bitField0_ |= 0x00000002;
+                  break;
+                } // case 24
+              default:
+                {
+                  if (!super.parseUnknownField(input, extensionRegistry, tag)) {
+                    done = true; // was an endgroup tag
+                  }
+                  break;
+                } // default:
+            } // switch (tag)
+          } // while (!done)
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.unwrapIOException();
+        } finally {
+          onChanged();
+        } // finally
+        return this;
+      }
+
+      private int bitField0_;
+
+      private int generation_;
+      /**
+       *
+       *
+       * <pre>
+       * Session generation.
+       * </pre>
+       *
+       * <code>uint32 generation = 2;</code>
+       *
+       * @return The generation.
+       */
+      @java.lang.Override
+      public int getGeneration() {
+        return generation_;
+      }
+      /**
+       *
+       *
+       * <pre>
+       * Session generation.
+       * </pre>
+       *
+       * <code>uint32 generation = 2;</code>
+       *
+       * @param value The generation to set.
+       * @return This builder for chaining.
+       */
+      public Builder setGeneration(int value) {
+
+        generation_ = value;
+        bitField0_ |= 0x00000001;
+        onChanged();
+        return this;
+      }
+      /**
+       *
+       *
+       * <pre>
+       * Session generation.
+       * </pre>
+       *
+       * <code>uint32 generation = 2;</code>
+       *
+       * @return This builder for chaining.
+       */
+      public Builder clearGeneration() {
+        bitField0_ = (bitField0_ & ~0x00000001);
+        generation_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private int sequence_;
+      /**
+       *
+       *
+       * <pre>
+       * Transaction sequence number.
+       * </pre>
+       *
+       * <code>uint32 sequence = 3;</code>
+       *
+       * @return The sequence.
+       */
+      @java.lang.Override
+      public int getSequence() {
+        return sequence_;
+      }
+      /**
+       *
+       *
+       * <pre>
+       * Transaction sequence number.
+       * </pre>
+       *
+       * <code>uint32 sequence = 3;</code>
+       *
+       * @param value The sequence to set.
+       * @return This builder for chaining.
+       */
+      public Builder setSequence(int value) {
+
+        sequence_ = value;
+        bitField0_ |= 0x00000002;
+        onChanged();
+        return this;
+      }
+      /**
+       *
+       *
+       * <pre>
+       * Transaction sequence number.
+       * </pre>
+       *
+       * <code>uint32 sequence = 3;</code>
+       *
+       * @return This builder for chaining.
+       */
+      public Builder clearSequence() {
+        bitField0_ = (bitField0_ & ~0x00000002);
+        sequence_ = 0;
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+      // @@protoc_insertion_point(builder_scope:google.spanner.v1.TransactionOptions.TransactionId)
+    }
+
+    // @@protoc_insertion_point(class_scope:google.spanner.v1.TransactionOptions.TransactionId)
+    private static final com.google.spanner.v1.TransactionOptions.TransactionId DEFAULT_INSTANCE;
+
+    static {
+      DEFAULT_INSTANCE = new com.google.spanner.v1.TransactionOptions.TransactionId();
+    }
+
+    public static com.google.spanner.v1.TransactionOptions.TransactionId getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<TransactionId> PARSER =
+        new com.google.protobuf.AbstractParser<TransactionId>() {
+          @java.lang.Override
+          public TransactionId parsePartialFrom(
+              com.google.protobuf.CodedInputStream input,
+              com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+              throws com.google.protobuf.InvalidProtocolBufferException {
+            Builder builder = newBuilder();
+            try {
+              builder.mergeFrom(input, extensionRegistry);
+            } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+              throw e.setUnfinishedMessage(builder.buildPartial());
+            } catch (com.google.protobuf.UninitializedMessageException e) {
+              throw e.asInvalidProtocolBufferException()
+                  .setUnfinishedMessage(builder.buildPartial());
+            } catch (java.io.IOException e) {
+              throw new com.google.protobuf.InvalidProtocolBufferException(e)
+                  .setUnfinishedMessage(builder.buildPartial());
+            }
+            return builder.buildPartial();
+          }
+        };
+
+    public static com.google.protobuf.Parser<TransactionId> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<TransactionId> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.spanner.v1.TransactionOptions.TransactionId getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+  }
+
   private int modeCase_ = 0;
   private java.lang.Object mode_;
 
@@ -4394,6 +5045,37 @@ public final class TransactionOptions extends com.google.protobuf.GeneratedMessa
     return com.google.spanner.v1.TransactionOptions.ReadOnly.getDefaultInstance();
   }
 
+  public static final int TRANSACTION_ID_FIELD_NUMBER = 4;
+  private com.google.spanner.v1.TransactionOptions.TransactionId transactionId_;
+  /**
+   * <code>.google.spanner.v1.TransactionOptions.TransactionId transaction_id = 4;</code>
+   *
+   * @return Whether the transactionId field is set.
+   */
+  @java.lang.Override
+  public boolean hasTransactionId() {
+    return transactionId_ != null;
+  }
+  /**
+   * <code>.google.spanner.v1.TransactionOptions.TransactionId transaction_id = 4;</code>
+   *
+   * @return The transactionId.
+   */
+  @java.lang.Override
+  public com.google.spanner.v1.TransactionOptions.TransactionId getTransactionId() {
+    return transactionId_ == null
+        ? com.google.spanner.v1.TransactionOptions.TransactionId.getDefaultInstance()
+        : transactionId_;
+  }
+  /** <code>.google.spanner.v1.TransactionOptions.TransactionId transaction_id = 4;</code> */
+  @java.lang.Override
+  public com.google.spanner.v1.TransactionOptions.TransactionIdOrBuilder
+      getTransactionIdOrBuilder() {
+    return transactionId_ == null
+        ? com.google.spanner.v1.TransactionOptions.TransactionId.getDefaultInstance()
+        : transactionId_;
+  }
+
   private byte memoizedIsInitialized = -1;
 
   @java.lang.Override
@@ -4416,6 +5098,9 @@ public final class TransactionOptions extends com.google.protobuf.GeneratedMessa
     }
     if (modeCase_ == 3) {
       output.writeMessage(3, (com.google.spanner.v1.TransactionOptions.PartitionedDml) mode_);
+    }
+    if (transactionId_ != null) {
+      output.writeMessage(4, getTransactionId());
     }
     getUnknownFields().writeTo(output);
   }
@@ -4441,6 +5126,9 @@ public final class TransactionOptions extends com.google.protobuf.GeneratedMessa
           com.google.protobuf.CodedOutputStream.computeMessageSize(
               3, (com.google.spanner.v1.TransactionOptions.PartitionedDml) mode_);
     }
+    if (transactionId_ != null) {
+      size += com.google.protobuf.CodedOutputStream.computeMessageSize(4, getTransactionId());
+    }
     size += getUnknownFields().getSerializedSize();
     memoizedSize = size;
     return size;
@@ -4456,6 +5144,10 @@ public final class TransactionOptions extends com.google.protobuf.GeneratedMessa
     }
     com.google.spanner.v1.TransactionOptions other = (com.google.spanner.v1.TransactionOptions) obj;
 
+    if (hasTransactionId() != other.hasTransactionId()) return false;
+    if (hasTransactionId()) {
+      if (!getTransactionId().equals(other.getTransactionId())) return false;
+    }
     if (!getModeCase().equals(other.getModeCase())) return false;
     switch (modeCase_) {
       case 1:
@@ -4481,6 +5173,10 @@ public final class TransactionOptions extends com.google.protobuf.GeneratedMessa
     }
     int hash = 41;
     hash = (19 * hash) + getDescriptor().hashCode();
+    if (hasTransactionId()) {
+      hash = (37 * hash) + TRANSACTION_ID_FIELD_NUMBER;
+      hash = (53 * hash) + getTransactionId().hashCode();
+    }
     switch (modeCase_) {
       case 1:
         hash = (37 * hash) + READ_WRITE_FIELD_NUMBER;
@@ -4899,6 +5595,11 @@ public final class TransactionOptions extends com.google.protobuf.GeneratedMessa
       if (readOnlyBuilder_ != null) {
         readOnlyBuilder_.clear();
       }
+      transactionId_ = null;
+      if (transactionIdBuilder_ != null) {
+        transactionIdBuilder_.dispose();
+        transactionIdBuilder_ = null;
+      }
       modeCase_ = 0;
       mode_ = null;
       return this;
@@ -4938,6 +5639,10 @@ public final class TransactionOptions extends com.google.protobuf.GeneratedMessa
 
     private void buildPartial0(com.google.spanner.v1.TransactionOptions result) {
       int from_bitField0_ = bitField0_;
+      if (((from_bitField0_ & 0x00000008) != 0)) {
+        result.transactionId_ =
+            transactionIdBuilder_ == null ? transactionId_ : transactionIdBuilder_.build();
+      }
     }
 
     private void buildPartialOneofs(com.google.spanner.v1.TransactionOptions result) {
@@ -4999,6 +5704,9 @@ public final class TransactionOptions extends com.google.protobuf.GeneratedMessa
 
     public Builder mergeFrom(com.google.spanner.v1.TransactionOptions other) {
       if (other == com.google.spanner.v1.TransactionOptions.getDefaultInstance()) return this;
+      if (other.hasTransactionId()) {
+        mergeTransactionId(other.getTransactionId());
+      }
       switch (other.getModeCase()) {
         case READ_WRITE:
           {
@@ -5064,6 +5772,12 @@ public final class TransactionOptions extends com.google.protobuf.GeneratedMessa
                 modeCase_ = 3;
                 break;
               } // case 26
+            case 34:
+              {
+                input.readMessage(getTransactionIdFieldBuilder().getBuilder(), extensionRegistry);
+                bitField0_ |= 0x00000008;
+                break;
+              } // case 34
             default:
               {
                 if (!super.parseUnknownField(input, extensionRegistry, tag)) {
@@ -5808,6 +6522,126 @@ public final class TransactionOptions extends com.google.protobuf.GeneratedMessa
       modeCase_ = 2;
       onChanged();
       return readOnlyBuilder_;
+    }
+
+    private com.google.spanner.v1.TransactionOptions.TransactionId transactionId_;
+    private com.google.protobuf.SingleFieldBuilderV3<
+            com.google.spanner.v1.TransactionOptions.TransactionId,
+            com.google.spanner.v1.TransactionOptions.TransactionId.Builder,
+            com.google.spanner.v1.TransactionOptions.TransactionIdOrBuilder>
+        transactionIdBuilder_;
+    /**
+     * <code>.google.spanner.v1.TransactionOptions.TransactionId transaction_id = 4;</code>
+     *
+     * @return Whether the transactionId field is set.
+     */
+    public boolean hasTransactionId() {
+      return ((bitField0_ & 0x00000008) != 0);
+    }
+    /**
+     * <code>.google.spanner.v1.TransactionOptions.TransactionId transaction_id = 4;</code>
+     *
+     * @return The transactionId.
+     */
+    public com.google.spanner.v1.TransactionOptions.TransactionId getTransactionId() {
+      if (transactionIdBuilder_ == null) {
+        return transactionId_ == null
+            ? com.google.spanner.v1.TransactionOptions.TransactionId.getDefaultInstance()
+            : transactionId_;
+      } else {
+        return transactionIdBuilder_.getMessage();
+      }
+    }
+    /** <code>.google.spanner.v1.TransactionOptions.TransactionId transaction_id = 4;</code> */
+    public Builder setTransactionId(com.google.spanner.v1.TransactionOptions.TransactionId value) {
+      if (transactionIdBuilder_ == null) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        transactionId_ = value;
+      } else {
+        transactionIdBuilder_.setMessage(value);
+      }
+      bitField0_ |= 0x00000008;
+      onChanged();
+      return this;
+    }
+    /** <code>.google.spanner.v1.TransactionOptions.TransactionId transaction_id = 4;</code> */
+    public Builder setTransactionId(
+        com.google.spanner.v1.TransactionOptions.TransactionId.Builder builderForValue) {
+      if (transactionIdBuilder_ == null) {
+        transactionId_ = builderForValue.build();
+      } else {
+        transactionIdBuilder_.setMessage(builderForValue.build());
+      }
+      bitField0_ |= 0x00000008;
+      onChanged();
+      return this;
+    }
+    /** <code>.google.spanner.v1.TransactionOptions.TransactionId transaction_id = 4;</code> */
+    public Builder mergeTransactionId(
+        com.google.spanner.v1.TransactionOptions.TransactionId value) {
+      if (transactionIdBuilder_ == null) {
+        if (((bitField0_ & 0x00000008) != 0)
+            && transactionId_ != null
+            && transactionId_
+                != com.google.spanner.v1.TransactionOptions.TransactionId.getDefaultInstance()) {
+          getTransactionIdBuilder().mergeFrom(value);
+        } else {
+          transactionId_ = value;
+        }
+      } else {
+        transactionIdBuilder_.mergeFrom(value);
+      }
+      bitField0_ |= 0x00000008;
+      onChanged();
+      return this;
+    }
+    /** <code>.google.spanner.v1.TransactionOptions.TransactionId transaction_id = 4;</code> */
+    public Builder clearTransactionId() {
+      bitField0_ = (bitField0_ & ~0x00000008);
+      transactionId_ = null;
+      if (transactionIdBuilder_ != null) {
+        transactionIdBuilder_.dispose();
+        transactionIdBuilder_ = null;
+      }
+      onChanged();
+      return this;
+    }
+    /** <code>.google.spanner.v1.TransactionOptions.TransactionId transaction_id = 4;</code> */
+    public com.google.spanner.v1.TransactionOptions.TransactionId.Builder
+        getTransactionIdBuilder() {
+      bitField0_ |= 0x00000008;
+      onChanged();
+      return getTransactionIdFieldBuilder().getBuilder();
+    }
+    /** <code>.google.spanner.v1.TransactionOptions.TransactionId transaction_id = 4;</code> */
+    public com.google.spanner.v1.TransactionOptions.TransactionIdOrBuilder
+        getTransactionIdOrBuilder() {
+      if (transactionIdBuilder_ != null) {
+        return transactionIdBuilder_.getMessageOrBuilder();
+      } else {
+        return transactionId_ == null
+            ? com.google.spanner.v1.TransactionOptions.TransactionId.getDefaultInstance()
+            : transactionId_;
+      }
+    }
+    /** <code>.google.spanner.v1.TransactionOptions.TransactionId transaction_id = 4;</code> */
+    private com.google.protobuf.SingleFieldBuilderV3<
+            com.google.spanner.v1.TransactionOptions.TransactionId,
+            com.google.spanner.v1.TransactionOptions.TransactionId.Builder,
+            com.google.spanner.v1.TransactionOptions.TransactionIdOrBuilder>
+        getTransactionIdFieldBuilder() {
+      if (transactionIdBuilder_ == null) {
+        transactionIdBuilder_ =
+            new com.google.protobuf.SingleFieldBuilderV3<
+                com.google.spanner.v1.TransactionOptions.TransactionId,
+                com.google.spanner.v1.TransactionOptions.TransactionId.Builder,
+                com.google.spanner.v1.TransactionOptions.TransactionIdOrBuilder>(
+                getTransactionId(), getParentForChildren(), isClean());
+        transactionId_ = null;
+      }
+      return transactionIdBuilder_;
     }
 
     @java.lang.Override
