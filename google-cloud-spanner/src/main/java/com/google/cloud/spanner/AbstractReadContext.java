@@ -613,12 +613,10 @@ abstract class AbstractReadContext
     if (options.hasDataBoostEnabled()) {
       builder.setDataBoostEnabled(options.dataBoostEnabled());
     }
+    builder.setAutocommit(true);
     builder.setSeqno(getSeqNo());
     builder.setQueryOptions(buildQueryOptions(statement.getQueryOptions()));
     builder.setRequestOptions(buildRequestOptions(options));
-    if (statement.getSql().contains("update") || statement.getSql().contains("insert")) {
-      builder.setAutocommit(true);
-    }
     return builder;
   }
 
