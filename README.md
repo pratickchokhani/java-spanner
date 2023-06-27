@@ -19,7 +19,7 @@ If you are using Maven with [BOM][libraries-bom], add this to your pom.xml file:
     <dependency>
       <groupId>com.google.cloud</groupId>
       <artifactId>libraries-bom</artifactId>
-      <version>26.11.0</version>
+      <version>26.17.0</version>
       <type>pom</type>
       <scope>import</scope>
     </dependency>
@@ -27,10 +27,10 @@ If you are using Maven with [BOM][libraries-bom], add this to your pom.xml file:
 </dependencyManagement>
 
 <dependencies>
-  <dependency>
-    <groupId>com.google.cloud</groupId>
-    <artifactId>google-cloud-spanner</artifactId>
-  </dependency>
+<dependency>
+  <groupId>com.google.cloud</groupId>
+  <artifactId>google-cloud-spanner</artifactId>
+</dependency>
 
 ```
 
@@ -42,7 +42,7 @@ If you are using Maven without the BOM, add this to your dependencies:
 <dependency>
   <groupId>com.google.cloud</groupId>
   <artifactId>google-cloud-spanner</artifactId>
-  <version>6.38.2</version>
+  <version>6.43.0</version>
 </dependency>
 
 ```
@@ -50,20 +50,20 @@ If you are using Maven without the BOM, add this to your dependencies:
 If you are using Gradle 5.x or later, add this to your dependencies:
 
 ```Groovy
-implementation platform('com.google.cloud:libraries-bom:26.12.0')
+implementation platform('com.google.cloud:libraries-bom:26.17.0')
 
 implementation 'com.google.cloud:google-cloud-spanner'
 ```
 If you are using Gradle without BOM, add this to your dependencies:
 
 ```Groovy
-implementation 'com.google.cloud:google-cloud-spanner:6.38.2'
+implementation 'com.google.cloud:google-cloud-spanner:6.43.0'
 ```
 
 If you are using SBT, add this to your dependencies:
 
 ```Scala
-libraryDependencies += "com.google.cloud" % "google-cloud-spanner" % "6.38.2"
+libraryDependencies += "com.google.cloud" % "google-cloud-spanner" % "6.43.0"
 ```
 <!-- {x-version-update-end} -->
 
@@ -93,9 +93,9 @@ to add `google-cloud-spanner` as a dependency in your code.
 ## About Cloud Spanner
 
 
-[Cloud Spanner][product-docs] is a fully managed, mission-critical, 
-relational database service that offers transactional consistency at global scale, 
-schemas, SQL (ANSI 2011 with extensions), and automatic, synchronous replication 
+[Cloud Spanner][product-docs] is a fully managed, mission-critical,
+relational database service that offers transactional consistency at global scale,
+schemas, SQL (ANSI 2011 with extensions), and automatic, synchronous replication
 for high availability.
 
 Be sure to activate the Cloud Spanner API on the Developer's Console to
@@ -174,8 +174,8 @@ with `grpc.io/client/`.
   number of sessions allowed.
 
 * `cloud.google.com/java/spanner/num_sessions_in_pool`: This metric allows users to
-   see instance-level and database-level data for the total number of sessions in
-   the pool at this very moment.
+  see instance-level and database-level data for the total number of sessions in
+  the pool at this very moment.
 
 * `cloud.google.com/java/spanner/num_acquired_sessions`: This metric allows
   users to see the total number of acquired sessions.
@@ -302,6 +302,7 @@ Samples are in the [`samples/`](https://github.com/googleapis/java-spanner/tree/
 | Statement Timeout Example | [source code](https://github.com/googleapis/java-spanner/blob/main/samples/snippets/src/main/java/com/example/spanner/StatementTimeoutExample.java) | [![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/java-spanner&page=editor&open_in_editor=samples/snippets/src/main/java/com/example/spanner/StatementTimeoutExample.java) |
 | Tag Sample | [source code](https://github.com/googleapis/java-spanner/blob/main/samples/snippets/src/main/java/com/example/spanner/TagSample.java) | [![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/java-spanner&page=editor&open_in_editor=samples/snippets/src/main/java/com/example/spanner/TagSample.java) |
 | Tracing Sample | [source code](https://github.com/googleapis/java-spanner/blob/main/samples/snippets/src/main/java/com/example/spanner/TracingSample.java) | [![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/java-spanner&page=editor&open_in_editor=samples/snippets/src/main/java/com/example/spanner/TracingSample.java) |
+| Update Database Sample | [source code](https://github.com/googleapis/java-spanner/blob/main/samples/snippets/src/main/java/com/example/spanner/UpdateDatabaseSample.java) | [![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/java-spanner&page=editor&open_in_editor=samples/snippets/src/main/java/com/example/spanner/UpdateDatabaseSample.java) |
 | Update Database With Default Leader Sample | [source code](https://github.com/googleapis/java-spanner/blob/main/samples/snippets/src/main/java/com/example/spanner/UpdateDatabaseWithDefaultLeaderSample.java) | [![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/java-spanner&page=editor&open_in_editor=samples/snippets/src/main/java/com/example/spanner/UpdateDatabaseWithDefaultLeaderSample.java) |
 | Update Instance Config Sample | [source code](https://github.com/googleapis/java-spanner/blob/main/samples/snippets/src/main/java/com/example/spanner/UpdateInstanceConfigSample.java) | [![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/java-spanner&page=editor&open_in_editor=samples/snippets/src/main/java/com/example/spanner/UpdateInstanceConfigSample.java) |
 | Update Json Data Sample | [source code](https://github.com/googleapis/java-spanner/blob/main/samples/snippets/src/main/java/com/example/spanner/UpdateJsonDataSample.java) | [![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/java-spanner&page=editor&open_in_editor=samples/snippets/src/main/java/com/example/spanner/UpdateJsonDataSample.java) |
@@ -411,7 +412,7 @@ Java is a registered trademark of Oracle and/or its affiliates.
 [kokoro-badge-link-5]: http://storage.googleapis.com/cloud-devrel-public/java/badges/java-spanner/java11.html
 [stability-image]: https://img.shields.io/badge/stability-stable-green
 [maven-version-image]: https://img.shields.io/maven-central/v/com.google.cloud/google-cloud-spanner.svg
-[maven-version-link]: https://central.sonatype.com/artifact/com.google.cloud/google-cloud-spanner/6.38.2
+[maven-version-link]: https://central.sonatype.com/artifact/com.google.cloud/google-cloud-spanner/6.43.0
 [authentication]: https://github.com/googleapis/google-cloud-java#authentication
 [auth-scopes]: https://developers.google.com/identity/protocols/oauth2/scopes
 [predefined-iam-roles]: https://cloud.google.com/iam/docs/understanding-roles#predefined_roles
