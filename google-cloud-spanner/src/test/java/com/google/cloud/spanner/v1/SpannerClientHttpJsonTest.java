@@ -582,6 +582,7 @@ public class SpannerClientHttpJsonTest {
             .setMetadata(ResultSetMetadata.newBuilder().build())
             .addAllRows(new ArrayList<ListValue>())
             .setStats(ResultSetStats.newBuilder().build())
+            .setCommitResponse(CommitResponse.newBuilder().build())
             .build();
     mockService.addResponse(expectedResponse);
 
@@ -730,6 +731,7 @@ public class SpannerClientHttpJsonTest {
             .setMetadata(ResultSetMetadata.newBuilder().build())
             .addAllRows(new ArrayList<ListValue>())
             .setStats(ResultSetStats.newBuilder().build())
+            .setCommitResponse(CommitResponse.newBuilder().build())
             .build();
     mockService.addResponse(expectedResponse);
 

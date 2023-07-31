@@ -538,6 +538,7 @@ public class SpannerClientTest {
             .setMetadata(ResultSetMetadata.newBuilder().build())
             .addAllRows(new ArrayList<ListValue>())
             .setStats(ResultSetStats.newBuilder().build())
+            .setCommitResponse(CommitResponse.newBuilder().build())
             .build();
     mockSpanner.addResponse(expectedResponse);
 
@@ -622,6 +623,7 @@ public class SpannerClientTest {
             .setChunkedValue(true)
             .setResumeToken(ByteString.EMPTY)
             .setStats(ResultSetStats.newBuilder().build())
+            .setCommitResponse(CommitResponse.newBuilder().build())
             .build();
     mockSpanner.addResponse(expectedResponse);
     ExecuteSqlRequest request =
@@ -755,6 +757,7 @@ public class SpannerClientTest {
             .setMetadata(ResultSetMetadata.newBuilder().build())
             .addAllRows(new ArrayList<ListValue>())
             .setStats(ResultSetStats.newBuilder().build())
+            .setCommitResponse(CommitResponse.newBuilder().build())
             .build();
     mockSpanner.addResponse(expectedResponse);
 
@@ -835,6 +838,7 @@ public class SpannerClientTest {
             .setChunkedValue(true)
             .setResumeToken(ByteString.EMPTY)
             .setStats(ResultSetStats.newBuilder().build())
+            .setCommitResponse(CommitResponse.newBuilder().build())
             .build();
     mockSpanner.addResponse(expectedResponse);
     ReadRequest request =

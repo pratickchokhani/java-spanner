@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 Google LLC
+ * Copyright 2023 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -189,4 +189,45 @@ public interface ResultSetOrBuilder
    * <code>.google.spanner.v1.ResultSetStats stats = 3;</code>
    */
   com.google.spanner.v1.ResultSetStatsOrBuilder getStatsOrBuilder();
+
+  /**
+   *
+   *
+   * <pre>
+   * When [ExecuteSql][google.spanner.v1.Spanner.ExecuteSql] is called with
+   * [ExecuteSqlRequest.autocommit][] set to true, the returned ResultSet
+   * will include a CommitResponse.
+   * </pre>
+   *
+   * <code>.google.spanner.v1.CommitResponse commit_response = 4;</code>
+   *
+   * @return Whether the commitResponse field is set.
+   */
+  boolean hasCommitResponse();
+  /**
+   *
+   *
+   * <pre>
+   * When [ExecuteSql][google.spanner.v1.Spanner.ExecuteSql] is called with
+   * [ExecuteSqlRequest.autocommit][] set to true, the returned ResultSet
+   * will include a CommitResponse.
+   * </pre>
+   *
+   * <code>.google.spanner.v1.CommitResponse commit_response = 4;</code>
+   *
+   * @return The commitResponse.
+   */
+  com.google.spanner.v1.CommitResponse getCommitResponse();
+  /**
+   *
+   *
+   * <pre>
+   * When [ExecuteSql][google.spanner.v1.Spanner.ExecuteSql] is called with
+   * [ExecuteSqlRequest.autocommit][] set to true, the returned ResultSet
+   * will include a CommitResponse.
+   * </pre>
+   *
+   * <code>.google.spanner.v1.CommitResponse commit_response = 4;</code>
+   */
+  com.google.spanner.v1.CommitResponseOrBuilder getCommitResponseOrBuilder();
 }

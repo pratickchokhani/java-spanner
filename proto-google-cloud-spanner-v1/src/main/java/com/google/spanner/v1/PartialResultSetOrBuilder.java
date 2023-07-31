@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 Google LLC
+ * Copyright 2023 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -553,4 +553,48 @@ public interface PartialResultSetOrBuilder
    * <code>.google.spanner.v1.ResultSetStats stats = 5;</code>
    */
   com.google.spanner.v1.ResultSetStatsOrBuilder getStatsOrBuilder();
+
+  /**
+   *
+   *
+   * <pre>
+   * When [ExecuteStreamingSql][google.spanner.v1.Spanner.ExecuteSql] is called
+   * with [ExecuteSqlRequest.autocommit][] set to true, the last
+   * PartialResultSet message in the streaming response will contain a
+   * CommitResponse.
+   * </pre>
+   *
+   * <code>.google.spanner.v1.CommitResponse commit_response = 6;</code>
+   *
+   * @return Whether the commitResponse field is set.
+   */
+  boolean hasCommitResponse();
+  /**
+   *
+   *
+   * <pre>
+   * When [ExecuteStreamingSql][google.spanner.v1.Spanner.ExecuteSql] is called
+   * with [ExecuteSqlRequest.autocommit][] set to true, the last
+   * PartialResultSet message in the streaming response will contain a
+   * CommitResponse.
+   * </pre>
+   *
+   * <code>.google.spanner.v1.CommitResponse commit_response = 6;</code>
+   *
+   * @return The commitResponse.
+   */
+  com.google.spanner.v1.CommitResponse getCommitResponse();
+  /**
+   *
+   *
+   * <pre>
+   * When [ExecuteStreamingSql][google.spanner.v1.Spanner.ExecuteSql] is called
+   * with [ExecuteSqlRequest.autocommit][] set to true, the last
+   * PartialResultSet message in the streaming response will contain a
+   * CommitResponse.
+   * </pre>
+   *
+   * <code>.google.spanner.v1.CommitResponse commit_response = 6;</code>
+   */
+  com.google.spanner.v1.CommitResponseOrBuilder getCommitResponseOrBuilder();
 }

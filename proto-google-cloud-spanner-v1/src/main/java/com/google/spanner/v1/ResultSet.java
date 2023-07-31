@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 Google LLC
+ * Copyright 2023 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -274,6 +274,62 @@ public final class ResultSet extends com.google.protobuf.GeneratedMessageV3
     return stats_ == null ? com.google.spanner.v1.ResultSetStats.getDefaultInstance() : stats_;
   }
 
+  public static final int COMMIT_RESPONSE_FIELD_NUMBER = 4;
+  private com.google.spanner.v1.CommitResponse commitResponse_;
+  /**
+   *
+   *
+   * <pre>
+   * When [ExecuteSql][google.spanner.v1.Spanner.ExecuteSql] is called with
+   * [ExecuteSqlRequest.autocommit][] set to true, the returned ResultSet
+   * will include a CommitResponse.
+   * </pre>
+   *
+   * <code>.google.spanner.v1.CommitResponse commit_response = 4;</code>
+   *
+   * @return Whether the commitResponse field is set.
+   */
+  @java.lang.Override
+  public boolean hasCommitResponse() {
+    return commitResponse_ != null;
+  }
+  /**
+   *
+   *
+   * <pre>
+   * When [ExecuteSql][google.spanner.v1.Spanner.ExecuteSql] is called with
+   * [ExecuteSqlRequest.autocommit][] set to true, the returned ResultSet
+   * will include a CommitResponse.
+   * </pre>
+   *
+   * <code>.google.spanner.v1.CommitResponse commit_response = 4;</code>
+   *
+   * @return The commitResponse.
+   */
+  @java.lang.Override
+  public com.google.spanner.v1.CommitResponse getCommitResponse() {
+    return commitResponse_ == null
+        ? com.google.spanner.v1.CommitResponse.getDefaultInstance()
+        : commitResponse_;
+  }
+  /**
+   *
+   *
+   * <pre>
+   * When [ExecuteSql][google.spanner.v1.Spanner.ExecuteSql] is called with
+   * [ExecuteSqlRequest.autocommit][] set to true, the returned ResultSet
+   * will include a CommitResponse.
+   * </pre>
+   *
+   * <code>.google.spanner.v1.CommitResponse commit_response = 4;</code>
+   */
+  @java.lang.Override
+  public com.google.spanner.v1.CommitResponseOrBuilder getCommitResponseOrBuilder() {
+    return commitResponse_ == null
+        ? com.google.spanner.v1.CommitResponse.getDefaultInstance()
+        : commitResponse_;
+  }
+
   private byte memoizedIsInitialized = -1;
 
   @java.lang.Override
@@ -297,6 +353,9 @@ public final class ResultSet extends com.google.protobuf.GeneratedMessageV3
     if (stats_ != null) {
       output.writeMessage(3, getStats());
     }
+    if (commitResponse_ != null) {
+      output.writeMessage(4, getCommitResponse());
+    }
     getUnknownFields().writeTo(output);
   }
 
@@ -314,6 +373,9 @@ public final class ResultSet extends com.google.protobuf.GeneratedMessageV3
     }
     if (stats_ != null) {
       size += com.google.protobuf.CodedOutputStream.computeMessageSize(3, getStats());
+    }
+    if (commitResponse_ != null) {
+      size += com.google.protobuf.CodedOutputStream.computeMessageSize(4, getCommitResponse());
     }
     size += getUnknownFields().getSerializedSize();
     memoizedSize = size;
@@ -339,6 +401,10 @@ public final class ResultSet extends com.google.protobuf.GeneratedMessageV3
     if (hasStats()) {
       if (!getStats().equals(other.getStats())) return false;
     }
+    if (hasCommitResponse() != other.hasCommitResponse()) return false;
+    if (hasCommitResponse()) {
+      if (!getCommitResponse().equals(other.getCommitResponse())) return false;
+    }
     if (!getUnknownFields().equals(other.getUnknownFields())) return false;
     return true;
   }
@@ -361,6 +427,10 @@ public final class ResultSet extends com.google.protobuf.GeneratedMessageV3
     if (hasStats()) {
       hash = (37 * hash) + STATS_FIELD_NUMBER;
       hash = (53 * hash) + getStats().hashCode();
+    }
+    if (hasCommitResponse()) {
+      hash = (37 * hash) + COMMIT_RESPONSE_FIELD_NUMBER;
+      hash = (53 * hash) + getCommitResponse().hashCode();
     }
     hash = (29 * hash) + getUnknownFields().hashCode();
     memoizedHashCode = hash;
@@ -517,6 +587,11 @@ public final class ResultSet extends com.google.protobuf.GeneratedMessageV3
         statsBuilder_.dispose();
         statsBuilder_ = null;
       }
+      commitResponse_ = null;
+      if (commitResponseBuilder_ != null) {
+        commitResponseBuilder_.dispose();
+        commitResponseBuilder_ = null;
+      }
       return this;
     }
 
@@ -570,6 +645,10 @@ public final class ResultSet extends com.google.protobuf.GeneratedMessageV3
       }
       if (((from_bitField0_ & 0x00000004) != 0)) {
         result.stats_ = statsBuilder_ == null ? stats_ : statsBuilder_.build();
+      }
+      if (((from_bitField0_ & 0x00000008) != 0)) {
+        result.commitResponse_ =
+            commitResponseBuilder_ == null ? commitResponse_ : commitResponseBuilder_.build();
       }
     }
 
@@ -651,6 +730,9 @@ public final class ResultSet extends com.google.protobuf.GeneratedMessageV3
       if (other.hasStats()) {
         mergeStats(other.getStats());
       }
+      if (other.hasCommitResponse()) {
+        mergeCommitResponse(other.getCommitResponse());
+      }
       this.mergeUnknownFields(other.getUnknownFields());
       onChanged();
       return this;
@@ -701,6 +783,12 @@ public final class ResultSet extends com.google.protobuf.GeneratedMessageV3
                 bitField0_ |= 0x00000004;
                 break;
               } // case 26
+            case 34:
+              {
+                input.readMessage(getCommitResponseFieldBuilder().getBuilder(), extensionRegistry);
+                bitField0_ |= 0x00000008;
+                break;
+              } // case 34
             default:
               {
                 if (!super.parseUnknownField(input, extensionRegistry, tag)) {
@@ -1575,6 +1663,207 @@ public final class ResultSet extends com.google.protobuf.GeneratedMessageV3
         stats_ = null;
       }
       return statsBuilder_;
+    }
+
+    private com.google.spanner.v1.CommitResponse commitResponse_;
+    private com.google.protobuf.SingleFieldBuilderV3<
+            com.google.spanner.v1.CommitResponse,
+            com.google.spanner.v1.CommitResponse.Builder,
+            com.google.spanner.v1.CommitResponseOrBuilder>
+        commitResponseBuilder_;
+    /**
+     *
+     *
+     * <pre>
+     * When [ExecuteSql][google.spanner.v1.Spanner.ExecuteSql] is called with
+     * [ExecuteSqlRequest.autocommit][] set to true, the returned ResultSet
+     * will include a CommitResponse.
+     * </pre>
+     *
+     * <code>.google.spanner.v1.CommitResponse commit_response = 4;</code>
+     *
+     * @return Whether the commitResponse field is set.
+     */
+    public boolean hasCommitResponse() {
+      return ((bitField0_ & 0x00000008) != 0);
+    }
+    /**
+     *
+     *
+     * <pre>
+     * When [ExecuteSql][google.spanner.v1.Spanner.ExecuteSql] is called with
+     * [ExecuteSqlRequest.autocommit][] set to true, the returned ResultSet
+     * will include a CommitResponse.
+     * </pre>
+     *
+     * <code>.google.spanner.v1.CommitResponse commit_response = 4;</code>
+     *
+     * @return The commitResponse.
+     */
+    public com.google.spanner.v1.CommitResponse getCommitResponse() {
+      if (commitResponseBuilder_ == null) {
+        return commitResponse_ == null
+            ? com.google.spanner.v1.CommitResponse.getDefaultInstance()
+            : commitResponse_;
+      } else {
+        return commitResponseBuilder_.getMessage();
+      }
+    }
+    /**
+     *
+     *
+     * <pre>
+     * When [ExecuteSql][google.spanner.v1.Spanner.ExecuteSql] is called with
+     * [ExecuteSqlRequest.autocommit][] set to true, the returned ResultSet
+     * will include a CommitResponse.
+     * </pre>
+     *
+     * <code>.google.spanner.v1.CommitResponse commit_response = 4;</code>
+     */
+    public Builder setCommitResponse(com.google.spanner.v1.CommitResponse value) {
+      if (commitResponseBuilder_ == null) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        commitResponse_ = value;
+      } else {
+        commitResponseBuilder_.setMessage(value);
+      }
+      bitField0_ |= 0x00000008;
+      onChanged();
+      return this;
+    }
+    /**
+     *
+     *
+     * <pre>
+     * When [ExecuteSql][google.spanner.v1.Spanner.ExecuteSql] is called with
+     * [ExecuteSqlRequest.autocommit][] set to true, the returned ResultSet
+     * will include a CommitResponse.
+     * </pre>
+     *
+     * <code>.google.spanner.v1.CommitResponse commit_response = 4;</code>
+     */
+    public Builder setCommitResponse(com.google.spanner.v1.CommitResponse.Builder builderForValue) {
+      if (commitResponseBuilder_ == null) {
+        commitResponse_ = builderForValue.build();
+      } else {
+        commitResponseBuilder_.setMessage(builderForValue.build());
+      }
+      bitField0_ |= 0x00000008;
+      onChanged();
+      return this;
+    }
+    /**
+     *
+     *
+     * <pre>
+     * When [ExecuteSql][google.spanner.v1.Spanner.ExecuteSql] is called with
+     * [ExecuteSqlRequest.autocommit][] set to true, the returned ResultSet
+     * will include a CommitResponse.
+     * </pre>
+     *
+     * <code>.google.spanner.v1.CommitResponse commit_response = 4;</code>
+     */
+    public Builder mergeCommitResponse(com.google.spanner.v1.CommitResponse value) {
+      if (commitResponseBuilder_ == null) {
+        if (((bitField0_ & 0x00000008) != 0)
+            && commitResponse_ != null
+            && commitResponse_ != com.google.spanner.v1.CommitResponse.getDefaultInstance()) {
+          getCommitResponseBuilder().mergeFrom(value);
+        } else {
+          commitResponse_ = value;
+        }
+      } else {
+        commitResponseBuilder_.mergeFrom(value);
+      }
+      bitField0_ |= 0x00000008;
+      onChanged();
+      return this;
+    }
+    /**
+     *
+     *
+     * <pre>
+     * When [ExecuteSql][google.spanner.v1.Spanner.ExecuteSql] is called with
+     * [ExecuteSqlRequest.autocommit][] set to true, the returned ResultSet
+     * will include a CommitResponse.
+     * </pre>
+     *
+     * <code>.google.spanner.v1.CommitResponse commit_response = 4;</code>
+     */
+    public Builder clearCommitResponse() {
+      bitField0_ = (bitField0_ & ~0x00000008);
+      commitResponse_ = null;
+      if (commitResponseBuilder_ != null) {
+        commitResponseBuilder_.dispose();
+        commitResponseBuilder_ = null;
+      }
+      onChanged();
+      return this;
+    }
+    /**
+     *
+     *
+     * <pre>
+     * When [ExecuteSql][google.spanner.v1.Spanner.ExecuteSql] is called with
+     * [ExecuteSqlRequest.autocommit][] set to true, the returned ResultSet
+     * will include a CommitResponse.
+     * </pre>
+     *
+     * <code>.google.spanner.v1.CommitResponse commit_response = 4;</code>
+     */
+    public com.google.spanner.v1.CommitResponse.Builder getCommitResponseBuilder() {
+      bitField0_ |= 0x00000008;
+      onChanged();
+      return getCommitResponseFieldBuilder().getBuilder();
+    }
+    /**
+     *
+     *
+     * <pre>
+     * When [ExecuteSql][google.spanner.v1.Spanner.ExecuteSql] is called with
+     * [ExecuteSqlRequest.autocommit][] set to true, the returned ResultSet
+     * will include a CommitResponse.
+     * </pre>
+     *
+     * <code>.google.spanner.v1.CommitResponse commit_response = 4;</code>
+     */
+    public com.google.spanner.v1.CommitResponseOrBuilder getCommitResponseOrBuilder() {
+      if (commitResponseBuilder_ != null) {
+        return commitResponseBuilder_.getMessageOrBuilder();
+      } else {
+        return commitResponse_ == null
+            ? com.google.spanner.v1.CommitResponse.getDefaultInstance()
+            : commitResponse_;
+      }
+    }
+    /**
+     *
+     *
+     * <pre>
+     * When [ExecuteSql][google.spanner.v1.Spanner.ExecuteSql] is called with
+     * [ExecuteSqlRequest.autocommit][] set to true, the returned ResultSet
+     * will include a CommitResponse.
+     * </pre>
+     *
+     * <code>.google.spanner.v1.CommitResponse commit_response = 4;</code>
+     */
+    private com.google.protobuf.SingleFieldBuilderV3<
+            com.google.spanner.v1.CommitResponse,
+            com.google.spanner.v1.CommitResponse.Builder,
+            com.google.spanner.v1.CommitResponseOrBuilder>
+        getCommitResponseFieldBuilder() {
+      if (commitResponseBuilder_ == null) {
+        commitResponseBuilder_ =
+            new com.google.protobuf.SingleFieldBuilderV3<
+                com.google.spanner.v1.CommitResponse,
+                com.google.spanner.v1.CommitResponse.Builder,
+                com.google.spanner.v1.CommitResponseOrBuilder>(
+                getCommitResponse(), getParentForChildren(), isClean());
+        commitResponse_ = null;
+      }
+      return commitResponseBuilder_;
     }
 
     @java.lang.Override
