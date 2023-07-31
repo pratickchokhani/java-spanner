@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 Google LLC
+ * Copyright 2023 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -2097,6 +2097,18 @@ public final class ExecuteSqlRequest extends com.google.protobuf.GeneratedMessag
         : requestOptions_;
   }
 
+  public static final int AUTOCOMMIT_FIELD_NUMBER = 12;
+  private boolean autocommit_ = false;
+  /**
+   * <code>bool autocommit = 12;</code>
+   *
+   * @return The autocommit.
+   */
+  @java.lang.Override
+  public boolean getAutocommit() {
+    return autocommit_;
+  }
+
   public static final int DATA_BOOST_ENABLED_FIELD_NUMBER = 16;
   private boolean dataBoostEnabled_ = false;
   /**
@@ -2165,6 +2177,9 @@ public final class ExecuteSqlRequest extends com.google.protobuf.GeneratedMessag
     if (requestOptions_ != null) {
       output.writeMessage(11, getRequestOptions());
     }
+    if (autocommit_ != false) {
+      output.writeBool(12, autocommit_);
+    }
     if (dataBoostEnabled_ != false) {
       output.writeBool(16, dataBoostEnabled_);
     }
@@ -2217,6 +2232,9 @@ public final class ExecuteSqlRequest extends com.google.protobuf.GeneratedMessag
     if (requestOptions_ != null) {
       size += com.google.protobuf.CodedOutputStream.computeMessageSize(11, getRequestOptions());
     }
+    if (autocommit_ != false) {
+      size += com.google.protobuf.CodedOutputStream.computeBoolSize(12, autocommit_);
+    }
     if (dataBoostEnabled_ != false) {
       size += com.google.protobuf.CodedOutputStream.computeBoolSize(16, dataBoostEnabled_);
     }
@@ -2258,6 +2276,7 @@ public final class ExecuteSqlRequest extends com.google.protobuf.GeneratedMessag
     if (hasRequestOptions()) {
       if (!getRequestOptions().equals(other.getRequestOptions())) return false;
     }
+    if (getAutocommit() != other.getAutocommit()) return false;
     if (getDataBoostEnabled() != other.getDataBoostEnabled()) return false;
     if (!getUnknownFields().equals(other.getUnknownFields())) return false;
     return true;
@@ -2302,6 +2321,8 @@ public final class ExecuteSqlRequest extends com.google.protobuf.GeneratedMessag
       hash = (37 * hash) + REQUEST_OPTIONS_FIELD_NUMBER;
       hash = (53 * hash) + getRequestOptions().hashCode();
     }
+    hash = (37 * hash) + AUTOCOMMIT_FIELD_NUMBER;
+    hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(getAutocommit());
     hash = (37 * hash) + DATA_BOOST_ENABLED_FIELD_NUMBER;
     hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(getDataBoostEnabled());
     hash = (29 * hash) + getUnknownFields().hashCode();
@@ -2491,6 +2512,7 @@ public final class ExecuteSqlRequest extends com.google.protobuf.GeneratedMessag
         requestOptionsBuilder_.dispose();
         requestOptionsBuilder_ = null;
       }
+      autocommit_ = false;
       dataBoostEnabled_ = false;
       return this;
     }
@@ -2566,6 +2588,9 @@ public final class ExecuteSqlRequest extends com.google.protobuf.GeneratedMessag
             requestOptionsBuilder_ == null ? requestOptions_ : requestOptionsBuilder_.build();
       }
       if (((from_bitField0_ & 0x00000800) != 0)) {
+        result.autocommit_ = autocommit_;
+      }
+      if (((from_bitField0_ & 0x00001000) != 0)) {
         result.dataBoostEnabled_ = dataBoostEnabled_;
       }
     }
@@ -2650,6 +2675,9 @@ public final class ExecuteSqlRequest extends com.google.protobuf.GeneratedMessag
       }
       if (other.hasRequestOptions()) {
         mergeRequestOptions(other.getRequestOptions());
+      }
+      if (other.getAutocommit() != false) {
+        setAutocommit(other.getAutocommit());
       }
       if (other.getDataBoostEnabled() != false) {
         setDataBoostEnabled(other.getDataBoostEnabled());
@@ -2753,10 +2781,16 @@ public final class ExecuteSqlRequest extends com.google.protobuf.GeneratedMessag
                 bitField0_ |= 0x00000400;
                 break;
               } // case 90
+            case 96:
+              {
+                autocommit_ = input.readBool();
+                bitField0_ |= 0x00000800;
+                break;
+              } // case 96
             case 128:
               {
                 dataBoostEnabled_ = input.readBool();
-                bitField0_ |= 0x00000800;
+                bitField0_ |= 0x00001000;
                 break;
               } // case 128
             default:
@@ -4455,6 +4489,41 @@ public final class ExecuteSqlRequest extends com.google.protobuf.GeneratedMessag
       return requestOptionsBuilder_;
     }
 
+    private boolean autocommit_;
+    /**
+     * <code>bool autocommit = 12;</code>
+     *
+     * @return The autocommit.
+     */
+    @java.lang.Override
+    public boolean getAutocommit() {
+      return autocommit_;
+    }
+    /**
+     * <code>bool autocommit = 12;</code>
+     *
+     * @param value The autocommit to set.
+     * @return This builder for chaining.
+     */
+    public Builder setAutocommit(boolean value) {
+
+      autocommit_ = value;
+      bitField0_ |= 0x00000800;
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>bool autocommit = 12;</code>
+     *
+     * @return This builder for chaining.
+     */
+    public Builder clearAutocommit() {
+      bitField0_ = (bitField0_ & ~0x00000800);
+      autocommit_ = false;
+      onChanged();
+      return this;
+    }
+
     private boolean dataBoostEnabled_;
     /**
      *
@@ -4494,7 +4563,7 @@ public final class ExecuteSqlRequest extends com.google.protobuf.GeneratedMessag
     public Builder setDataBoostEnabled(boolean value) {
 
       dataBoostEnabled_ = value;
-      bitField0_ |= 0x00000800;
+      bitField0_ |= 0x00001000;
       onChanged();
       return this;
     }
@@ -4514,7 +4583,7 @@ public final class ExecuteSqlRequest extends com.google.protobuf.GeneratedMessag
      * @return This builder for chaining.
      */
     public Builder clearDataBoostEnabled() {
-      bitField0_ = (bitField0_ & ~0x00000800);
+      bitField0_ = (bitField0_ & ~0x00001000);
       dataBoostEnabled_ = false;
       onChanged();
       return this;

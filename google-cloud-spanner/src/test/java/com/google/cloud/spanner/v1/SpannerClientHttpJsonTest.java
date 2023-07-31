@@ -598,6 +598,7 @@ public class SpannerClientHttpJsonTest {
             .setSeqno(109325920)
             .setQueryOptions(ExecuteSqlRequest.QueryOptions.newBuilder().build())
             .setRequestOptions(RequestOptions.newBuilder().build())
+            .setAutocommit(true)
             .setDataBoostEnabled(true)
             .build();
 
@@ -640,6 +641,7 @@ public class SpannerClientHttpJsonTest {
               .setSeqno(109325920)
               .setQueryOptions(ExecuteSqlRequest.QueryOptions.newBuilder().build())
               .setRequestOptions(RequestOptions.newBuilder().build())
+              .setAutocommit(true)
               .setDataBoostEnabled(true)
               .build();
       client.executeSql(request);
@@ -812,6 +814,7 @@ public class SpannerClientHttpJsonTest {
         Transaction.newBuilder()
             .setId(ByteString.EMPTY)
             .setReadTimestamp(Timestamp.newBuilder().build())
+            .setNextTransactionToken(ByteString.EMPTY)
             .build();
     mockService.addResponse(expectedResponse);
 
@@ -859,6 +862,7 @@ public class SpannerClientHttpJsonTest {
         Transaction.newBuilder()
             .setId(ByteString.EMPTY)
             .setReadTimestamp(Timestamp.newBuilder().build())
+            .setNextTransactionToken(ByteString.EMPTY)
             .build();
     mockService.addResponse(expectedResponse);
 

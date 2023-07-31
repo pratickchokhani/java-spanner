@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 Google LLC
+ * Copyright 2023 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -39,6 +39,7 @@ public final class Transaction extends com.google.protobuf.GeneratedMessageV3
 
   private Transaction() {
     id_ = com.google.protobuf.ByteString.EMPTY;
+    nextTransactionToken_ = com.google.protobuf.ByteString.EMPTY;
   }
 
   @java.lang.Override
@@ -152,6 +153,28 @@ public final class Transaction extends com.google.protobuf.GeneratedMessageV3
         : readTimestamp_;
   }
 
+  public static final int NEXT_TRANSACTION_TOKEN_FIELD_NUMBER = 3;
+  private com.google.protobuf.ByteString nextTransactionToken_ =
+      com.google.protobuf.ByteString.EMPTY;
+  /**
+   *
+   *
+   * <pre>
+   * Token used to identify the transaction to be created next. Used in
+   * [BeginTransaction][google.spanner.v1.Spanner.BeginTransaction]
+   * [ExecuteSql][google.spanner.v1.Spanner.ExecuteSql] in case of inline begin
+   * [Commit][google.spanner.v1.Spanner.Commit] in case of single use transaction
+   * </pre>
+   *
+   * <code>bytes next_transaction_token = 3;</code>
+   *
+   * @return The nextTransactionToken.
+   */
+  @java.lang.Override
+  public com.google.protobuf.ByteString getNextTransactionToken() {
+    return nextTransactionToken_;
+  }
+
   private byte memoizedIsInitialized = -1;
 
   @java.lang.Override
@@ -172,6 +195,9 @@ public final class Transaction extends com.google.protobuf.GeneratedMessageV3
     if (readTimestamp_ != null) {
       output.writeMessage(2, getReadTimestamp());
     }
+    if (!nextTransactionToken_.isEmpty()) {
+      output.writeBytes(3, nextTransactionToken_);
+    }
     getUnknownFields().writeTo(output);
   }
 
@@ -186,6 +212,9 @@ public final class Transaction extends com.google.protobuf.GeneratedMessageV3
     }
     if (readTimestamp_ != null) {
       size += com.google.protobuf.CodedOutputStream.computeMessageSize(2, getReadTimestamp());
+    }
+    if (!nextTransactionToken_.isEmpty()) {
+      size += com.google.protobuf.CodedOutputStream.computeBytesSize(3, nextTransactionToken_);
     }
     size += getUnknownFields().getSerializedSize();
     memoizedSize = size;
@@ -207,6 +236,7 @@ public final class Transaction extends com.google.protobuf.GeneratedMessageV3
     if (hasReadTimestamp()) {
       if (!getReadTimestamp().equals(other.getReadTimestamp())) return false;
     }
+    if (!getNextTransactionToken().equals(other.getNextTransactionToken())) return false;
     if (!getUnknownFields().equals(other.getUnknownFields())) return false;
     return true;
   }
@@ -224,6 +254,8 @@ public final class Transaction extends com.google.protobuf.GeneratedMessageV3
       hash = (37 * hash) + READ_TIMESTAMP_FIELD_NUMBER;
       hash = (53 * hash) + getReadTimestamp().hashCode();
     }
+    hash = (37 * hash) + NEXT_TRANSACTION_TOKEN_FIELD_NUMBER;
+    hash = (53 * hash) + getNextTransactionToken().hashCode();
     hash = (29 * hash) + getUnknownFields().hashCode();
     memoizedHashCode = hash;
     return hash;
@@ -368,6 +400,7 @@ public final class Transaction extends com.google.protobuf.GeneratedMessageV3
         readTimestampBuilder_.dispose();
         readTimestampBuilder_ = null;
       }
+      nextTransactionToken_ = com.google.protobuf.ByteString.EMPTY;
       return this;
     }
 
@@ -409,6 +442,9 @@ public final class Transaction extends com.google.protobuf.GeneratedMessageV3
       if (((from_bitField0_ & 0x00000002) != 0)) {
         result.readTimestamp_ =
             readTimestampBuilder_ == null ? readTimestamp_ : readTimestampBuilder_.build();
+      }
+      if (((from_bitField0_ & 0x00000004) != 0)) {
+        result.nextTransactionToken_ = nextTransactionToken_;
       }
     }
 
@@ -463,6 +499,9 @@ public final class Transaction extends com.google.protobuf.GeneratedMessageV3
       if (other.hasReadTimestamp()) {
         mergeReadTimestamp(other.getReadTimestamp());
       }
+      if (other.getNextTransactionToken() != com.google.protobuf.ByteString.EMPTY) {
+        setNextTransactionToken(other.getNextTransactionToken());
+      }
       this.mergeUnknownFields(other.getUnknownFields());
       onChanged();
       return this;
@@ -501,6 +540,12 @@ public final class Transaction extends com.google.protobuf.GeneratedMessageV3
                 bitField0_ |= 0x00000002;
                 break;
               } // case 18
+            case 26:
+              {
+                nextTransactionToken_ = input.readBytes();
+                bitField0_ |= 0x00000004;
+                break;
+              } // case 26
             default:
               {
                 if (!super.parseUnknownField(input, extensionRegistry, tag)) {
@@ -822,6 +867,71 @@ public final class Transaction extends com.google.protobuf.GeneratedMessageV3
         readTimestamp_ = null;
       }
       return readTimestampBuilder_;
+    }
+
+    private com.google.protobuf.ByteString nextTransactionToken_ =
+        com.google.protobuf.ByteString.EMPTY;
+    /**
+     *
+     *
+     * <pre>
+     * Token used to identify the transaction to be created next. Used in
+     * [BeginTransaction][google.spanner.v1.Spanner.BeginTransaction]
+     * [ExecuteSql][google.spanner.v1.Spanner.ExecuteSql] in case of inline begin
+     * [Commit][google.spanner.v1.Spanner.Commit] in case of single use transaction
+     * </pre>
+     *
+     * <code>bytes next_transaction_token = 3;</code>
+     *
+     * @return The nextTransactionToken.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString getNextTransactionToken() {
+      return nextTransactionToken_;
+    }
+    /**
+     *
+     *
+     * <pre>
+     * Token used to identify the transaction to be created next. Used in
+     * [BeginTransaction][google.spanner.v1.Spanner.BeginTransaction]
+     * [ExecuteSql][google.spanner.v1.Spanner.ExecuteSql] in case of inline begin
+     * [Commit][google.spanner.v1.Spanner.Commit] in case of single use transaction
+     * </pre>
+     *
+     * <code>bytes next_transaction_token = 3;</code>
+     *
+     * @param value The nextTransactionToken to set.
+     * @return This builder for chaining.
+     */
+    public Builder setNextTransactionToken(com.google.protobuf.ByteString value) {
+      if (value == null) {
+        throw new NullPointerException();
+      }
+      nextTransactionToken_ = value;
+      bitField0_ |= 0x00000004;
+      onChanged();
+      return this;
+    }
+    /**
+     *
+     *
+     * <pre>
+     * Token used to identify the transaction to be created next. Used in
+     * [BeginTransaction][google.spanner.v1.Spanner.BeginTransaction]
+     * [ExecuteSql][google.spanner.v1.Spanner.ExecuteSql] in case of inline begin
+     * [Commit][google.spanner.v1.Spanner.Commit] in case of single use transaction
+     * </pre>
+     *
+     * <code>bytes next_transaction_token = 3;</code>
+     *
+     * @return This builder for chaining.
+     */
+    public Builder clearNextTransactionToken() {
+      bitField0_ = (bitField0_ & ~0x00000004);
+      nextTransactionToken_ = getDefaultInstance().getNextTransactionToken();
+      onChanged();
+      return this;
     }
 
     @java.lang.Override

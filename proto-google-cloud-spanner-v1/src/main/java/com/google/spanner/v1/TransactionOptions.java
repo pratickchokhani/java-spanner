@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 Google LLC
+ * Copyright 2023 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -412,6 +412,20 @@ public final class TransactionOptions extends com.google.protobuf.GeneratedMessa
      * @return The readLockMode.
      */
     com.google.spanner.v1.TransactionOptions.ReadWrite.ReadLockMode getReadLockMode();
+
+    /**
+     *
+     *
+     * <pre>
+     * Identity of the transaction to be created. Applicable only for begin or
+     * inline begin requests. All subsequent requests should use `id`
+     * </pre>
+     *
+     * <code>bytes next_transaction_token = 2;</code>
+     *
+     * @return The nextTransactionToken.
+     */
+    com.google.protobuf.ByteString getNextTransactionToken();
   }
   /**
    *
@@ -435,6 +449,7 @@ public final class TransactionOptions extends com.google.protobuf.GeneratedMessa
 
     private ReadWrite() {
       readLockMode_ = 0;
+      nextTransactionToken_ = com.google.protobuf.ByteString.EMPTY;
     }
 
     @java.lang.Override
@@ -671,6 +686,26 @@ public final class TransactionOptions extends com.google.protobuf.GeneratedMessa
           : result;
     }
 
+    public static final int NEXT_TRANSACTION_TOKEN_FIELD_NUMBER = 2;
+    private com.google.protobuf.ByteString nextTransactionToken_ =
+        com.google.protobuf.ByteString.EMPTY;
+    /**
+     *
+     *
+     * <pre>
+     * Identity of the transaction to be created. Applicable only for begin or
+     * inline begin requests. All subsequent requests should use `id`
+     * </pre>
+     *
+     * <code>bytes next_transaction_token = 2;</code>
+     *
+     * @return The nextTransactionToken.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString getNextTransactionToken() {
+      return nextTransactionToken_;
+    }
+
     private byte memoizedIsInitialized = -1;
 
     @java.lang.Override
@@ -691,6 +726,9 @@ public final class TransactionOptions extends com.google.protobuf.GeneratedMessa
               .getNumber()) {
         output.writeEnum(1, readLockMode_);
       }
+      if (!nextTransactionToken_.isEmpty()) {
+        output.writeBytes(2, nextTransactionToken_);
+      }
       getUnknownFields().writeTo(output);
     }
 
@@ -705,6 +743,9 @@ public final class TransactionOptions extends com.google.protobuf.GeneratedMessa
               .READ_LOCK_MODE_UNSPECIFIED
               .getNumber()) {
         size += com.google.protobuf.CodedOutputStream.computeEnumSize(1, readLockMode_);
+      }
+      if (!nextTransactionToken_.isEmpty()) {
+        size += com.google.protobuf.CodedOutputStream.computeBytesSize(2, nextTransactionToken_);
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSize = size;
@@ -723,6 +764,7 @@ public final class TransactionOptions extends com.google.protobuf.GeneratedMessa
           (com.google.spanner.v1.TransactionOptions.ReadWrite) obj;
 
       if (readLockMode_ != other.readLockMode_) return false;
+      if (!getNextTransactionToken().equals(other.getNextTransactionToken())) return false;
       if (!getUnknownFields().equals(other.getUnknownFields())) return false;
       return true;
     }
@@ -736,6 +778,8 @@ public final class TransactionOptions extends com.google.protobuf.GeneratedMessa
       hash = (19 * hash) + getDescriptor().hashCode();
       hash = (37 * hash) + READ_LOCK_MODE_FIELD_NUMBER;
       hash = (53 * hash) + readLockMode_;
+      hash = (37 * hash) + NEXT_TRANSACTION_TOKEN_FIELD_NUMBER;
+      hash = (53 * hash) + getNextTransactionToken().hashCode();
       hash = (29 * hash) + getUnknownFields().hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -879,6 +923,7 @@ public final class TransactionOptions extends com.google.protobuf.GeneratedMessa
         super.clear();
         bitField0_ = 0;
         readLockMode_ = 0;
+        nextTransactionToken_ = com.google.protobuf.ByteString.EMPTY;
         return this;
       }
 
@@ -917,6 +962,9 @@ public final class TransactionOptions extends com.google.protobuf.GeneratedMessa
         int from_bitField0_ = bitField0_;
         if (((from_bitField0_ & 0x00000001) != 0)) {
           result.readLockMode_ = readLockMode_;
+        }
+        if (((from_bitField0_ & 0x00000002) != 0)) {
+          result.nextTransactionToken_ = nextTransactionToken_;
         }
       }
 
@@ -971,6 +1019,9 @@ public final class TransactionOptions extends com.google.protobuf.GeneratedMessa
         if (other.readLockMode_ != 0) {
           setReadLockModeValue(other.getReadLockModeValue());
         }
+        if (other.getNextTransactionToken() != com.google.protobuf.ByteString.EMPTY) {
+          setNextTransactionToken(other.getNextTransactionToken());
+        }
         this.mergeUnknownFields(other.getUnknownFields());
         onChanged();
         return this;
@@ -1003,6 +1054,12 @@ public final class TransactionOptions extends com.google.protobuf.GeneratedMessa
                   bitField0_ |= 0x00000001;
                   break;
                 } // case 8
+              case 18:
+                {
+                  nextTransactionToken_ = input.readBytes();
+                  bitField0_ |= 0x00000002;
+                  break;
+                } // case 18
               default:
                 {
                   if (!super.parseUnknownField(input, extensionRegistry, tag)) {
@@ -1117,6 +1174,65 @@ public final class TransactionOptions extends com.google.protobuf.GeneratedMessa
       public Builder clearReadLockMode() {
         bitField0_ = (bitField0_ & ~0x00000001);
         readLockMode_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private com.google.protobuf.ByteString nextTransactionToken_ =
+          com.google.protobuf.ByteString.EMPTY;
+      /**
+       *
+       *
+       * <pre>
+       * Identity of the transaction to be created. Applicable only for begin or
+       * inline begin requests. All subsequent requests should use `id`
+       * </pre>
+       *
+       * <code>bytes next_transaction_token = 2;</code>
+       *
+       * @return The nextTransactionToken.
+       */
+      @java.lang.Override
+      public com.google.protobuf.ByteString getNextTransactionToken() {
+        return nextTransactionToken_;
+      }
+      /**
+       *
+       *
+       * <pre>
+       * Identity of the transaction to be created. Applicable only for begin or
+       * inline begin requests. All subsequent requests should use `id`
+       * </pre>
+       *
+       * <code>bytes next_transaction_token = 2;</code>
+       *
+       * @param value The nextTransactionToken to set.
+       * @return This builder for chaining.
+       */
+      public Builder setNextTransactionToken(com.google.protobuf.ByteString value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        nextTransactionToken_ = value;
+        bitField0_ |= 0x00000002;
+        onChanged();
+        return this;
+      }
+      /**
+       *
+       *
+       * <pre>
+       * Identity of the transaction to be created. Applicable only for begin or
+       * inline begin requests. All subsequent requests should use `id`
+       * </pre>
+       *
+       * <code>bytes next_transaction_token = 2;</code>
+       *
+       * @return This builder for chaining.
+       */
+      public Builder clearNextTransactionToken() {
+        bitField0_ = (bitField0_ & ~0x00000002);
+        nextTransactionToken_ = getDefaultInstance().getNextTransactionToken();
         onChanged();
         return this;
       }

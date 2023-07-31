@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 Google LLC
+ * Copyright 2023 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -92,4 +92,20 @@ public interface TransactionOrBuilder
    * <code>.google.protobuf.Timestamp read_timestamp = 2;</code>
    */
   com.google.protobuf.TimestampOrBuilder getReadTimestampOrBuilder();
+
+  /**
+   *
+   *
+   * <pre>
+   * Token used to identify the transaction to be created next. Used in
+   * [BeginTransaction][google.spanner.v1.Spanner.BeginTransaction]
+   * [ExecuteSql][google.spanner.v1.Spanner.ExecuteSql] in case of inline begin
+   * [Commit][google.spanner.v1.Spanner.Commit] in case of single use transaction
+   * </pre>
+   *
+   * <code>bytes next_transaction_token = 3;</code>
+   *
+   * @return The nextTransactionToken.
+   */
+  com.google.protobuf.ByteString getNextTransactionToken();
 }
