@@ -184,6 +184,14 @@ public class ConnectionImplTest {
     }
 
     @Override
+    public com.google.spanner.v1.CommitResponse getCommitResponse() {
+      if (hasNextReturnedFalse) {
+        return super.getCommitResponse();
+      }
+      return null;
+    }
+
+    @Override
     public long getLong(int columnIndex) {
       if (onValidRow) {
         return super.getLong(columnIndex);

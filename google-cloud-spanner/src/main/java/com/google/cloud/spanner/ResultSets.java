@@ -29,10 +29,12 @@ import com.google.common.base.Preconditions;
 import com.google.common.base.Supplier;
 import com.google.common.collect.Lists;
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
+import com.google.spanner.v1.CommitResponse;
 import com.google.spanner.v1.ResultSetMetadata;
 import com.google.spanner.v1.ResultSetStats;
 import java.math.BigDecimal;
 import java.util.List;
+import javax.annotation.Nullable;
 
 /** Utility methods for working with {@link com.google.cloud.spanner.ResultSet}. */
 public final class ResultSets {
@@ -157,6 +159,13 @@ public final class ResultSets {
     public ResultSetStats getStats() {
       throw new UnsupportedOperationException(
           "ResultSetStats are available only for results returned from analyzeQuery() calls");
+    }
+
+    @Nullable
+    @Override
+    public CommitResponse getCommitResponse() {
+      throw new UnsupportedOperationException(
+          "CommitResponse are available only for results that were returned from Cloud Spanner");
     }
 
     @Override

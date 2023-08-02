@@ -25,10 +25,12 @@ import com.google.cloud.spanner.Struct;
 import com.google.cloud.spanner.Type;
 import com.google.cloud.spanner.Value;
 import com.google.common.base.Preconditions;
+import com.google.spanner.v1.CommitResponse;
 import com.google.spanner.v1.ResultSetMetadata;
 import com.google.spanner.v1.ResultSetStats;
 import java.math.BigDecimal;
 import java.util.List;
+import javax.annotation.Nullable;
 
 /**
  * {@link ResultSet} implementation used by the Spanner connection API to ensure that the query for
@@ -91,6 +93,15 @@ class DirectExecuteResultSet implements ResultSet {
   public ResultSetStats getStats() {
     if (nextHasReturnedFalse) {
       return delegate.getStats();
+    }
+    return null;
+  }
+
+  @Nullable
+  @Override
+  public CommitResponse getCommitResponse() {
+    if (nextHasReturnedFalse) {
+      return delegate.getCommitResponse();
     }
     return null;
   }

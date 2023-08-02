@@ -29,6 +29,7 @@ import com.google.common.base.Suppliers;
 import com.google.common.collect.ImmutableList;
 import com.google.common.util.concurrent.ListeningScheduledExecutorService;
 import com.google.common.util.concurrent.MoreExecutors;
+import com.google.spanner.v1.CommitResponse;
 import com.google.spanner.v1.ResultSetMetadata;
 import com.google.spanner.v1.ResultSetStats;
 import java.util.Collection;
@@ -43,6 +44,7 @@ import java.util.concurrent.Future;
 import java.util.concurrent.LinkedBlockingDeque;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.annotation.Nullable;
 
 /** Default implementation for {@link AsyncResultSet}. */
 class AsyncResultSetImpl extends ForwardingStructReader implements ListenableAsyncResultSet {
@@ -571,6 +573,11 @@ class AsyncResultSetImpl extends ForwardingStructReader implements ListenableAsy
   @Override
   public ResultSetStats getStats() {
     return delegateResultSet.get().getStats();
+  }
+
+  @Override
+  public CommitResponse getCommitResponse() {
+    return delegateResultSet.get().getCommitResponse();
   }
 
   @Override

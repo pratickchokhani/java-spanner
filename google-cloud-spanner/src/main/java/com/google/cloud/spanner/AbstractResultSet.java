@@ -41,6 +41,7 @@ import com.google.protobuf.ByteString;
 import com.google.protobuf.ListValue;
 import com.google.protobuf.NullValue;
 import com.google.protobuf.Value.KindCase;
+import com.google.spanner.v1.CommitResponse;
 import com.google.spanner.v1.PartialResultSet;
 import com.google.spanner.v1.ResultSetMetadata;
 import com.google.spanner.v1.ResultSetStats;
@@ -104,6 +105,7 @@ abstract class AbstractResultSet<R> extends AbstractStructReader implements Resu
     private GrpcStruct currRow;
     private SpannerException error;
     private ResultSetStats statistics;
+    private CommitResponse commitResponse;
     private boolean closed;
 
     GrpcResultSet(CloseableIterator<PartialResultSet> iterator, Listener listener) {
@@ -139,6 +141,7 @@ abstract class AbstractResultSet<R> extends AbstractStructReader implements Resu
         boolean hasNext = currRow.consumeRow(iterator);
         if (!hasNext) {
           statistics = iterator.getStats();
+          commitResponse = iterator.getCommitResponse();
         }
         return hasNext;
       } catch (Throwable t) {
@@ -152,6 +155,12 @@ abstract class AbstractResultSet<R> extends AbstractStructReader implements Resu
     @Nullable
     public ResultSetStats getStats() {
       return statistics;
+    }
+
+    @Nullable
+    @Override
+    public CommitResponse getCommitResponse() {
+      return commitResponse;
     }
 
     @Override
@@ -194,6 +203,7 @@ abstract class AbstractResultSet<R> extends AbstractStructReader implements Resu
     private PartialResultSet current;
     private int pos;
     private ResultSetStats statistics;
+    private CommitResponse commitResponse;
 
     GrpcValueIterator(CloseableIterator<PartialResultSet> stream) {
       this.stream = stream;
@@ -274,6 +284,10 @@ abstract class AbstractResultSet<R> extends AbstractStructReader implements Resu
       return statistics;
     }
 
+    CommitResponse getCommitResponse() {
+      return commitResponse;
+    }
+
     Type type() {
       checkState(type != null, "metadata has not been received");
       return type;
@@ -306,6 +320,9 @@ abstract class AbstractResultSet<R> extends AbstractStructReader implements Resu
         }
         if (current.hasStats()) {
           statistics = current.getStats();
+        }
+        if (current.hasCommitResponse()) {
+          commitResponse = current.getCommitResponse();
         }
         if (requiredValue == StreamValue.METADATA) {
           return true;

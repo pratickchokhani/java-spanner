@@ -27,10 +27,12 @@ import com.google.cloud.spanner.Struct;
 import com.google.cloud.spanner.Type;
 import com.google.cloud.spanner.Value;
 import com.google.common.base.Preconditions;
+import com.google.spanner.v1.CommitResponse;
 import com.google.spanner.v1.ResultSetMetadata;
 import com.google.spanner.v1.ResultSetStats;
 import java.math.BigDecimal;
 import java.util.List;
+import javax.annotation.Nullable;
 
 /**
  * Forwarding implementation of {@link ResultSet} that forwards all calls to a delegate that can be
@@ -93,6 +95,12 @@ class ReplaceableForwardingResultSet implements ResultSet {
   public ResultSetStats getStats() {
     checkClosed();
     return delegate.getStats();
+  }
+
+  @Override
+  public CommitResponse getCommitResponse() {
+    checkClosed();
+    return delegate.getCommitResponse();
   }
 
   @Override

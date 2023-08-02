@@ -17,6 +17,7 @@
 package com.google.cloud.spanner;
 
 import com.google.cloud.spanner.Options.QueryOption;
+import com.google.spanner.v1.CommitResponse;
 import com.google.spanner.v1.ResultSetMetadata;
 import com.google.spanner.v1.ResultSetStats;
 import javax.annotation.Nullable;
@@ -74,6 +75,9 @@ public interface ResultSet extends AutoCloseable, StructReader {
    */
   @Nullable
   ResultSetStats getStats();
+
+  @Nullable
+  CommitResponse getCommitResponse();
 
   /**
    * Returns the {@link ResultSetMetadata} for this {@link ResultSet}. This is method may only be

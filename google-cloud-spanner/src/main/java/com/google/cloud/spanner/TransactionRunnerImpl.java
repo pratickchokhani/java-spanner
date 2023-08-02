@@ -25,6 +25,7 @@ import com.google.api.core.ApiFuture;
 import com.google.api.core.ApiFutures;
 import com.google.api.core.SettableApiFuture;
 import com.google.cloud.Timestamp;
+import com.google.cloud.spanner.AbstractResultSet.GrpcResultSet;
 import com.google.cloud.spanner.Options.QueryOption;
 import com.google.cloud.spanner.Options.ReadOption;
 import com.google.cloud.spanner.Options.TransactionOption;
@@ -1033,6 +1034,9 @@ class TransactionRunnerImpl implements SessionTransaction, TransactionRunner {
             }
           }
 
+          if (result instanceof AbstractResultSet.GrpcResultSet) {
+
+          }
           try {
             txn.commit();
             span.addAnnotation(

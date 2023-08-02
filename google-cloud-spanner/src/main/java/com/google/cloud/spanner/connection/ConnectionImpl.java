@@ -999,7 +999,7 @@ class ConnectionImpl implements Connection {
    * Parses the given statement as a query and executes it. Throws a {@link SpannerException} if the
    * statement is not a query.
    */
-  private ResultSet parseAndExecuteQuery(
+  private ResultSet  parseAndExecuteQuery(
       CallType callType, Statement query, AnalyzeMode analyzeMode, QueryOption... options) {
     Preconditions.checkNotNull(query);
     Preconditions.checkNotNull(analyzeMode);

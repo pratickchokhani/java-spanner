@@ -16,6 +16,7 @@
 
 package com.google.cloud.spanner;
 
+import com.google.spanner.v1.CommitResponse;
 import com.google.spanner.v1.ResultSet;
 import com.google.spanner.v1.ResultSetMetadata;
 import com.google.spanner.v1.ResultSetStats;
@@ -24,10 +25,12 @@ import javax.annotation.Nullable;
 
 class NoRowsResultSet extends AbstractResultSet<List<Object>> {
   private final ResultSetStats stats;
+  private final CommitResponse commitResponse;
   private final ResultSetMetadata metadata;
 
   NoRowsResultSet(ResultSet resultSet) {
     this.stats = resultSet.getStats();
+    this.commitResponse = resultSet.getCommitResponse();
     this.metadata = resultSet.getMetadata();
   }
 
@@ -49,6 +52,12 @@ class NoRowsResultSet extends AbstractResultSet<List<Object>> {
   @Override
   public ResultSetStats getStats() {
     return stats;
+  }
+
+  @Nullable
+  @Override
+  public CommitResponse getCommitResponse() {
+    return commitResponse;
   }
 
   @Override
