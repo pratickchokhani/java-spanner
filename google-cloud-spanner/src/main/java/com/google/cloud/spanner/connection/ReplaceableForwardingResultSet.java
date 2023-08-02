@@ -32,7 +32,6 @@ import com.google.spanner.v1.ResultSetMetadata;
 import com.google.spanner.v1.ResultSetStats;
 import java.math.BigDecimal;
 import java.util.List;
-import javax.annotation.Nullable;
 
 /**
  * Forwarding implementation of {@link ResultSet} that forwards all calls to a delegate that can be

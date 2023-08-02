@@ -44,6 +44,10 @@ public final class TransactionProto {
   static final com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_google_spanner_v1_TransactionOptions_ReadOnly_fieldAccessorTable;
   static final com.google.protobuf.Descriptors.Descriptor
+      internal_static_google_spanner_v1_NextTransactionToken_descriptor;
+  static final com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_google_spanner_v1_NextTransactionToken_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
       internal_static_google_spanner_v1_Transaction_descriptor;
   static final com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_google_spanner_v1_Transaction_fieldAccessorTable;
@@ -82,19 +86,21 @@ public final class TransactionProto {
           + "\0132\032.google.protobuf.TimestampH\000\0224\n\017exact"
           + "_staleness\030\005 \001(\0132\031.google.protobuf.Durat"
           + "ionH\000\022\035\n\025return_read_timestamp\030\006 \001(\010B\021\n\017"
-          + "timestamp_boundB\006\n\004mode\"m\n\013Transaction\022\n"
-          + "\n\002id\030\001 \001(\014\0222\n\016read_timestamp\030\002 \001(\0132\032.goo"
-          + "gle.protobuf.Timestamp\022\036\n\026next_transacti"
-          + "on_token\030\003 \001(\014\"\244\001\n\023TransactionSelector\022;"
-          + "\n\nsingle_use\030\001 \001(\0132%.google.spanner.v1.T"
-          + "ransactionOptionsH\000\022\014\n\002id\030\002 \001(\014H\000\0226\n\005beg"
-          + "in\030\003 \001(\0132%.google.spanner.v1.Transaction"
-          + "OptionsH\000B\n\n\010selectorB\263\001\n\025com.google.spa"
-          + "nner.v1B\020TransactionProtoP\001Z5cloud.googl"
-          + "e.com/go/spanner/apiv1/spannerpb;spanner"
-          + "pb\252\002\027Google.Cloud.Spanner.V1\312\002\027Google\\Cl"
-          + "oud\\Spanner\\V1\352\002\032Google::Cloud::Spanner:"
-          + ":V1b\006proto3"
+          + "timestamp_boundB\006\n\004mode\"9\n\024NextTransacti"
+          + "onToken\022\r\n\005token\030\001 \001(\014\022\022\n\nttl_millis\030\002 \001"
+          + "(\003\"\226\001\n\013Transaction\022\n\n\002id\030\001 \001(\014\0222\n\016read_t"
+          + "imestamp\030\002 \001(\0132\032.google.protobuf.Timesta"
+          + "mp\022G\n\026next_transaction_token\030\003 \001(\0132\'.goo"
+          + "gle.spanner.v1.NextTransactionToken\"\244\001\n\023"
+          + "TransactionSelector\022;\n\nsingle_use\030\001 \001(\0132"
+          + "%.google.spanner.v1.TransactionOptionsH\000"
+          + "\022\014\n\002id\030\002 \001(\014H\000\0226\n\005begin\030\003 \001(\0132%.google.s"
+          + "panner.v1.TransactionOptionsH\000B\n\n\010select"
+          + "orB\263\001\n\025com.google.spanner.v1B\020Transactio"
+          + "nProtoP\001Z5cloud.google.com/go/spanner/ap"
+          + "iv1/spannerpb;spannerpb\252\002\027Google.Cloud.S"
+          + "panner.V1\312\002\027Google\\Cloud\\Spanner\\V1\352\002\032Go"
+          + "ogle::Cloud::Spanner::V1b\006proto3"
     };
     descriptor =
         com.google.protobuf.Descriptors.FileDescriptor.internalBuildGeneratedFileFrom(
@@ -139,8 +145,16 @@ public final class TransactionProto {
               "ReturnReadTimestamp",
               "TimestampBound",
             });
-    internal_static_google_spanner_v1_Transaction_descriptor =
+    internal_static_google_spanner_v1_NextTransactionToken_descriptor =
         getDescriptor().getMessageTypes().get(1);
+    internal_static_google_spanner_v1_NextTransactionToken_fieldAccessorTable =
+        new com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+            internal_static_google_spanner_v1_NextTransactionToken_descriptor,
+            new java.lang.String[] {
+              "Token", "TtlMillis",
+            });
+    internal_static_google_spanner_v1_Transaction_descriptor =
+        getDescriptor().getMessageTypes().get(2);
     internal_static_google_spanner_v1_Transaction_fieldAccessorTable =
         new com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
             internal_static_google_spanner_v1_Transaction_descriptor,
@@ -148,7 +162,7 @@ public final class TransactionProto {
               "Id", "ReadTimestamp", "NextTransactionToken",
             });
     internal_static_google_spanner_v1_TransactionSelector_descriptor =
-        getDescriptor().getMessageTypes().get(2);
+        getDescriptor().getMessageTypes().get(3);
     internal_static_google_spanner_v1_TransactionSelector_fieldAccessorTable =
         new com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
             internal_static_google_spanner_v1_TransactionSelector_descriptor,

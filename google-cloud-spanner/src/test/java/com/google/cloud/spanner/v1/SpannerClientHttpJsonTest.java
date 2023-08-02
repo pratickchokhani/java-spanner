@@ -44,6 +44,7 @@ import com.google.spanner.v1.ExecuteSqlRequest;
 import com.google.spanner.v1.KeySet;
 import com.google.spanner.v1.ListSessionsResponse;
 import com.google.spanner.v1.Mutation;
+import com.google.spanner.v1.NextTransactionToken;
 import com.google.spanner.v1.Partition;
 import com.google.spanner.v1.PartitionOptions;
 import com.google.spanner.v1.PartitionQueryRequest;
@@ -816,7 +817,7 @@ public class SpannerClientHttpJsonTest {
         Transaction.newBuilder()
             .setId(ByteString.EMPTY)
             .setReadTimestamp(Timestamp.newBuilder().build())
-            .setNextTransactionToken(ByteString.EMPTY)
+            .setNextTransactionToken(NextTransactionToken.newBuilder().build())
             .build();
     mockService.addResponse(expectedResponse);
 
@@ -864,7 +865,7 @@ public class SpannerClientHttpJsonTest {
         Transaction.newBuilder()
             .setId(ByteString.EMPTY)
             .setReadTimestamp(Timestamp.newBuilder().build())
-            .setNextTransactionToken(ByteString.EMPTY)
+            .setNextTransactionToken(NextTransactionToken.newBuilder().build())
             .build();
     mockService.addResponse(expectedResponse);
 

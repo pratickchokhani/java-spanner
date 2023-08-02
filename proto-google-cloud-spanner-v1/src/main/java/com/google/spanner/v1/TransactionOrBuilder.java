@@ -103,9 +103,37 @@ public interface TransactionOrBuilder
    * [Commit][google.spanner.v1.Spanner.Commit] in case of single use transaction
    * </pre>
    *
-   * <code>bytes next_transaction_token = 3;</code>
+   * <code>.google.spanner.v1.NextTransactionToken next_transaction_token = 3;</code>
+   *
+   * @return Whether the nextTransactionToken field is set.
+   */
+  boolean hasNextTransactionToken();
+  /**
+   *
+   *
+   * <pre>
+   * Token used to identify the transaction to be created next. Used in
+   * [BeginTransaction][google.spanner.v1.Spanner.BeginTransaction]
+   * [ExecuteSql][google.spanner.v1.Spanner.ExecuteSql] in case of inline begin
+   * [Commit][google.spanner.v1.Spanner.Commit] in case of single use transaction
+   * </pre>
+   *
+   * <code>.google.spanner.v1.NextTransactionToken next_transaction_token = 3;</code>
    *
    * @return The nextTransactionToken.
    */
-  com.google.protobuf.ByteString getNextTransactionToken();
+  com.google.spanner.v1.NextTransactionToken getNextTransactionToken();
+  /**
+   *
+   *
+   * <pre>
+   * Token used to identify the transaction to be created next. Used in
+   * [BeginTransaction][google.spanner.v1.Spanner.BeginTransaction]
+   * [ExecuteSql][google.spanner.v1.Spanner.ExecuteSql] in case of inline begin
+   * [Commit][google.spanner.v1.Spanner.Commit] in case of single use transaction
+   * </pre>
+   *
+   * <code>.google.spanner.v1.NextTransactionToken next_transaction_token = 3;</code>
+   */
+  com.google.spanner.v1.NextTransactionTokenOrBuilder getNextTransactionTokenOrBuilder();
 }

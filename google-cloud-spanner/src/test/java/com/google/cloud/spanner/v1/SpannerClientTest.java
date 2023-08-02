@@ -53,6 +53,7 @@ import com.google.spanner.v1.KeySet;
 import com.google.spanner.v1.ListSessionsRequest;
 import com.google.spanner.v1.ListSessionsResponse;
 import com.google.spanner.v1.Mutation;
+import com.google.spanner.v1.NextTransactionToken;
 import com.google.spanner.v1.PartialResultSet;
 import com.google.spanner.v1.Partition;
 import com.google.spanner.v1.PartitionOptions;
@@ -910,7 +911,7 @@ public class SpannerClientTest {
         Transaction.newBuilder()
             .setId(ByteString.EMPTY)
             .setReadTimestamp(Timestamp.newBuilder().build())
-            .setNextTransactionToken(ByteString.EMPTY)
+            .setNextTransactionToken(NextTransactionToken.newBuilder().build())
             .build();
     mockSpanner.addResponse(expectedResponse);
 
@@ -953,7 +954,7 @@ public class SpannerClientTest {
         Transaction.newBuilder()
             .setId(ByteString.EMPTY)
             .setReadTimestamp(Timestamp.newBuilder().build())
-            .setNextTransactionToken(ByteString.EMPTY)
+            .setNextTransactionToken(NextTransactionToken.newBuilder().build())
             .build();
     mockSpanner.addResponse(expectedResponse);
 
