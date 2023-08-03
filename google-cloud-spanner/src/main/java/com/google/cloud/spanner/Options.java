@@ -140,6 +140,11 @@ public final class Options implements Serializable {
     return new PriorityOption(priority);
   }
 
+  /** Specifies the priority to use for the RPC. */
+  public static QueryOption autocommit(boolean autocommit) {
+    return new AutocommitOption(autocommit);
+  }
+
   /**
    * Specifying this will cause the reads, queries, updates and writes operations statistics
    * collection to be grouped by tag.
@@ -274,6 +279,19 @@ public final class Options implements Serializable {
     }
   }
 
+  static final class AutocommitOption extends InternalOption implements QueryOption, UpdateOption {
+    final boolean autocommit;
+
+    AutocommitOption(boolean autocommit) {
+      this.autocommit = autocommit;
+    }
+
+    @Override
+    void appendToOptions(Options options) {
+      options.autocommit = autocommit;
+    }
+  }
+
   static final class PriorityOption extends InternalOption
       implements ReadQueryUpdateTransactionOption {
     private final RpcPriority priority;
@@ -341,6 +359,7 @@ public final class Options implements Serializable {
   private Boolean validateOnly;
   private Boolean withOptimisticLock;
   private Boolean dataBoostEnabled;
+  private boolean autocommit = false;
 
   // Construction is via factory methods below.
   private Options() {}
@@ -441,6 +460,10 @@ public final class Options implements Serializable {
     return dataBoostEnabled;
   }
 
+  boolean isAutocommitEnabled() {
+    return autocommit;
+  }
+
   @Override
   public String toString() {
     StringBuilder b = new StringBuilder();
@@ -467,6 +490,9 @@ public final class Options implements Serializable {
     }
     if (tag != null) {
       b.append("tag: ").append(tag).append(' ');
+    }
+    if (autocommit) {
+      b.append("autocommit: ").append(autocommit).append(' ');
     }
     if (etag != null) {
       b.append("etag: ").append(etag).append(' ');
@@ -547,6 +573,9 @@ public final class Options implements Serializable {
     }
     if (tag != null) {
       result = 31 * result + tag.hashCode();
+    }
+    if (autocommit) {
+      result = 31 * result + 213;
     }
     if (etag != null) {
       result = 31 * result + etag.hashCode();
