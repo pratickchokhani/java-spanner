@@ -289,6 +289,7 @@ class TransactionRunnerImpl implements SessionTransaction, TransactionRunner {
     void commit() {
       try {
         commitResponse = commitAsync().get();
+        session.refreshNextTransactionTokenTtl(transactionId);
       } catch (InterruptedException e) {
         if (commitFuture != null) {
           commitFuture.cancel(true);
@@ -498,7 +499,8 @@ class TransactionRunnerImpl implements SessionTransaction, TransactionRunner {
           }
           if (tx == null) {
             return TransactionSelector.newBuilder()
-                .setBegin(SessionImpl.createReadWriteTransactionOptions(options))
+                .setBegin(SessionImpl.createReadWriteTransactionOptions(options,
+                    session.fetchNextTransactionToken()))
                 .build();
           } else {
             // Wait for the transaction to come available. The tx.get() call will fail with an
@@ -553,6 +555,7 @@ class TransactionRunnerImpl implements SessionTransaction, TransactionRunner {
           this.transactionId = transaction.getId();
           this.transactionIdFuture.set(transaction.getId());
         }
+        session.setNextTransactionToken(transaction.getNextTransactionToken(), transaction.getId());
       } else if (shouldIncludeId) {
         // The statement should have returned a transaction.
         throw SpannerExceptionFactory.newSpannerException(
@@ -1033,7 +1036,14 @@ class TransactionRunnerImpl implements SessionTransaction, TransactionRunner {
             }
           }
 
-          if (result instanceof AbstractResultSet.GrpcResultSet) {}
+          if (result instanceof com.google.cloud.spanner.ResultSet) {
+            com.google.cloud.spanner.ResultSet resultSet =
+                (com.google.cloud.spanner.ResultSet) result;
+            if (resultSet.getCommitResponse() != null) {
+              session.refreshNextTransactionTokenTtl(txn.transactionId);
+              return result;
+            }
+          }
 
           try {
             txn.commit();

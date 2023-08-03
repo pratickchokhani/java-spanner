@@ -37,6 +37,7 @@ import com.google.protobuf.ByteString;
 import com.google.protobuf.Empty;
 import com.google.spanner.v1.BeginTransactionRequest;
 import com.google.spanner.v1.CommitRequest;
+import com.google.spanner.v1.NextTransactionToken;
 import com.google.spanner.v1.RequestOptions;
 import com.google.spanner.v1.Transaction;
 import com.google.spanner.v1.TransactionOptions;
@@ -48,6 +49,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.concurrent.ExecutionException;
 import javax.annotation.Nullable;
 
@@ -67,11 +69,13 @@ class SessionImpl implements Session {
     }
   }
 
-  static TransactionOptions createReadWriteTransactionOptions(Options options) {
+  static TransactionOptions createReadWriteTransactionOptions(Options options,
+      Optional<ByteString> ntt) {
     TransactionOptions.ReadWrite.Builder readWrite = TransactionOptions.ReadWrite.newBuilder();
     if (options.withOptimisticLock() == Boolean.TRUE) {
       readWrite.setReadLockMode(TransactionOptions.ReadWrite.ReadLockMode.OPTIMISTIC);
     }
+    ntt.ifPresent(readWrite::setNextTransactionToken);
     return TransactionOptions.newBuilder().setReadWrite(readWrite).build();
   }
 
@@ -95,6 +99,8 @@ class SessionImpl implements Session {
   ByteString readyTransactionId;
   private final Map<SpannerRpc.Option, ?> options;
   private Span currentSpan;
+  private NextTransactionTokenHandler nextTransactionTokenHandler =
+      new NextTransactionTokenHandler();
 
   SessionImpl(SpannerImpl spanner, String name, Map<SpannerRpc.Option, ?> options) {
     this.spanner = spanner;
@@ -198,6 +204,19 @@ class SessionImpl implements Session {
   @Override
   public ReadContext singleUse() {
     return singleUse(TimestampBound.strong());
+  }
+
+  public void refreshNextTransactionTokenTtl(ByteString currentTransactionId) {
+    nextTransactionTokenHandler.refreshTtl(currentTransactionId);
+  }
+
+  public void setNextTransactionToken(NextTransactionToken nextTransactionToken,
+      ByteString issuerId) {
+    nextTransactionTokenHandler.setNtt(nextTransactionToken, issuerId);
+  }
+
+  public Optional<ByteString> fetchNextTransactionToken() {
+    return nextTransactionTokenHandler.fetchNtt();
   }
 
   @Override
@@ -316,7 +335,8 @@ class SessionImpl implements Session {
     final BeginTransactionRequest request =
         BeginTransactionRequest.newBuilder()
             .setSession(name)
-            .setOptions(createReadWriteTransactionOptions(transactionOptions))
+            .setOptions(
+                createReadWriteTransactionOptions(transactionOptions,fetchNextTransactionToken()))
             .build();
     final ApiFuture<Transaction> requestFuture =
         spanner.getRpc().beginTransactionAsync(request, options, routeToLeader);

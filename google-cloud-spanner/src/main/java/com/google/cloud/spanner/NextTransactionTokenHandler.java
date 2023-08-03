@@ -16,45 +16,44 @@
 package com.google.cloud.spanner;
 
 import com.google.protobuf.ByteString;
+import com.google.spanner.v1.NextTransactionToken;
 import java.util.Optional;
 import javax.annotation.Nullable;
 
 public class NextTransactionTokenHandler {
 
-  private static final long TIME_GAP_MILLIS = 8 * 1000;
-
-  private ByteString ntt = null;
+  private Optional<ByteString> token = Optional.empty();
+  private long TTL_IN_MILLIS = 0;
   private ByteString issuerTransactionId = null;
-  private long refreshTime = 0;
+  private long refreshTime = Long.MAX_VALUE;
 
-  public void setNtt(ByteString ntt, @Nullable ByteString issuerTransactionId) {
-    if (ntt == null) {
+  public void setNtt(NextTransactionToken nextTransactionToken,
+      @Nullable ByteString issuerTransactionId) {
+    if (nextTransactionToken == null || nextTransactionToken.getToken() == ByteString.EMPTY) {
       return;
     }
-    this.ntt = ntt;
+    this.token = Optional.of(nextTransactionToken.getToken());
+    this.TTL_IN_MILLIS = nextTransactionToken.getTtlMillis();
     this.issuerTransactionId = issuerTransactionId;
     resetRefreshTime();
   }
 
   public Optional<ByteString> fetchNtt() {
-    if (refreshTime < System.currentTimeMillis()) {
-      return Optional.ofNullable(ntt);
+    if (token.isPresent() && refreshTime < System.currentTimeMillis()) {
+      refreshTime = Long.MAX_VALUE;
+      return token;
     }
     return Optional.empty();
   }
 
   public void refreshTtl(ByteString currentTransactionId) {
-    if (currentTransactionId == null) {
-      if (issuerTransactionId != null) {
-        return;
-      }
-    } else if (issuerTransactionId != null && !currentTransactionId.equals(issuerTransactionId)) {
+    if (currentTransactionId == null || !currentTransactionId.equals(issuerTransactionId)) {
       return;
     }
     resetRefreshTime();
   }
 
   private void resetRefreshTime() {
-    refreshTime = System.currentTimeMillis() + TIME_GAP_MILLIS;
+    refreshTime = System.currentTimeMillis() + TTL_IN_MILLIS;
   }
 }
