@@ -503,9 +503,15 @@ abstract class AbstractReadContext
   }
 
   @Override
-  public final ResultSet executeQuery(Statement statement, QueryOption... options) {
+  public final ResultSet executeQuery(Statement statement, boolean autocommit,
+      QueryOption... options) {
     return executeQueryInternal(
-        statement, com.google.spanner.v1.ExecuteSqlRequest.QueryMode.NORMAL, options);
+        statement, com.google.spanner.v1.ExecuteSqlRequest.QueryMode.NORMAL, autocommit, options);
+  }
+
+  @Override
+  public final ResultSet executeQuery(Statement statement, QueryOption... options) {
+    return executeQuery(statement, false, options);
   }
 
   @Override
@@ -518,7 +524,7 @@ abstract class AbstractReadContext
     return new AsyncResultSetImpl(
         executorProvider,
         executeQueryInternal(
-            statement, com.google.spanner.v1.ExecuteSqlRequest.QueryMode.NORMAL, options),
+            statement, com.google.spanner.v1.ExecuteSqlRequest.QueryMode.NORMAL, false, options),
         bufferRows);
   }
 
@@ -527,10 +533,10 @@ abstract class AbstractReadContext
     switch (readContextQueryMode) {
       case PROFILE:
         return executeQueryInternal(
-            statement, com.google.spanner.v1.ExecuteSqlRequest.QueryMode.PROFILE);
+            statement, com.google.spanner.v1.ExecuteSqlRequest.QueryMode.PROFILE, false);
       case PLAN:
         return executeQueryInternal(
-            statement, com.google.spanner.v1.ExecuteSqlRequest.QueryMode.PLAN);
+            statement, com.google.spanner.v1.ExecuteSqlRequest.QueryMode.PLAN, false);
       default:
         throw new IllegalStateException(
             "Unknown value for QueryAnalyzeMode : " + readContextQueryMode);
@@ -540,10 +546,11 @@ abstract class AbstractReadContext
   private ResultSet executeQueryInternal(
       Statement statement,
       com.google.spanner.v1.ExecuteSqlRequest.QueryMode queryMode,
+      boolean autocommit,
       QueryOption... options) {
     Options queryOptions = Options.fromQueryOptions(options);
     return executeQueryInternalWithOptions(
-        statement, queryMode, queryOptions, null /*partitionToken*/);
+        statement, queryMode, autocommit, queryOptions, null /*partitionToken*/);
   }
 
   /**
@@ -655,6 +662,7 @@ abstract class AbstractReadContext
   ResultSet executeQueryInternalWithOptions(
       final Statement statement,
       final com.google.spanner.v1.ExecuteSqlRequest.QueryMode queryMode,
+      boolean autocommit,
       final Options options,
       final ByteString partitionToken) {
     beforeReadOrQuery();
@@ -670,6 +678,9 @@ abstract class AbstractReadContext
             GrpcStreamIterator stream = new GrpcStreamIterator(statement, prefetchChunks);
             if (partitionToken != null) {
               request.setPartitionToken(partitionToken);
+            }
+            if (autocommit) {
+              request.setAutocommit(true);
             }
             TransactionSelector selector = null;
             if (resumeToken != null) {

@@ -204,6 +204,11 @@ public class SingleUseTransactionTest {
 
     @Override
     public ResultSet executeQuery(Statement statement, QueryOption... options) {
+      return executeQuery(statement, false, options);
+    }
+
+    @Override
+    public ResultSet executeQuery(Statement statement, boolean autocommit, QueryOption... options) {
       if (statement.equals(Statement.of(VALID_QUERY))) {
         if (readTimestamp == null) {
           switch (staleness.getMode()) {

@@ -99,6 +99,12 @@ public class TransactionContextTest {
           }
 
           @Override
+          public ResultSet executeQuery(Statement statement, boolean autocommit,
+              QueryOption... options) {
+            return null;
+          }
+
+          @Override
           public void close() {}
 
           @Override

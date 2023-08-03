@@ -235,7 +235,7 @@ class SingleUseTransaction extends AbstractBaseUnitOfWork {
                 writeTransaction.run(
                     transaction ->
                         DirectExecuteResultSet.ofResultSet(
-                            transaction.executeQuery(update.getStatement(), options)));
+                            transaction.executeQuery(update.getStatement(), true, options)));
             state = UnitOfWorkState.COMMITTED;
             return resultSet;
           } catch (Throwable t) {

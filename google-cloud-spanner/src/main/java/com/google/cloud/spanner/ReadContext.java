@@ -187,6 +187,33 @@ public interface ReadContext extends AutoCloseable {
   ResultSet executeQuery(Statement statement, QueryOption... options);
 
   /**
+   * Executes a query against the database. Can also execute a DML statement with returning clause
+   * in a read/write transaction.
+   *
+   * <p>Implementations may or may not block in the initial {@code executeQuery(...)} call; for
+   * those that do not, the remote call will be initiated immediately but blocking on the response
+   * is deferred to the first {@link ResultSet#next()} call. Regardless of blocking behavior, any
+   * {@link SpannerException} is deferred to the first or subsequent {@link ResultSet#next()} call.
+   * <!--SNIPPET read_context_execute_query-->
+   *
+   * <pre>{@code
+   * // Rows without an explicit value for MarketingBudget will have a MarketingBudget equal to
+   * // null.
+   * ReadContext readContext = dbClient.singleUse();
+   * ResultSet resultSet =
+   *     readContext.executeQuery(
+   *         Statement.of(
+   *             "SELECT SingerId, AlbumId, MarketingBudget, LastUpdateTime FROM Albums"));
+   * }</pre>
+   *
+   * <!--SNIPPET read_context_execute_query-->
+   *
+   * @param statement the query statement to execute
+   * @param options the options to configure the query
+   */
+  ResultSet executeQuery(Statement statement, boolean autocommit, QueryOption... options);
+
+  /**
    * Same as {@link #executeQuery(Statement, QueryOption...)}, but is guaranteed to be non-blocking
    * and returns its results as an {@link AsyncResultSet}.
    */
