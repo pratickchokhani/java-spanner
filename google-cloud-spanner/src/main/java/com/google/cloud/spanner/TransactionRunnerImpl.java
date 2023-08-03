@@ -1036,6 +1036,7 @@ class TransactionRunnerImpl implements SessionTransaction, TransactionRunner {
             }
           }
 
+          System.out.println(result.getClass().toString());
           if (result instanceof com.google.cloud.spanner.ResultSet) {
             com.google.cloud.spanner.ResultSet resultSet =
                 (com.google.cloud.spanner.ResultSet) result;
