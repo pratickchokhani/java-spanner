@@ -1041,8 +1041,13 @@ class TransactionRunnerImpl implements SessionTransaction, TransactionRunner {
                 (com.google.cloud.spanner.ResultSet) result;
             if (resultSet.getCommitResponse() != null) {
               session.refreshNextTransactionTokenTtl(txn.transactionId);
+              System.out.println("Result set commit present.");
               return result;
+            } else {
+              System.out.println("Result set commit abscent.");
             }
+          } else {
+            System.out.println("Result set fail");
           }
 
           try {
