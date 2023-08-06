@@ -305,6 +305,8 @@ class TransactionRunnerImpl implements SessionTransaction, TransactionRunner {
     ApiFuture<CommitResponse> commitAsync() {
       close();
 
+      System.out.println("Committing");
+
       List<com.google.spanner.v1.Mutation> mutationsProto = new ArrayList<>();
       synchronized (committingLock) {
         if (committing) {
@@ -363,6 +365,7 @@ class TransactionRunnerImpl implements SessionTransaction, TransactionRunner {
       public void run() {
         try {
           prev.get();
+          System.out.println("Committing2");
           if (transactionId == null && transactionIdFuture == null) {
             requestBuilder.setSingleUseTransaction(
                 TransactionOptions.newBuilder()
@@ -419,6 +422,7 @@ class TransactionRunnerImpl implements SessionTransaction, TransactionRunner {
                     }
                   }),
               MoreExecutors.directExecutor());
+          System.out.println("Commit completed");
         } catch (InterruptedException e) {
           res.setException(SpannerExceptionFactory.propagateInterrupt(e));
         } catch (TimeoutException e) {
@@ -1035,6 +1039,8 @@ class TransactionRunnerImpl implements SessionTransaction, TransactionRunner {
               txn.rollback();
             }
           }
+
+          System.out.println("ResultSet type: " + result.getClass().toString());
 
           try {
             txn.commit();
