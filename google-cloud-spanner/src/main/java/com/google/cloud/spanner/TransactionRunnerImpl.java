@@ -388,6 +388,7 @@ class TransactionRunnerImpl implements SessionTransaction, TransactionRunner {
             requestBuilder.setRequestOptions(requestOptionsBuilder.build());
           }
           final CommitRequest commitRequest = requestBuilder.build();
+          System.out.println("Commit request: " + commitRequest.toString());
           span.addAnnotation("Starting Commit");
           final Span opSpan =
               tracer.spanBuilderWithExplicitParent(SpannerImpl.COMMIT, span).startSpan();
