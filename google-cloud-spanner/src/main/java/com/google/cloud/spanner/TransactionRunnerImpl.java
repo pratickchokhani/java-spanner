@@ -1044,6 +1044,7 @@ class TransactionRunnerImpl implements SessionTransaction, TransactionRunner {
 
           try {
             txn.commit();
+            System.out.println("Commit Response " + txn.getCommitResponse().toString());
             span.addAnnotation(
                 "Transaction Attempt Succeeded",
                 ImmutableMap.of("Attempt", AttributeValue.longAttributeValue(attempt.longValue())));
