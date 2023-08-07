@@ -436,7 +436,6 @@ class TransactionRunnerImpl implements SessionTransaction, TransactionRunner {
     }
 
     boolean isCommitted() {
-      System.out.println(commitResponse);
       return commitResponse != null && commitResponse.getCommitTimestamp() != null;
     }
 
