@@ -1050,7 +1050,10 @@ class TransactionRunnerImpl implements SessionTransaction, TransactionRunner {
           }
 
           if (txn.isCommitted()) {
+            System.out.println("Committed!!");
             return result;
+          } else {
+            System.out.println("Not Committed!!");
           }
 
           try {
