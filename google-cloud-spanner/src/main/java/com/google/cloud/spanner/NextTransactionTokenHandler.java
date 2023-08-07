@@ -41,7 +41,7 @@ public class NextTransactionTokenHandler {
 
   public Optional<ByteString> fetchNtt() {
     System.out.println("Token sent: " + this.token);
-    if (token.isPresent() && refreshTime < System.currentTimeMillis()) {
+    if (token.isPresent() && refreshTime >= System.currentTimeMillis()) {
       refreshTime = Long.MAX_VALUE;
       return token;
     }
