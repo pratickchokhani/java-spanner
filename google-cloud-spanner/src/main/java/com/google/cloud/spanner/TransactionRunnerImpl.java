@@ -436,6 +436,7 @@ class TransactionRunnerImpl implements SessionTransaction, TransactionRunner {
     }
 
     boolean isCommitted() {
+      System.out.println(commitResponse);
       return commitResponse != null && commitResponse.getCommitTimestamp() != null;
     }
 
@@ -712,8 +713,8 @@ class TransactionRunnerImpl implements SessionTransaction, TransactionRunner {
     }
 
     @Override
-    protected void updateCommitResponse(CommitResponse commitResponse) {
-      this.commitResponse = commitResponse;
+    protected void updateCommitResponse(com.google.spanner.v1.CommitResponse commitResponse) {
+      this.commitResponse = new CommitResponse(commitResponse);
     }
 
     @Override
@@ -746,7 +747,7 @@ class TransactionRunnerImpl implements SessionTransaction, TransactionRunner {
         System.out.println("Request: " + builder.getAutocommit());
         System.out.println("Result set: " + resultSet.hasCommitResponse());
         if (resultSet.hasCommitResponse()) {
-          updateCommitResponse(commitResponse);
+          updateCommitResponse(resultSet.getCommitResponse());
         }
         return resultSet;
       } catch (Throwable t) {
@@ -789,7 +790,7 @@ class TransactionRunnerImpl implements SessionTransaction, TransactionRunner {
                   throw SpannerExceptionFactory.newSpannerException(
                       ErrorCode.FAILED_PRECONDITION, NO_TRANSACTION_RETURNED_MSG);
                 }
-                updateCommitResponse(commitResponse);
+                updateCommitResponse(input.getCommitResponse());
                 // For standard DML, using the exact row count.
                 return input.getStats().getRowCountExact();
               },
