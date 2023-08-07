@@ -33,19 +33,16 @@ public class NextTransactionTokenHandler {
       return;
     }
     this.token = Optional.of(nextTransactionToken.getToken());
-    System.out.println("Token received: " + this.token);
     this.TTL_IN_MILLIS = nextTransactionToken.getTtlMillis();
     this.issuerTransactionId = issuerTransactionId;
     resetRefreshTime();
   }
 
   public Optional<ByteString> fetchNtt() {
-    System.out.println("Token sent: " + this.token);
     if (token.isPresent() && refreshTime >= System.currentTimeMillis()) {
       refreshTime = Long.MAX_VALUE;
       return token;
     }
-    System.out.println("Token actually sent: " + this.token);
     return Optional.empty();
   }
 

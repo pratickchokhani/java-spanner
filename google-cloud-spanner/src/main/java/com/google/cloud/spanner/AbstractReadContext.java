@@ -614,7 +614,6 @@ abstract class AbstractReadContext
     }
     if (withTransactionSelector) {
       TransactionSelector selector = getTransactionSelector();
-      System.out.println("Selectors: " + selector.getBegin().getReadWrite().getNextTransactionToken());
       if (selector != null) {
         builder.setTransaction(selector);
       }
