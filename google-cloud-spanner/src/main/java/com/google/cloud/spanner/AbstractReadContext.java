@@ -609,9 +609,9 @@ abstract class AbstractReadContext
         }
       }
     }
-    // if (options.isAutocommitEnabled()) {
-    //   builder.setAutocommit(true);
-    // }
+    if (options.isAutocommitEnabled()) {
+      builder.setAutocommit(true);
+    }
     if (withTransactionSelector) {
       TransactionSelector selector = getTransactionSelector();
       if (selector != null) {
