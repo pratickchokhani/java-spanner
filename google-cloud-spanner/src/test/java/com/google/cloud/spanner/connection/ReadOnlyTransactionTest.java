@@ -93,11 +93,6 @@ public class ReadOnlyTransactionTest {
 
     @Override
     public ResultSet executeQuery(Statement statement, QueryOption... options) {
-      return executeQuery(statement, false, options);
-    }
-
-    @Override
-    public ResultSet executeQuery(Statement statement, boolean autocommit, QueryOption... options) {
       if (readTimestamp == null) {
         switch (staleness.getMode()) {
           case STRONG:

@@ -48,6 +48,7 @@ import com.google.common.collect.Iterables;
 import com.google.common.util.concurrent.MoreExecutors;
 import com.google.spanner.admin.database.v1.DatabaseAdminGrpc;
 import com.google.spanner.v1.SpannerGrpc;
+import java.util.Arrays;
 import java.util.concurrent.Callable;
 
 /**
@@ -235,7 +236,9 @@ class SingleUseTransaction extends AbstractBaseUnitOfWork {
                 writeTransaction.run(
                     transaction ->
                         DirectExecuteResultSet.ofResultSet(
-                            transaction.executeQuery(update.getStatement(), true, options)));
+                            transaction.executeQuery(
+                                update.getStatement(),
+                                appendAutocommitOption(options))));
             state = UnitOfWorkState.COMMITTED;
             return resultSet;
           } catch (Throwable t) {
@@ -438,7 +441,8 @@ class SingleUseTransaction extends AbstractBaseUnitOfWork {
                     transaction -> {
                       if (analyzeMode == AnalyzeMode.NONE) {
                         return Tuple.of(
-                            transaction.executeUpdate(update.getStatement(), options), null);
+                            transaction.executeUpdate(
+                                update.getStatement(), appendAutocommitOption(options)), null);
                       }
                       ResultSet resultSet =
                           transaction.analyzeUpdateStatement(
@@ -587,5 +591,29 @@ class SingleUseTransaction extends AbstractBaseUnitOfWork {
   public void abortBatch() {
     throw SpannerExceptionFactory.newSpannerException(
         ErrorCode.FAILED_PRECONDITION, "Run batch is not supported for single-use transactions");
+  }
+
+  private UpdateOption[] appendAutocommitOption(UpdateOption... options) {
+
+    UpdateOption autocommitOption = Options.autocommit(true);
+    if (options == null || options.length == 0) {
+      options = new UpdateOption[] {autocommitOption};
+    } else {
+      options = Arrays.copyOf(options, options.length + 1);
+      options[options.length - 1] = autocommitOption;
+    }
+    return options;
+  }
+
+  private QueryOption[] appendAutocommitOption(QueryOption... options) {
+
+    QueryOption autocommitOption = Options.autocommit(true);
+    if (options == null || options.length == 0) {
+      options = new QueryOption[] {autocommitOption};
+    } else {
+      options = Arrays.copyOf(options, options.length + 1);
+      options[options.length - 1] = autocommitOption;
+    }
+    return options;
   }
 }

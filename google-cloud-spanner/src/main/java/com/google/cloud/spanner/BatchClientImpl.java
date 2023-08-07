@@ -211,7 +211,6 @@ public class BatchClientImpl implements BatchClient {
         return executeQueryInternalWithOptions(
             partition.getStatement(),
             QueryMode.NORMAL,
-            false,
             partition.getQueryOptions(),
             partition.getPartitionToken());
       }

@@ -488,20 +488,14 @@ class SessionPool {
     }
 
     @Override
-    public ResultSet executeQuery(final Statement statement, boolean autocommit,
-        final QueryOption... options) {
+    public ResultSet executeQuery(final Statement statement, final QueryOption... options) {
       return wrap(
           new CachedResultSetSupplier() {
             @Override
             ResultSet load() {
-              return getReadContextDelegate().executeQuery(statement, autocommit, options);
+              return getReadContextDelegate().executeQuery(statement, options);
             }
           });
-    }
-
-    @Override
-    public ResultSet executeQuery(final Statement statement, final QueryOption... options) {
-      return executeQuery(statement, false, options);
     }
 
     @Override
@@ -802,14 +796,9 @@ class SessionPool {
     }
 
     @Override
-    public ResultSet executeQuery(Statement statement, boolean autocommit, QueryOption... options) {
-      return new SessionPoolResultSet(handler,
-          delegate.executeQuery(statement, autocommit, options));
-    }
-
-    @Override
     public ResultSet executeQuery(Statement statement, QueryOption... options) {
-      return executeQuery(statement, false, options);
+      return new SessionPoolResultSet(handler,
+          delegate.executeQuery(statement, options));
     }
 
     @Override

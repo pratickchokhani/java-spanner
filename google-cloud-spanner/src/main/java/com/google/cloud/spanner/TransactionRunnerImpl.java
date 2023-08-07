@@ -305,8 +305,6 @@ class TransactionRunnerImpl implements SessionTransaction, TransactionRunner {
     ApiFuture<CommitResponse> commitAsync() {
       close();
 
-      System.out.println("Committing");
-
       List<com.google.spanner.v1.Mutation> mutationsProto = new ArrayList<>();
       synchronized (committingLock) {
         if (committing) {
@@ -365,7 +363,6 @@ class TransactionRunnerImpl implements SessionTransaction, TransactionRunner {
       public void run() {
         try {
           prev.get();
-          System.out.println("Committing2");
           if (transactionId == null && transactionIdFuture == null) {
             requestBuilder.setSingleUseTransaction(
                 TransactionOptions.newBuilder()
@@ -388,7 +385,6 @@ class TransactionRunnerImpl implements SessionTransaction, TransactionRunner {
             requestBuilder.setRequestOptions(requestOptionsBuilder.build());
           }
           final CommitRequest commitRequest = requestBuilder.build();
-          System.out.println("Commit request: " + commitRequest.toString());
           span.addAnnotation("Starting Commit");
           final Span opSpan =
               tracer.spanBuilderWithExplicitParent(SpannerImpl.COMMIT, span).startSpan();
@@ -423,7 +419,6 @@ class TransactionRunnerImpl implements SessionTransaction, TransactionRunner {
                     }
                   }),
               MoreExecutors.directExecutor());
-          System.out.println("Commit completed");
         } catch (InterruptedException e) {
           res.setException(SpannerExceptionFactory.propagateInterrupt(e));
         } catch (TimeoutException e) {
@@ -438,6 +433,10 @@ class TransactionRunnerImpl implements SessionTransaction, TransactionRunner {
     CommitResponse getCommitResponse() {
       checkState(commitResponse != null, "run() has not yet returned normally");
       return commitResponse;
+    }
+
+    boolean isCommitted() {
+      return commitResponse != null && commitResponse.getCommitTimestamp() != null;
     }
 
     boolean isAborted() {
@@ -713,6 +712,11 @@ class TransactionRunnerImpl implements SessionTransaction, TransactionRunner {
     }
 
     @Override
+    protected void updateCommitResponse(CommitResponse commitResponse) {
+      this.commitResponse = commitResponse;
+    }
+
+    @Override
     public long executeUpdate(Statement statement, UpdateOption... options) {
       ResultSet resultSet = internalExecuteUpdate(statement, QueryMode.NORMAL, options);
       // For standard DML, using the exact row count.
@@ -738,6 +742,9 @@ class TransactionRunnerImpl implements SessionTransaction, TransactionRunner {
         if (!resultSet.hasStats()) {
           throw new IllegalArgumentException(
               "DML response missing stats possibly due to non-DML statement as input");
+        }
+        if (resultSet.hasCommitResponse()) {
+          updateCommitResponse(commitResponse);
         }
         return resultSet;
       } catch (Throwable t) {
@@ -780,6 +787,7 @@ class TransactionRunnerImpl implements SessionTransaction, TransactionRunner {
                   throw SpannerExceptionFactory.newSpannerException(
                       ErrorCode.FAILED_PRECONDITION, NO_TRANSACTION_RETURNED_MSG);
                 }
+                updateCommitResponse(commitResponse);
                 // For standard DML, using the exact row count.
                 return input.getStats().getRowCountExact();
               },
@@ -1041,11 +1049,12 @@ class TransactionRunnerImpl implements SessionTransaction, TransactionRunner {
             }
           }
 
-          System.out.println("ResultSet type: " + result.getClass().toString());
+          if (txn.isCommitted()) {
+            return result;
+          }
 
           try {
             txn.commit();
-            System.out.println("Commit Response " + txn.getCommitResponse().toString() + " " + txn.getCommitResponse().getCommitTimestamp());
             span.addAnnotation(
                 "Transaction Attempt Succeeded",
                 ImmutableMap.of("Attempt", AttributeValue.longAttributeValue(attempt.longValue())));

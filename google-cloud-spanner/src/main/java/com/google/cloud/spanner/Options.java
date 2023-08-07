@@ -141,7 +141,7 @@ public final class Options implements Serializable {
   }
 
   /** Specifies the priority to use for the RPC. */
-  public static QueryOption autocommit(boolean autocommit) {
+  public static AutocommitOption autocommit(boolean autocommit) {
     return new AutocommitOption(autocommit);
   }
 
