@@ -743,6 +743,8 @@ class TransactionRunnerImpl implements SessionTransaction, TransactionRunner {
           throw new IllegalArgumentException(
               "DML response missing stats possibly due to non-DML statement as input");
         }
+        System.out.println("Request: " + builder.getAutocommit());
+        System.out.println("Result set: " + resultSet.hasCommitResponse());
         if (resultSet.hasCommitResponse()) {
           updateCommitResponse(commitResponse);
         }
