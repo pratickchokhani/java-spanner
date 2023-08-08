@@ -105,7 +105,6 @@ abstract class AbstractResultSet<R> extends AbstractStructReader implements Resu
     private GrpcStruct currRow;
     private SpannerException error;
     private ResultSetStats statistics;
-    private CommitResponse commitResponse;
     private boolean closed;
 
     GrpcResultSet(CloseableIterator<PartialResultSet> iterator, Listener listener) {
@@ -141,7 +140,6 @@ abstract class AbstractResultSet<R> extends AbstractStructReader implements Resu
         boolean hasNext = currRow.consumeRow(iterator);
         if (!hasNext) {
           statistics = iterator.getStats();
-          commitResponse = iterator.getCommitResponse();
         }
         return hasNext;
       } catch (Throwable t) {
@@ -160,7 +158,7 @@ abstract class AbstractResultSet<R> extends AbstractStructReader implements Resu
     @Nullable
     @Override
     public CommitResponse getCommitResponse() {
-      return commitResponse;
+      return iterator.getCommitResponse();
     }
 
     @Override
@@ -193,6 +191,7 @@ abstract class AbstractResultSet<R> extends AbstractStructReader implements Resu
    */
   private static class GrpcValueIterator extends AbstractIterator<com.google.protobuf.Value> {
     private enum StreamValue {
+      COMMIT_RESPONSE,
       METADATA,
       RESULT,
     }
@@ -285,6 +284,13 @@ abstract class AbstractResultSet<R> extends AbstractStructReader implements Resu
     }
 
     CommitResponse getCommitResponse() {
+      if (commitResponse == null) {
+        if (!ensureReady(StreamValue.COMMIT_RESPONSE)) {
+          throw newSpannerException(
+              ErrorCode.INTERNAL,
+              "Stream closed without sending commit response");
+        }
+      }
       return commitResponse;
     }
 
@@ -318,13 +324,13 @@ abstract class AbstractResultSet<R> extends AbstractStructReader implements Resu
                 ErrorCode.INTERNAL, "Invalid type metadata: " + e.getMessage(), e);
           }
         }
+        if (commitResponse == null && current.hasCommitResponse()) {
+          commitResponse = current.getCommitResponse();
+        }
         if (current.hasStats()) {
           statistics = current.getStats();
         }
-        if (current.hasCommitResponse()) {
-          commitResponse = current.getCommitResponse();
-        }
-        if (requiredValue == StreamValue.METADATA) {
+        if (requiredValue == StreamValue.METADATA || requiredValue == StreamValue.COMMIT_RESPONSE) {
           return true;
         }
       }

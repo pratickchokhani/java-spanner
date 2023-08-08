@@ -551,8 +551,17 @@ abstract class AbstractReadContext
     throw new IllegalStateException("Read-only transaction cannot be committed.");
   }
 
-  protected void inlineCommitPostProcess(com.google.spanner.v1.ResultSet resultSet) {
+  protected void inlineCommitPostProcess(
+      Options options,
+      com.google.spanner.v1.ResultSet resultSet) {
     throw new IllegalStateException("Read-only transaction cannot be committed.");
+  }
+
+  protected void inlineCommitPostProcess(Options options,GrpcResultSet grpcResultSet) {
+    if (options.isAutocommitEnabled()) {
+      throw new IllegalStateException("Read-only transaction cannot be committed.");
+    }
+
   }
 
   /**
@@ -670,6 +679,7 @@ abstract class AbstractReadContext
       final Options options,
       final ByteString partitionToken) {
     beforeReadOrQuery();
+    inlineCommitPreProcess(options);
     final int prefetchChunks =
         options.hasPrefetchChunks() ? options.prefetchChunks() : defaultPrefetchChunks;
     final ExecuteSqlRequest.Builder request =
@@ -704,7 +714,9 @@ abstract class AbstractReadContext
             return stream;
           }
         };
-    return new GrpcResultSet(stream, this);
+    GrpcResultSet grpcResultSet = new GrpcResultSet(stream, this);
+    inlineCommitPostProcess(options, grpcResultSet);
+    return grpcResultSet;
   }
 
   /**

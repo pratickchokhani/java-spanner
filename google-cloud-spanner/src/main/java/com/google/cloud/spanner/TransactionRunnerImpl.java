@@ -25,6 +25,7 @@ import com.google.api.core.ApiFuture;
 import com.google.api.core.ApiFutures;
 import com.google.api.core.SettableApiFuture;
 import com.google.cloud.Timestamp;
+import com.google.cloud.spanner.AbstractResultSet.GrpcResultSet;
 import com.google.cloud.spanner.Options.QueryOption;
 import com.google.cloud.spanner.Options.ReadOption;
 import com.google.cloud.spanner.Options.TransactionOption;
@@ -731,9 +732,27 @@ class TransactionRunnerImpl implements SessionTransaction, TransactionRunner {
     }
 
     @Override
-    protected void inlineCommitPostProcess(ResultSet resultSet) {
+    protected void inlineCommitPostProcess(Options options, ResultSet resultSet) {
+      if (!options.isAutocommitEnabled()) {
+        return;
+      }
       synchronized (committingLock) {
         if (resultSet.hasCommitResponse() && resultSet.getCommitResponse().hasCommitTimestamp()) {
+          this.commitResponse = new CommitResponse(resultSet.getCommitResponse());
+        } else {
+          committing = true;
+        }
+      }
+    }
+
+    @Override
+    protected void inlineCommitPostProcess(Options options, GrpcResultSet resultSet) {
+      if (!options.isAutocommitEnabled()) {
+        return;
+      }
+      synchronized (committingLock) {
+        if (resultSet.getCommitResponse() != null
+            && resultSet.getCommitResponse().hasCommitTimestamp()) {
           this.commitResponse = new CommitResponse(resultSet.getCommitResponse());
         } else {
           committing = true;
@@ -770,7 +789,7 @@ class TransactionRunnerImpl implements SessionTransaction, TransactionRunner {
           throw new IllegalArgumentException(
               "DML response missing stats possibly due to non-DML statement as input");
         }
-        inlineCommitPostProcess(resultSet);
+        inlineCommitPostProcess(options, resultSet);
         return resultSet;
       } catch (Throwable t) {
         throw onError(
@@ -814,7 +833,7 @@ class TransactionRunnerImpl implements SessionTransaction, TransactionRunner {
                   throw SpannerExceptionFactory.newSpannerException(
                       ErrorCode.FAILED_PRECONDITION, NO_TRANSACTION_RETURNED_MSG);
                 }
-                inlineCommitPostProcess(input);
+                inlineCommitPostProcess(options, input);
                 // For standard DML, using the exact row count.
                 return input.getStats().getRowCountExact();
               },
