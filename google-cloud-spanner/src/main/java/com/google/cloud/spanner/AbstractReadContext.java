@@ -548,13 +548,17 @@ abstract class AbstractReadContext
   }
 
   protected void inlineCommitPreProcess(Options options) {
-    throw new IllegalStateException("Read-only transaction cannot be committed.");
+    if (options.isAutocommitEnabled()) {
+      throw new IllegalStateException("Read-only transaction cannot be committed.");
+    }
   }
 
   protected void inlineCommitPostProcess(
       Options options,
       com.google.spanner.v1.ResultSet resultSet) {
-    throw new IllegalStateException("Read-only transaction cannot be committed.");
+    if (options.isAutocommitEnabled()) {
+      throw new IllegalStateException("Read-only transaction cannot be committed.");
+    }
   }
 
   protected void inlineCommitPostProcess(Options options,GrpcResultSet grpcResultSet) {
