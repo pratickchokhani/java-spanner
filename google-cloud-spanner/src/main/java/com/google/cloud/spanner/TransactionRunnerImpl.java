@@ -82,6 +82,9 @@ class TransactionRunnerImpl implements SessionTransaction, TransactionRunner {
   private static final String TRANSACTION_ALREADY_COMMITTED_MESSAGE =
       "Transaction has already committed";
 
+  private static final String MUTATION_NOT_ALLOWED_WITH_INLINE_COMMIT =
+      "Mutations are not allowed with inline commit.";
+
   @VisibleForTesting
   static class TransactionContextImpl extends AbstractReadContext implements TransactionContext {
     static class Builder extends AbstractReadContext.Builder<Builder, TransactionContextImpl> {
@@ -712,8 +715,30 @@ class TransactionRunnerImpl implements SessionTransaction, TransactionRunner {
     }
 
     @Override
-    protected void updateCommitResponse(com.google.spanner.v1.CommitResponse commitResponse) {
-      this.commitResponse = new CommitResponse(commitResponse);
+    protected void inlineCommitPreProcess(Options options) {
+      if (!options.isAutocommitEnabled()) {
+        return;
+      }
+      synchronized (committingLock) {
+        if (committing) {
+          throw new IllegalStateException(TRANSACTION_ALREADY_COMMITTED_MESSAGE);
+        }
+        committing = true;
+        if (!mutations.isEmpty()) {
+          throw new IllegalStateException(MUTATION_NOT_ALLOWED_WITH_INLINE_COMMIT);
+        }
+      }
+    }
+
+    @Override
+    protected void inlineCommitPostProcess(ResultSet resultSet) {
+      synchronized (committingLock) {
+        if (resultSet.hasCommitResponse() && resultSet.getCommitResponse().hasCommitTimestamp()) {
+          this.commitResponse = new CommitResponse(resultSet.getCommitResponse());
+        } else {
+          committing = true;
+        }
+      }
     }
 
     @Override
@@ -724,13 +749,15 @@ class TransactionRunnerImpl implements SessionTransaction, TransactionRunner {
     }
 
     private ResultSet internalExecuteUpdate(
-        Statement statement, QueryMode queryMode, UpdateOption... options) {
+        Statement statement, QueryMode queryMode, UpdateOption... updateOptions) {
       beforeReadOrQuery();
+      Options options = Options.fromUpdateOptions(updateOptions);
+      inlineCommitPreProcess(options);
       final ExecuteSqlRequest.Builder builder =
           getExecuteSqlRequestBuilder(
               statement,
               queryMode,
-              Options.fromUpdateOptions(options),
+              options,
               /* withTransactionSelector = */ true);
       try {
         com.google.spanner.v1.ResultSet resultSet =
@@ -743,9 +770,7 @@ class TransactionRunnerImpl implements SessionTransaction, TransactionRunner {
           throw new IllegalArgumentException(
               "DML response missing stats possibly due to non-DML statement as input");
         }
-        if (resultSet.hasCommitResponse()) {
-          updateCommitResponse(resultSet.getCommitResponse());
-        }
+        inlineCommitPostProcess(resultSet);
         return resultSet;
       } catch (Throwable t) {
         throw onError(
@@ -754,13 +779,15 @@ class TransactionRunnerImpl implements SessionTransaction, TransactionRunner {
     }
 
     @Override
-    public ApiFuture<Long> executeUpdateAsync(Statement statement, UpdateOption... options) {
+    public ApiFuture<Long> executeUpdateAsync(Statement statement, UpdateOption... updateOptions) {
       beforeReadOrQuery();
+      Options options = Options.fromUpdateOptions(updateOptions);
+      inlineCommitPreProcess(options);
       final ExecuteSqlRequest.Builder builder =
           getExecuteSqlRequestBuilder(
               statement,
               QueryMode.NORMAL,
-              Options.fromUpdateOptions(options),
+              options,
               /* withTransactionSelector = */ true);
       final ApiFuture<com.google.spanner.v1.ResultSet> resultSet;
       try {
@@ -787,7 +814,7 @@ class TransactionRunnerImpl implements SessionTransaction, TransactionRunner {
                   throw SpannerExceptionFactory.newSpannerException(
                       ErrorCode.FAILED_PRECONDITION, NO_TRANSACTION_RETURNED_MSG);
                 }
-                updateCommitResponse(input.getCommitResponse());
+                inlineCommitPostProcess(input);
                 // For standard DML, using the exact row count.
                 return input.getStats().getRowCountExact();
               },

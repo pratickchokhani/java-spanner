@@ -547,7 +547,11 @@ abstract class AbstractReadContext
         statement, queryMode, queryOptions, null /*partitionToken*/);
   }
 
-  protected void updateCommitResponse(CommitResponse commitResponse) {
+  protected void inlineCommitPreProcess(Options options) {
+    throw new IllegalStateException("Read-only transaction cannot be committed.");
+  }
+
+  protected void inlineCommitPostProcess(com.google.spanner.v1.ResultSet resultSet) {
     throw new IllegalStateException("Read-only transaction cannot be committed.");
   }
 
