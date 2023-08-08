@@ -740,7 +740,7 @@ class TransactionRunnerImpl implements SessionTransaction, TransactionRunner {
         if (resultSet.hasCommitResponse() && resultSet.getCommitResponse().hasCommitTimestamp()) {
           this.commitResponse = new CommitResponse(resultSet.getCommitResponse());
         } else {
-          committing = true;
+          committing = false;
         }
       }
     }
@@ -755,7 +755,7 @@ class TransactionRunnerImpl implements SessionTransaction, TransactionRunner {
             && resultSet.getCommitResponse().hasCommitTimestamp()) {
           this.commitResponse = new CommitResponse(resultSet.getCommitResponse());
         } else {
-          committing = true;
+          committing = false;
         }
       }
     }
