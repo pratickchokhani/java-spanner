@@ -565,7 +565,6 @@ abstract class AbstractReadContext
     if (options.isAutocommitEnabled()) {
       throw new IllegalStateException("Read-only transaction cannot be committed.");
     }
-
   }
 
   /**
