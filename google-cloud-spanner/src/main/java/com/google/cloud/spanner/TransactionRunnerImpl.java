@@ -737,6 +737,8 @@ class TransactionRunnerImpl implements SessionTransaction, TransactionRunner {
         return;
       }
       synchronized (committingLock) {
+        System.out.println("ResultSet");
+        System.out.println(resultSet.getCommitResponse());
         if (resultSet.hasCommitResponse() && resultSet.getCommitResponse().hasCommitTimestamp()) {
           this.commitResponse = new CommitResponse(resultSet.getCommitResponse());
         } else {
@@ -751,6 +753,8 @@ class TransactionRunnerImpl implements SessionTransaction, TransactionRunner {
         return;
       }
       synchronized (committingLock) {
+        System.out.println("GrpcResultSet");
+        System.out.println(resultSet.getCommitResponse());
         if (resultSet.getCommitResponse() != null
             && resultSet.getCommitResponse().hasCommitTimestamp()) {
           this.commitResponse = new CommitResponse(resultSet.getCommitResponse());
