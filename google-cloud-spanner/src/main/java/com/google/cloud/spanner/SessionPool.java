@@ -779,8 +779,7 @@ class SessionPool {
 
     @Override
     public ResultSet executeQuery(Statement statement, QueryOption... options) {
-      return new SessionPoolResultSet(handler,
-          delegate.executeQuery(statement, options));
+      return new SessionPoolResultSet(handler, delegate.executeQuery(statement, options));
     }
 
     @Override

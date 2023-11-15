@@ -292,8 +292,7 @@ abstract class AbstractResultSet<R> extends AbstractStructReader implements Resu
       if (commitResponse == null) {
         if (!ensureReady(StreamValue.COMMIT_RESPONSE)) {
           throw newSpannerException(
-              ErrorCode.INTERNAL,
-              "Stream closed without sending commit response");
+              ErrorCode.INTERNAL, "Stream closed without sending commit response");
         }
       }
       return commitResponse;

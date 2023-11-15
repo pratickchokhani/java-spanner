@@ -520,8 +520,9 @@ class TransactionRunnerImpl implements SessionTransaction, TransactionRunner {
           }
           if (tx == null) {
             return TransactionSelector.newBuilder()
-                .setBegin(SessionImpl.createReadWriteTransactionOptions(options,
-                    session.fetchNextTransactionToken()))
+                .setBegin(
+                    SessionImpl.createReadWriteTransactionOptions(
+                        options, session.fetchNextTransactionToken()))
                 .build();
           } else {
             // Wait for the transaction to come available. The tx.get() call will fail with an
@@ -787,10 +788,7 @@ class TransactionRunnerImpl implements SessionTransaction, TransactionRunner {
       inlineCommitPreProcess(options);
       final ExecuteSqlRequest.Builder builder =
           getExecuteSqlRequestBuilder(
-              statement,
-              queryMode,
-              options,
-              /* withTransactionSelector = */ true);
+              statement, queryMode, options, /* withTransactionSelector = */ true);
       try {
         com.google.spanner.v1.ResultSet resultSet =
             rpc.executeQuery(builder.build(), session.getOptions(), isRouteToLeader());
@@ -818,10 +816,7 @@ class TransactionRunnerImpl implements SessionTransaction, TransactionRunner {
       inlineCommitPreProcess(options);
       final ExecuteSqlRequest.Builder builder =
           getExecuteSqlRequestBuilder(
-              statement,
-              QueryMode.NORMAL,
-              options,
-              /* withTransactionSelector = */ true);
+              statement, QueryMode.NORMAL, options, /* withTransactionSelector = */ true);
       final ApiFuture<com.google.spanner.v1.ResultSet> resultSet;
       try {
         // Register the update as an async operation that must finish before the transaction may

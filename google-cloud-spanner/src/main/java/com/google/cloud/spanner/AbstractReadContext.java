@@ -42,7 +42,6 @@ import com.google.common.base.Preconditions;
 import com.google.common.util.concurrent.MoreExecutors;
 import com.google.protobuf.ByteString;
 import com.google.spanner.v1.BeginTransactionRequest;
-import com.google.spanner.v1.CommitResponse;
 import com.google.spanner.v1.ExecuteBatchDmlRequest;
 import com.google.spanner.v1.ExecuteSqlRequest;
 import com.google.spanner.v1.ExecuteSqlRequest.QueryMode;
@@ -564,14 +563,13 @@ abstract class AbstractReadContext
   }
 
   protected void inlineCommitPostProcess(
-      Options options,
-      com.google.spanner.v1.ResultSet resultSet) {
+      Options options, com.google.spanner.v1.ResultSet resultSet) {
     if (options.isAutocommitEnabled()) {
       throw new IllegalStateException("Read-only transaction cannot be committed.");
     }
   }
 
-  protected void inlineCommitPostProcess(Options options,GrpcResultSet grpcResultSet) {
+  protected void inlineCommitPostProcess(Options options, GrpcResultSet grpcResultSet) {
     if (options.isAutocommitEnabled()) {
       throw new IllegalStateException("Read-only transaction cannot be committed.");
     }

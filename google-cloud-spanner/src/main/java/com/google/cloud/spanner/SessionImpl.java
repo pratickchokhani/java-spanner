@@ -73,8 +73,8 @@ class SessionImpl implements Session {
     }
   }
 
-  static TransactionOptions createReadWriteTransactionOptions(Options options,
-      Optional<ByteString> ntt) {
+  static TransactionOptions createReadWriteTransactionOptions(
+      Options options, Optional<ByteString> ntt) {
     TransactionOptions.ReadWrite.Builder readWrite = TransactionOptions.ReadWrite.newBuilder();
     if (options.withOptimisticLock() == Boolean.TRUE) {
       readWrite.setReadLockMode(TransactionOptions.ReadWrite.ReadLockMode.OPTIMISTIC);
@@ -256,8 +256,8 @@ class SessionImpl implements Session {
     nextTransactionTokenHandler.refreshTtl(currentTransactionId);
   }
 
-  public void setNextTransactionToken(NextTransactionToken nextTransactionToken,
-      ByteString issuerId) {
+  public void setNextTransactionToken(
+      NextTransactionToken nextTransactionToken, ByteString issuerId) {
     nextTransactionTokenHandler.setNtt(nextTransactionToken, issuerId);
   }
 
@@ -382,7 +382,7 @@ class SessionImpl implements Session {
         BeginTransactionRequest.newBuilder()
             .setSession(name)
             .setOptions(
-                createReadWriteTransactionOptions(transactionOptions,fetchNextTransactionToken()))
+                createReadWriteTransactionOptions(transactionOptions, fetchNextTransactionToken()))
             .build();
     final ApiFuture<Transaction> requestFuture =
         spanner.getRpc().beginTransactionAsync(request, options, routeToLeader);

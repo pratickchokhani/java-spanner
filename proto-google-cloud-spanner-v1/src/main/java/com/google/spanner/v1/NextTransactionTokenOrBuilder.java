@@ -27,10 +27,14 @@ public interface NextTransactionTokenOrBuilder
    *
    *
    * <pre>
-   * Token used to identify the transaction to be created next. Used in
-   * [BeginTransaction][google.spanner.v1.Spanner.BeginTransaction]
-   * [ExecuteSql][google.spanner.v1.Spanner.ExecuteSql] in case of inline begin
-   * [Commit][google.spanner.v1.Spanner.Commit] in case of single use transaction
+   * An opaque identifier representing the next transaction created in a
+   * session.`token` can be passed as the
+   * [TransactionOptions.ReadWrite.next_transaction_token] in an
+   * [ExecuteSql][google.spanner.v1.Spanner.ExecuteSql] request, allowing a
+   * transaction to be both started and committed in a single request when
+   * [ExecuteSql.autocommit][google.spanner.v1.Spanner.ExecuteSql.autocommit] is
+   * enabled. `token` should only be used before `ttl`. Using `token` post
+   * expiration may generate an error.
    * </pre>
    *
    * <code>bytes token = 1;</code>
@@ -43,15 +47,43 @@ public interface NextTransactionTokenOrBuilder
    *
    *
    * <pre>
-   * Token used to identify the transaction to be created next. Used in
-   * [BeginTransaction][google.spanner.v1.Spanner.BeginTransaction]
-   * [ExecuteSql][google.spanner.v1.Spanner.ExecuteSql] in case of inline begin
-   * [Commit][google.spanner.v1.Spanner.Commit] in case of single use transaction
+   * Time to live (TTL) of the `token` in milliseconds to be applied by client.
+   * `token` is only applicable for the duration specified in `ttl`. 'ttl' will
+   * start when the response in received. It can be refreshed on a successful
+   * commit.
    * </pre>
    *
-   * <code>int64 ttl_millis = 2;</code>
+   * <code>.google.protobuf.Duration ttl = 2;</code>
    *
-   * @return The ttlMillis.
+   * @return Whether the ttl field is set.
    */
-  long getTtlMillis();
+  boolean hasTtl();
+  /**
+   *
+   *
+   * <pre>
+   * Time to live (TTL) of the `token` in milliseconds to be applied by client.
+   * `token` is only applicable for the duration specified in `ttl`. 'ttl' will
+   * start when the response in received. It can be refreshed on a successful
+   * commit.
+   * </pre>
+   *
+   * <code>.google.protobuf.Duration ttl = 2;</code>
+   *
+   * @return The ttl.
+   */
+  com.google.protobuf.Duration getTtl();
+  /**
+   *
+   *
+   * <pre>
+   * Time to live (TTL) of the `token` in milliseconds to be applied by client.
+   * `token` is only applicable for the duration specified in `ttl`. 'ttl' will
+   * start when the response in received. It can be refreshed on a successful
+   * commit.
+   * </pre>
+   *
+   * <code>.google.protobuf.Duration ttl = 2;</code>
+   */
+  com.google.protobuf.DurationOrBuilder getTtlOrBuilder();
 }

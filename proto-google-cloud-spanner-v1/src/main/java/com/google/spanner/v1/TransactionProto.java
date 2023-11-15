@@ -67,40 +67,42 @@ public final class TransactionProto {
       "\n#google/spanner/v1/transaction.proto\022\021g"
           + "oogle.spanner.v1\032\036google/protobuf/durati"
           + "on.proto\032\037google/protobuf/timestamp.prot"
-          + "o\"\213\006\n\022TransactionOptions\022E\n\nread_write\030\001"
+          + "o\"\262\006\n\022TransactionOptions\022E\n\nread_write\030\001"
           + " \001(\0132/.google.spanner.v1.TransactionOpti"
           + "ons.ReadWriteH\000\022O\n\017partitioned_dml\030\003 \001(\013"
           + "24.google.spanner.v1.TransactionOptions."
           + "PartitionedDmlH\000\022C\n\tread_only\030\002 \001(\0132..go"
           + "ogle.spanner.v1.TransactionOptions.ReadO"
-          + "nlyH\000\032\322\001\n\tReadWrite\022T\n\016read_lock_mode\030\001 "
-          + "\001(\0162<.google.spanner.v1.TransactionOptio"
-          + "ns.ReadWrite.ReadLockMode\022\036\n\026next_transa"
-          + "ction_token\030\002 \001(\014\"O\n\014ReadLockMode\022\036\n\032REA"
-          + "D_LOCK_MODE_UNSPECIFIED\020\000\022\017\n\013PESSIMISTIC"
-          + "\020\001\022\016\n\nOPTIMISTIC\020\002\032\020\n\016PartitionedDml\032\250\002\n"
-          + "\010ReadOnly\022\020\n\006strong\030\001 \001(\010H\000\0228\n\022min_read_"
-          + "timestamp\030\002 \001(\0132\032.google.protobuf.Timest"
-          + "ampH\000\0222\n\rmax_staleness\030\003 \001(\0132\031.google.pr"
-          + "otobuf.DurationH\000\0224\n\016read_timestamp\030\004 \001("
-          + "\0132\032.google.protobuf.TimestampH\000\0224\n\017exact"
-          + "_staleness\030\005 \001(\0132\031.google.protobuf.Durat"
-          + "ionH\000\022\035\n\025return_read_timestamp\030\006 \001(\010B\021\n\017"
-          + "timestamp_boundB\006\n\004mode\"9\n\024NextTransacti"
-          + "onToken\022\r\n\005token\030\001 \001(\014\022\022\n\nttl_millis\030\002 \001"
-          + "(\003\"\226\001\n\013Transaction\022\n\n\002id\030\001 \001(\014\0222\n\016read_t"
+          + "nlyH\000\022%\n\035return_next_transaction_token\030\004"
+          + " \001(\010\032\322\001\n\tReadWrite\022T\n\016read_lock_mode\030\001 \001"
+          + "(\0162<.google.spanner.v1.TransactionOption"
+          + "s.ReadWrite.ReadLockMode\022\036\n\026next_transac"
+          + "tion_token\030\002 \001(\014\"O\n\014ReadLockMode\022\036\n\032READ"
+          + "_LOCK_MODE_UNSPECIFIED\020\000\022\017\n\013PESSIMISTIC\020"
+          + "\001\022\016\n\nOPTIMISTIC\020\002\032\020\n\016PartitionedDml\032\250\002\n\010"
+          + "ReadOnly\022\020\n\006strong\030\001 \001(\010H\000\0228\n\022min_read_t"
           + "imestamp\030\002 \001(\0132\032.google.protobuf.Timesta"
-          + "mp\022G\n\026next_transaction_token\030\003 \001(\0132\'.goo"
-          + "gle.spanner.v1.NextTransactionToken\"\244\001\n\023"
-          + "TransactionSelector\022;\n\nsingle_use\030\001 \001(\0132"
-          + "%.google.spanner.v1.TransactionOptionsH\000"
-          + "\022\014\n\002id\030\002 \001(\014H\000\0226\n\005begin\030\003 \001(\0132%.google.s"
-          + "panner.v1.TransactionOptionsH\000B\n\n\010select"
-          + "orB\263\001\n\025com.google.spanner.v1B\020Transactio"
-          + "nProtoP\001Z5cloud.google.com/go/spanner/ap"
-          + "iv1/spannerpb;spannerpb\252\002\027Google.Cloud.S"
-          + "panner.V1\312\002\027Google\\Cloud\\Spanner\\V1\352\002\032Go"
-          + "ogle::Cloud::Spanner::V1b\006proto3"
+          + "mpH\000\0222\n\rmax_staleness\030\003 \001(\0132\031.google.pro"
+          + "tobuf.DurationH\000\0224\n\016read_timestamp\030\004 \001(\013"
+          + "2\032.google.protobuf.TimestampH\000\0224\n\017exact_"
+          + "staleness\030\005 \001(\0132\031.google.protobuf.Durati"
+          + "onH\000\022\035\n\025return_read_timestamp\030\006 \001(\010B\021\n\017t"
+          + "imestamp_boundB\006\n\004mode\"M\n\024NextTransactio"
+          + "nToken\022\r\n\005token\030\001 \001(\014\022&\n\003ttl\030\002 \001(\0132\031.goo"
+          + "gle.protobuf.Duration\"\226\001\n\013Transaction\022\n\n"
+          + "\002id\030\001 \001(\014\0222\n\016read_timestamp\030\002 \001(\0132\032.goog"
+          + "le.protobuf.Timestamp\022G\n\026next_transactio"
+          + "n_token\030\003 \001(\0132\'.google.spanner.v1.NextTr"
+          + "ansactionToken\"\244\001\n\023TransactionSelector\022;"
+          + "\n\nsingle_use\030\001 \001(\0132%.google.spanner.v1.T"
+          + "ransactionOptionsH\000\022\014\n\002id\030\002 \001(\014H\000\0226\n\005beg"
+          + "in\030\003 \001(\0132%.google.spanner.v1.Transaction"
+          + "OptionsH\000B\n\n\010selectorB\263\001\n\025com.google.spa"
+          + "nner.v1B\020TransactionProtoP\001Z5cloud.googl"
+          + "e.com/go/spanner/apiv1/spannerpb;spanner"
+          + "pb\252\002\027Google.Cloud.Spanner.V1\312\002\027Google\\Cl"
+          + "oud\\Spanner\\V1\352\002\032Google::Cloud::Spanner:"
+          + ":V1b\006proto3"
     };
     descriptor =
         com.google.protobuf.Descriptors.FileDescriptor.internalBuildGeneratedFileFrom(
@@ -115,7 +117,7 @@ public final class TransactionProto {
         new com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
             internal_static_google_spanner_v1_TransactionOptions_descriptor,
             new java.lang.String[] {
-              "ReadWrite", "PartitionedDml", "ReadOnly", "Mode",
+              "ReadWrite", "PartitionedDml", "ReadOnly", "ReturnNextTransactionToken", "Mode",
             });
     internal_static_google_spanner_v1_TransactionOptions_ReadWrite_descriptor =
         internal_static_google_spanner_v1_TransactionOptions_descriptor.getNestedTypes().get(0);
@@ -151,7 +153,7 @@ public final class TransactionProto {
         new com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
             internal_static_google_spanner_v1_NextTransactionToken_descriptor,
             new java.lang.String[] {
-              "Token", "TtlMillis",
+              "Token", "Ttl",
             });
     internal_static_google_spanner_v1_Transaction_descriptor =
         getDescriptor().getMessageTypes().get(2);

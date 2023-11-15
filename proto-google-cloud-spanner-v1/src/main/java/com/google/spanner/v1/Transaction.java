@@ -158,10 +158,17 @@ public final class Transaction extends com.google.protobuf.GeneratedMessageV3
    *
    *
    * <pre>
-   * Token used to identify the transaction to be created next. Used in
-   * [BeginTransaction][google.spanner.v1.Spanner.BeginTransaction]
-   * [ExecuteSql][google.spanner.v1.Spanner.ExecuteSql] in case of inline begin
-   * [Commit][google.spanner.v1.Spanner.Commit] in case of single use transaction
+   * The next transaction token and its TTL in milliseconds. A next transaction
+   * token will be returned in response to APIs that create a transaction.
+   * When a request such as
+   * [ExecuteSql][google.spanner.v1.Spanner.ExecuteSql] both starts and commits
+   * a transaction, the next transaction token should be passed in
+   * [TransactionOptions][ReadWrite.next_transaction_token][].
+   * `next_transaction_token` is only applicable for the duration specified in
+   * the [ttl][NextTransactionToken.ttl]. Using
+   * `next_transaction_token` post expiration may result in an error response.
+   * Not returned by default: see
+   * [TransactionOptions.return_next_transaction_token][].
    * </pre>
    *
    * <code>.google.spanner.v1.NextTransactionToken next_transaction_token = 3;</code>
@@ -176,10 +183,17 @@ public final class Transaction extends com.google.protobuf.GeneratedMessageV3
    *
    *
    * <pre>
-   * Token used to identify the transaction to be created next. Used in
-   * [BeginTransaction][google.spanner.v1.Spanner.BeginTransaction]
-   * [ExecuteSql][google.spanner.v1.Spanner.ExecuteSql] in case of inline begin
-   * [Commit][google.spanner.v1.Spanner.Commit] in case of single use transaction
+   * The next transaction token and its TTL in milliseconds. A next transaction
+   * token will be returned in response to APIs that create a transaction.
+   * When a request such as
+   * [ExecuteSql][google.spanner.v1.Spanner.ExecuteSql] both starts and commits
+   * a transaction, the next transaction token should be passed in
+   * [TransactionOptions][ReadWrite.next_transaction_token][].
+   * `next_transaction_token` is only applicable for the duration specified in
+   * the [ttl][NextTransactionToken.ttl]. Using
+   * `next_transaction_token` post expiration may result in an error response.
+   * Not returned by default: see
+   * [TransactionOptions.return_next_transaction_token][].
    * </pre>
    *
    * <code>.google.spanner.v1.NextTransactionToken next_transaction_token = 3;</code>
@@ -196,10 +210,17 @@ public final class Transaction extends com.google.protobuf.GeneratedMessageV3
    *
    *
    * <pre>
-   * Token used to identify the transaction to be created next. Used in
-   * [BeginTransaction][google.spanner.v1.Spanner.BeginTransaction]
-   * [ExecuteSql][google.spanner.v1.Spanner.ExecuteSql] in case of inline begin
-   * [Commit][google.spanner.v1.Spanner.Commit] in case of single use transaction
+   * The next transaction token and its TTL in milliseconds. A next transaction
+   * token will be returned in response to APIs that create a transaction.
+   * When a request such as
+   * [ExecuteSql][google.spanner.v1.Spanner.ExecuteSql] both starts and commits
+   * a transaction, the next transaction token should be passed in
+   * [TransactionOptions][ReadWrite.next_transaction_token][].
+   * `next_transaction_token` is only applicable for the duration specified in
+   * the [ttl][NextTransactionToken.ttl]. Using
+   * `next_transaction_token` post expiration may result in an error response.
+   * Not returned by default: see
+   * [TransactionOptions.return_next_transaction_token][].
    * </pre>
    *
    * <code>.google.spanner.v1.NextTransactionToken next_transaction_token = 3;</code>
@@ -929,10 +950,17 @@ public final class Transaction extends com.google.protobuf.GeneratedMessageV3
      *
      *
      * <pre>
-     * Token used to identify the transaction to be created next. Used in
-     * [BeginTransaction][google.spanner.v1.Spanner.BeginTransaction]
-     * [ExecuteSql][google.spanner.v1.Spanner.ExecuteSql] in case of inline begin
-     * [Commit][google.spanner.v1.Spanner.Commit] in case of single use transaction
+     * The next transaction token and its TTL in milliseconds. A next transaction
+     * token will be returned in response to APIs that create a transaction.
+     * When a request such as
+     * [ExecuteSql][google.spanner.v1.Spanner.ExecuteSql] both starts and commits
+     * a transaction, the next transaction token should be passed in
+     * [TransactionOptions][ReadWrite.next_transaction_token][].
+     * `next_transaction_token` is only applicable for the duration specified in
+     * the [ttl][NextTransactionToken.ttl]. Using
+     * `next_transaction_token` post expiration may result in an error response.
+     * Not returned by default: see
+     * [TransactionOptions.return_next_transaction_token][].
      * </pre>
      *
      * <code>.google.spanner.v1.NextTransactionToken next_transaction_token = 3;</code>
@@ -946,10 +974,17 @@ public final class Transaction extends com.google.protobuf.GeneratedMessageV3
      *
      *
      * <pre>
-     * Token used to identify the transaction to be created next. Used in
-     * [BeginTransaction][google.spanner.v1.Spanner.BeginTransaction]
-     * [ExecuteSql][google.spanner.v1.Spanner.ExecuteSql] in case of inline begin
-     * [Commit][google.spanner.v1.Spanner.Commit] in case of single use transaction
+     * The next transaction token and its TTL in milliseconds. A next transaction
+     * token will be returned in response to APIs that create a transaction.
+     * When a request such as
+     * [ExecuteSql][google.spanner.v1.Spanner.ExecuteSql] both starts and commits
+     * a transaction, the next transaction token should be passed in
+     * [TransactionOptions][ReadWrite.next_transaction_token][].
+     * `next_transaction_token` is only applicable for the duration specified in
+     * the [ttl][NextTransactionToken.ttl]. Using
+     * `next_transaction_token` post expiration may result in an error response.
+     * Not returned by default: see
+     * [TransactionOptions.return_next_transaction_token][].
      * </pre>
      *
      * <code>.google.spanner.v1.NextTransactionToken next_transaction_token = 3;</code>
@@ -969,10 +1004,17 @@ public final class Transaction extends com.google.protobuf.GeneratedMessageV3
      *
      *
      * <pre>
-     * Token used to identify the transaction to be created next. Used in
-     * [BeginTransaction][google.spanner.v1.Spanner.BeginTransaction]
-     * [ExecuteSql][google.spanner.v1.Spanner.ExecuteSql] in case of inline begin
-     * [Commit][google.spanner.v1.Spanner.Commit] in case of single use transaction
+     * The next transaction token and its TTL in milliseconds. A next transaction
+     * token will be returned in response to APIs that create a transaction.
+     * When a request such as
+     * [ExecuteSql][google.spanner.v1.Spanner.ExecuteSql] both starts and commits
+     * a transaction, the next transaction token should be passed in
+     * [TransactionOptions][ReadWrite.next_transaction_token][].
+     * `next_transaction_token` is only applicable for the duration specified in
+     * the [ttl][NextTransactionToken.ttl]. Using
+     * `next_transaction_token` post expiration may result in an error response.
+     * Not returned by default: see
+     * [TransactionOptions.return_next_transaction_token][].
      * </pre>
      *
      * <code>.google.spanner.v1.NextTransactionToken next_transaction_token = 3;</code>
@@ -994,10 +1036,17 @@ public final class Transaction extends com.google.protobuf.GeneratedMessageV3
      *
      *
      * <pre>
-     * Token used to identify the transaction to be created next. Used in
-     * [BeginTransaction][google.spanner.v1.Spanner.BeginTransaction]
-     * [ExecuteSql][google.spanner.v1.Spanner.ExecuteSql] in case of inline begin
-     * [Commit][google.spanner.v1.Spanner.Commit] in case of single use transaction
+     * The next transaction token and its TTL in milliseconds. A next transaction
+     * token will be returned in response to APIs that create a transaction.
+     * When a request such as
+     * [ExecuteSql][google.spanner.v1.Spanner.ExecuteSql] both starts and commits
+     * a transaction, the next transaction token should be passed in
+     * [TransactionOptions][ReadWrite.next_transaction_token][].
+     * `next_transaction_token` is only applicable for the duration specified in
+     * the [ttl][NextTransactionToken.ttl]. Using
+     * `next_transaction_token` post expiration may result in an error response.
+     * Not returned by default: see
+     * [TransactionOptions.return_next_transaction_token][].
      * </pre>
      *
      * <code>.google.spanner.v1.NextTransactionToken next_transaction_token = 3;</code>
@@ -1017,10 +1066,17 @@ public final class Transaction extends com.google.protobuf.GeneratedMessageV3
      *
      *
      * <pre>
-     * Token used to identify the transaction to be created next. Used in
-     * [BeginTransaction][google.spanner.v1.Spanner.BeginTransaction]
-     * [ExecuteSql][google.spanner.v1.Spanner.ExecuteSql] in case of inline begin
-     * [Commit][google.spanner.v1.Spanner.Commit] in case of single use transaction
+     * The next transaction token and its TTL in milliseconds. A next transaction
+     * token will be returned in response to APIs that create a transaction.
+     * When a request such as
+     * [ExecuteSql][google.spanner.v1.Spanner.ExecuteSql] both starts and commits
+     * a transaction, the next transaction token should be passed in
+     * [TransactionOptions][ReadWrite.next_transaction_token][].
+     * `next_transaction_token` is only applicable for the duration specified in
+     * the [ttl][NextTransactionToken.ttl]. Using
+     * `next_transaction_token` post expiration may result in an error response.
+     * Not returned by default: see
+     * [TransactionOptions.return_next_transaction_token][].
      * </pre>
      *
      * <code>.google.spanner.v1.NextTransactionToken next_transaction_token = 3;</code>
@@ -1046,10 +1102,17 @@ public final class Transaction extends com.google.protobuf.GeneratedMessageV3
      *
      *
      * <pre>
-     * Token used to identify the transaction to be created next. Used in
-     * [BeginTransaction][google.spanner.v1.Spanner.BeginTransaction]
-     * [ExecuteSql][google.spanner.v1.Spanner.ExecuteSql] in case of inline begin
-     * [Commit][google.spanner.v1.Spanner.Commit] in case of single use transaction
+     * The next transaction token and its TTL in milliseconds. A next transaction
+     * token will be returned in response to APIs that create a transaction.
+     * When a request such as
+     * [ExecuteSql][google.spanner.v1.Spanner.ExecuteSql] both starts and commits
+     * a transaction, the next transaction token should be passed in
+     * [TransactionOptions][ReadWrite.next_transaction_token][].
+     * `next_transaction_token` is only applicable for the duration specified in
+     * the [ttl][NextTransactionToken.ttl]. Using
+     * `next_transaction_token` post expiration may result in an error response.
+     * Not returned by default: see
+     * [TransactionOptions.return_next_transaction_token][].
      * </pre>
      *
      * <code>.google.spanner.v1.NextTransactionToken next_transaction_token = 3;</code>
@@ -1068,10 +1131,17 @@ public final class Transaction extends com.google.protobuf.GeneratedMessageV3
      *
      *
      * <pre>
-     * Token used to identify the transaction to be created next. Used in
-     * [BeginTransaction][google.spanner.v1.Spanner.BeginTransaction]
-     * [ExecuteSql][google.spanner.v1.Spanner.ExecuteSql] in case of inline begin
-     * [Commit][google.spanner.v1.Spanner.Commit] in case of single use transaction
+     * The next transaction token and its TTL in milliseconds. A next transaction
+     * token will be returned in response to APIs that create a transaction.
+     * When a request such as
+     * [ExecuteSql][google.spanner.v1.Spanner.ExecuteSql] both starts and commits
+     * a transaction, the next transaction token should be passed in
+     * [TransactionOptions][ReadWrite.next_transaction_token][].
+     * `next_transaction_token` is only applicable for the duration specified in
+     * the [ttl][NextTransactionToken.ttl]. Using
+     * `next_transaction_token` post expiration may result in an error response.
+     * Not returned by default: see
+     * [TransactionOptions.return_next_transaction_token][].
      * </pre>
      *
      * <code>.google.spanner.v1.NextTransactionToken next_transaction_token = 3;</code>
@@ -1085,10 +1155,17 @@ public final class Transaction extends com.google.protobuf.GeneratedMessageV3
      *
      *
      * <pre>
-     * Token used to identify the transaction to be created next. Used in
-     * [BeginTransaction][google.spanner.v1.Spanner.BeginTransaction]
-     * [ExecuteSql][google.spanner.v1.Spanner.ExecuteSql] in case of inline begin
-     * [Commit][google.spanner.v1.Spanner.Commit] in case of single use transaction
+     * The next transaction token and its TTL in milliseconds. A next transaction
+     * token will be returned in response to APIs that create a transaction.
+     * When a request such as
+     * [ExecuteSql][google.spanner.v1.Spanner.ExecuteSql] both starts and commits
+     * a transaction, the next transaction token should be passed in
+     * [TransactionOptions][ReadWrite.next_transaction_token][].
+     * `next_transaction_token` is only applicable for the duration specified in
+     * the [ttl][NextTransactionToken.ttl]. Using
+     * `next_transaction_token` post expiration may result in an error response.
+     * Not returned by default: see
+     * [TransactionOptions.return_next_transaction_token][].
      * </pre>
      *
      * <code>.google.spanner.v1.NextTransactionToken next_transaction_token = 3;</code>
@@ -1106,10 +1183,17 @@ public final class Transaction extends com.google.protobuf.GeneratedMessageV3
      *
      *
      * <pre>
-     * Token used to identify the transaction to be created next. Used in
-     * [BeginTransaction][google.spanner.v1.Spanner.BeginTransaction]
-     * [ExecuteSql][google.spanner.v1.Spanner.ExecuteSql] in case of inline begin
-     * [Commit][google.spanner.v1.Spanner.Commit] in case of single use transaction
+     * The next transaction token and its TTL in milliseconds. A next transaction
+     * token will be returned in response to APIs that create a transaction.
+     * When a request such as
+     * [ExecuteSql][google.spanner.v1.Spanner.ExecuteSql] both starts and commits
+     * a transaction, the next transaction token should be passed in
+     * [TransactionOptions][ReadWrite.next_transaction_token][].
+     * `next_transaction_token` is only applicable for the duration specified in
+     * the [ttl][NextTransactionToken.ttl]. Using
+     * `next_transaction_token` post expiration may result in an error response.
+     * Not returned by default: see
+     * [TransactionOptions.return_next_transaction_token][].
      * </pre>
      *
      * <code>.google.spanner.v1.NextTransactionToken next_transaction_token = 3;</code>

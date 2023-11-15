@@ -164,5 +164,19 @@ public interface TransactionOptionsOrBuilder
    */
   com.google.spanner.v1.TransactionOptions.ReadOnlyOrBuilder getReadOnlyOrBuilder();
 
+  /**
+   *
+   *
+   * <pre>
+   * If true, the Cloud Spanner will include `next_transaction_token` in the
+   * [Transaction][] message that identifies the subsequent transaction.
+   * </pre>
+   *
+   * <code>bool return_next_transaction_token = 4;</code>
+   *
+   * @return The returnNextTransactionToken.
+   */
+  boolean getReturnNextTransactionToken();
+
   com.google.spanner.v1.TransactionOptions.ModeCase getModeCase();
 }

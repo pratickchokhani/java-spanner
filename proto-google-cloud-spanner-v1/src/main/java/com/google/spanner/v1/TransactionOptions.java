@@ -417,8 +417,12 @@ public final class TransactionOptions extends com.google.protobuf.GeneratedMessa
      *
      *
      * <pre>
-     * Identity of the transaction to be created. Applicable only for begin or
-     * inline begin requests. All subsequent requests should use `id`
+     * An opaque identifier representing the next transaction created in a
+     * session. Applicable only for APIs that start a read-write transaction via
+     * [TransactionSelector.begin]: [Read][Spanner.Read],
+     * [StreamingRead][Spanner.StreamingRead], [ExecuteSql][Spanner.ExecuteSql],
+     * and [ExecuteStreamingSql][Spanner.ExecuteStreamingSql]. All subsequent
+     * requests should use [Transaction][id].
      * </pre>
      *
      * <code>bytes next_transaction_token = 2;</code>
@@ -693,8 +697,12 @@ public final class TransactionOptions extends com.google.protobuf.GeneratedMessa
      *
      *
      * <pre>
-     * Identity of the transaction to be created. Applicable only for begin or
-     * inline begin requests. All subsequent requests should use `id`
+     * An opaque identifier representing the next transaction created in a
+     * session. Applicable only for APIs that start a read-write transaction via
+     * [TransactionSelector.begin]: [Read][Spanner.Read],
+     * [StreamingRead][Spanner.StreamingRead], [ExecuteSql][Spanner.ExecuteSql],
+     * and [ExecuteStreamingSql][Spanner.ExecuteStreamingSql]. All subsequent
+     * requests should use [Transaction][id].
      * </pre>
      *
      * <code>bytes next_transaction_token = 2;</code>
@@ -1184,8 +1192,12 @@ public final class TransactionOptions extends com.google.protobuf.GeneratedMessa
        *
        *
        * <pre>
-       * Identity of the transaction to be created. Applicable only for begin or
-       * inline begin requests. All subsequent requests should use `id`
+       * An opaque identifier representing the next transaction created in a
+       * session. Applicable only for APIs that start a read-write transaction via
+       * [TransactionSelector.begin]: [Read][Spanner.Read],
+       * [StreamingRead][Spanner.StreamingRead], [ExecuteSql][Spanner.ExecuteSql],
+       * and [ExecuteStreamingSql][Spanner.ExecuteStreamingSql]. All subsequent
+       * requests should use [Transaction][id].
        * </pre>
        *
        * <code>bytes next_transaction_token = 2;</code>
@@ -1200,8 +1212,12 @@ public final class TransactionOptions extends com.google.protobuf.GeneratedMessa
        *
        *
        * <pre>
-       * Identity of the transaction to be created. Applicable only for begin or
-       * inline begin requests. All subsequent requests should use `id`
+       * An opaque identifier representing the next transaction created in a
+       * session. Applicable only for APIs that start a read-write transaction via
+       * [TransactionSelector.begin]: [Read][Spanner.Read],
+       * [StreamingRead][Spanner.StreamingRead], [ExecuteSql][Spanner.ExecuteSql],
+       * and [ExecuteStreamingSql][Spanner.ExecuteStreamingSql]. All subsequent
+       * requests should use [Transaction][id].
        * </pre>
        *
        * <code>bytes next_transaction_token = 2;</code>
@@ -1222,8 +1238,12 @@ public final class TransactionOptions extends com.google.protobuf.GeneratedMessa
        *
        *
        * <pre>
-       * Identity of the transaction to be created. Applicable only for begin or
-       * inline begin requests. All subsequent requests should use `id`
+       * An opaque identifier representing the next transaction created in a
+       * session. Applicable only for APIs that start a read-write transaction via
+       * [TransactionSelector.begin]: [Read][Spanner.Read],
+       * [StreamingRead][Spanner.StreamingRead], [ExecuteSql][Spanner.ExecuteSql],
+       * and [ExecuteStreamingSql][Spanner.ExecuteStreamingSql]. All subsequent
+       * requests should use [Transaction][id].
        * </pre>
        *
        * <code>bytes next_transaction_token = 2;</code>
@@ -4712,6 +4732,25 @@ public final class TransactionOptions extends com.google.protobuf.GeneratedMessa
     return com.google.spanner.v1.TransactionOptions.ReadOnly.getDefaultInstance();
   }
 
+  public static final int RETURN_NEXT_TRANSACTION_TOKEN_FIELD_NUMBER = 4;
+  private boolean returnNextTransactionToken_ = false;
+  /**
+   *
+   *
+   * <pre>
+   * If true, the Cloud Spanner will include `next_transaction_token` in the
+   * [Transaction][] message that identifies the subsequent transaction.
+   * </pre>
+   *
+   * <code>bool return_next_transaction_token = 4;</code>
+   *
+   * @return The returnNextTransactionToken.
+   */
+  @java.lang.Override
+  public boolean getReturnNextTransactionToken() {
+    return returnNextTransactionToken_;
+  }
+
   private byte memoizedIsInitialized = -1;
 
   @java.lang.Override
@@ -4734,6 +4773,9 @@ public final class TransactionOptions extends com.google.protobuf.GeneratedMessa
     }
     if (modeCase_ == 3) {
       output.writeMessage(3, (com.google.spanner.v1.TransactionOptions.PartitionedDml) mode_);
+    }
+    if (returnNextTransactionToken_ != false) {
+      output.writeBool(4, returnNextTransactionToken_);
     }
     getUnknownFields().writeTo(output);
   }
@@ -4759,6 +4801,9 @@ public final class TransactionOptions extends com.google.protobuf.GeneratedMessa
           com.google.protobuf.CodedOutputStream.computeMessageSize(
               3, (com.google.spanner.v1.TransactionOptions.PartitionedDml) mode_);
     }
+    if (returnNextTransactionToken_ != false) {
+      size += com.google.protobuf.CodedOutputStream.computeBoolSize(4, returnNextTransactionToken_);
+    }
     size += getUnknownFields().getSerializedSize();
     memoizedSize = size;
     return size;
@@ -4774,6 +4819,7 @@ public final class TransactionOptions extends com.google.protobuf.GeneratedMessa
     }
     com.google.spanner.v1.TransactionOptions other = (com.google.spanner.v1.TransactionOptions) obj;
 
+    if (getReturnNextTransactionToken() != other.getReturnNextTransactionToken()) return false;
     if (!getModeCase().equals(other.getModeCase())) return false;
     switch (modeCase_) {
       case 1:
@@ -4799,6 +4845,8 @@ public final class TransactionOptions extends com.google.protobuf.GeneratedMessa
     }
     int hash = 41;
     hash = (19 * hash) + getDescriptor().hashCode();
+    hash = (37 * hash) + RETURN_NEXT_TRANSACTION_TOKEN_FIELD_NUMBER;
+    hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(getReturnNextTransactionToken());
     switch (modeCase_) {
       case 1:
         hash = (37 * hash) + READ_WRITE_FIELD_NUMBER;
@@ -5286,6 +5334,7 @@ public final class TransactionOptions extends com.google.protobuf.GeneratedMessa
       if (readOnlyBuilder_ != null) {
         readOnlyBuilder_.clear();
       }
+      returnNextTransactionToken_ = false;
       modeCase_ = 0;
       mode_ = null;
       return this;
@@ -5325,6 +5374,9 @@ public final class TransactionOptions extends com.google.protobuf.GeneratedMessa
 
     private void buildPartial0(com.google.spanner.v1.TransactionOptions result) {
       int from_bitField0_ = bitField0_;
+      if (((from_bitField0_ & 0x00000008) != 0)) {
+        result.returnNextTransactionToken_ = returnNextTransactionToken_;
+      }
     }
 
     private void buildPartialOneofs(com.google.spanner.v1.TransactionOptions result) {
@@ -5386,6 +5438,9 @@ public final class TransactionOptions extends com.google.protobuf.GeneratedMessa
 
     public Builder mergeFrom(com.google.spanner.v1.TransactionOptions other) {
       if (other == com.google.spanner.v1.TransactionOptions.getDefaultInstance()) return this;
+      if (other.getReturnNextTransactionToken() != false) {
+        setReturnNextTransactionToken(other.getReturnNextTransactionToken());
+      }
       switch (other.getModeCase()) {
         case READ_WRITE:
           {
@@ -5451,6 +5506,12 @@ public final class TransactionOptions extends com.google.protobuf.GeneratedMessa
                 modeCase_ = 3;
                 break;
               } // case 26
+            case 32:
+              {
+                returnNextTransactionToken_ = input.readBool();
+                bitField0_ |= 0x00000008;
+                break;
+              } // case 32
             default:
               {
                 if (!super.parseUnknownField(input, extensionRegistry, tag)) {
@@ -6222,6 +6283,62 @@ public final class TransactionOptions extends com.google.protobuf.GeneratedMessa
       modeCase_ = 2;
       onChanged();
       return readOnlyBuilder_;
+    }
+
+    private boolean returnNextTransactionToken_;
+    /**
+     *
+     *
+     * <pre>
+     * If true, the Cloud Spanner will include `next_transaction_token` in the
+     * [Transaction][] message that identifies the subsequent transaction.
+     * </pre>
+     *
+     * <code>bool return_next_transaction_token = 4;</code>
+     *
+     * @return The returnNextTransactionToken.
+     */
+    @java.lang.Override
+    public boolean getReturnNextTransactionToken() {
+      return returnNextTransactionToken_;
+    }
+    /**
+     *
+     *
+     * <pre>
+     * If true, the Cloud Spanner will include `next_transaction_token` in the
+     * [Transaction][] message that identifies the subsequent transaction.
+     * </pre>
+     *
+     * <code>bool return_next_transaction_token = 4;</code>
+     *
+     * @param value The returnNextTransactionToken to set.
+     * @return This builder for chaining.
+     */
+    public Builder setReturnNextTransactionToken(boolean value) {
+
+      returnNextTransactionToken_ = value;
+      bitField0_ |= 0x00000008;
+      onChanged();
+      return this;
+    }
+    /**
+     *
+     *
+     * <pre>
+     * If true, the Cloud Spanner will include `next_transaction_token` in the
+     * [Transaction][] message that identifies the subsequent transaction.
+     * </pre>
+     *
+     * <code>bool return_next_transaction_token = 4;</code>
+     *
+     * @return This builder for chaining.
+     */
+    public Builder clearReturnNextTransactionToken() {
+      bitField0_ = (bitField0_ & ~0x00000008);
+      returnNextTransactionToken_ = false;
+      onChanged();
+      return this;
     }
 
     @java.lang.Override

@@ -22,7 +22,7 @@ package com.google.spanner.v1;
  *
  *
  * <pre>
- * Next transaction token and TTL applied on the token.
+ * Next transaction token and the TTL that should be applied to the token.
  * </pre>
  *
  * Protobuf type {@code google.spanner.v1.NextTransactionToken}
@@ -68,10 +68,14 @@ public final class NextTransactionToken extends com.google.protobuf.GeneratedMes
    *
    *
    * <pre>
-   * Token used to identify the transaction to be created next. Used in
-   * [BeginTransaction][google.spanner.v1.Spanner.BeginTransaction]
-   * [ExecuteSql][google.spanner.v1.Spanner.ExecuteSql] in case of inline begin
-   * [Commit][google.spanner.v1.Spanner.Commit] in case of single use transaction
+   * An opaque identifier representing the next transaction created in a
+   * session.`token` can be passed as the
+   * [TransactionOptions.ReadWrite.next_transaction_token] in an
+   * [ExecuteSql][google.spanner.v1.Spanner.ExecuteSql] request, allowing a
+   * transaction to be both started and committed in a single request when
+   * [ExecuteSql.autocommit][google.spanner.v1.Spanner.ExecuteSql.autocommit] is
+   * enabled. `token` should only be used before `ttl`. Using `token` post
+   * expiration may generate an error.
    * </pre>
    *
    * <code>bytes token = 1;</code>
@@ -83,25 +87,59 @@ public final class NextTransactionToken extends com.google.protobuf.GeneratedMes
     return token_;
   }
 
-  public static final int TTL_MILLIS_FIELD_NUMBER = 2;
-  private long ttlMillis_ = 0L;
+  public static final int TTL_FIELD_NUMBER = 2;
+  private com.google.protobuf.Duration ttl_;
   /**
    *
    *
    * <pre>
-   * Token used to identify the transaction to be created next. Used in
-   * [BeginTransaction][google.spanner.v1.Spanner.BeginTransaction]
-   * [ExecuteSql][google.spanner.v1.Spanner.ExecuteSql] in case of inline begin
-   * [Commit][google.spanner.v1.Spanner.Commit] in case of single use transaction
+   * Time to live (TTL) of the `token` in milliseconds to be applied by client.
+   * `token` is only applicable for the duration specified in `ttl`. 'ttl' will
+   * start when the response in received. It can be refreshed on a successful
+   * commit.
    * </pre>
    *
-   * <code>int64 ttl_millis = 2;</code>
+   * <code>.google.protobuf.Duration ttl = 2;</code>
    *
-   * @return The ttlMillis.
+   * @return Whether the ttl field is set.
    */
   @java.lang.Override
-  public long getTtlMillis() {
-    return ttlMillis_;
+  public boolean hasTtl() {
+    return ttl_ != null;
+  }
+  /**
+   *
+   *
+   * <pre>
+   * Time to live (TTL) of the `token` in milliseconds to be applied by client.
+   * `token` is only applicable for the duration specified in `ttl`. 'ttl' will
+   * start when the response in received. It can be refreshed on a successful
+   * commit.
+   * </pre>
+   *
+   * <code>.google.protobuf.Duration ttl = 2;</code>
+   *
+   * @return The ttl.
+   */
+  @java.lang.Override
+  public com.google.protobuf.Duration getTtl() {
+    return ttl_ == null ? com.google.protobuf.Duration.getDefaultInstance() : ttl_;
+  }
+  /**
+   *
+   *
+   * <pre>
+   * Time to live (TTL) of the `token` in milliseconds to be applied by client.
+   * `token` is only applicable for the duration specified in `ttl`. 'ttl' will
+   * start when the response in received. It can be refreshed on a successful
+   * commit.
+   * </pre>
+   *
+   * <code>.google.protobuf.Duration ttl = 2;</code>
+   */
+  @java.lang.Override
+  public com.google.protobuf.DurationOrBuilder getTtlOrBuilder() {
+    return ttl_ == null ? com.google.protobuf.Duration.getDefaultInstance() : ttl_;
   }
 
   private byte memoizedIsInitialized = -1;
@@ -121,8 +159,8 @@ public final class NextTransactionToken extends com.google.protobuf.GeneratedMes
     if (!token_.isEmpty()) {
       output.writeBytes(1, token_);
     }
-    if (ttlMillis_ != 0L) {
-      output.writeInt64(2, ttlMillis_);
+    if (ttl_ != null) {
+      output.writeMessage(2, getTtl());
     }
     getUnknownFields().writeTo(output);
   }
@@ -136,8 +174,8 @@ public final class NextTransactionToken extends com.google.protobuf.GeneratedMes
     if (!token_.isEmpty()) {
       size += com.google.protobuf.CodedOutputStream.computeBytesSize(1, token_);
     }
-    if (ttlMillis_ != 0L) {
-      size += com.google.protobuf.CodedOutputStream.computeInt64Size(2, ttlMillis_);
+    if (ttl_ != null) {
+      size += com.google.protobuf.CodedOutputStream.computeMessageSize(2, getTtl());
     }
     size += getUnknownFields().getSerializedSize();
     memoizedSize = size;
@@ -156,7 +194,10 @@ public final class NextTransactionToken extends com.google.protobuf.GeneratedMes
         (com.google.spanner.v1.NextTransactionToken) obj;
 
     if (!getToken().equals(other.getToken())) return false;
-    if (getTtlMillis() != other.getTtlMillis()) return false;
+    if (hasTtl() != other.hasTtl()) return false;
+    if (hasTtl()) {
+      if (!getTtl().equals(other.getTtl())) return false;
+    }
     if (!getUnknownFields().equals(other.getUnknownFields())) return false;
     return true;
   }
@@ -170,8 +211,10 @@ public final class NextTransactionToken extends com.google.protobuf.GeneratedMes
     hash = (19 * hash) + getDescriptor().hashCode();
     hash = (37 * hash) + TOKEN_FIELD_NUMBER;
     hash = (53 * hash) + getToken().hashCode();
-    hash = (37 * hash) + TTL_MILLIS_FIELD_NUMBER;
-    hash = (53 * hash) + com.google.protobuf.Internal.hashLong(getTtlMillis());
+    if (hasTtl()) {
+      hash = (37 * hash) + TTL_FIELD_NUMBER;
+      hash = (53 * hash) + getTtl().hashCode();
+    }
     hash = (29 * hash) + getUnknownFields().hashCode();
     memoizedHashCode = hash;
     return hash;
@@ -276,7 +319,7 @@ public final class NextTransactionToken extends com.google.protobuf.GeneratedMes
    *
    *
    * <pre>
-   * Next transaction token and TTL applied on the token.
+   * Next transaction token and the TTL that should be applied to the token.
    * </pre>
    *
    * Protobuf type {@code google.spanner.v1.NextTransactionToken}
@@ -312,7 +355,11 @@ public final class NextTransactionToken extends com.google.protobuf.GeneratedMes
       super.clear();
       bitField0_ = 0;
       token_ = com.google.protobuf.ByteString.EMPTY;
-      ttlMillis_ = 0L;
+      ttl_ = null;
+      if (ttlBuilder_ != null) {
+        ttlBuilder_.dispose();
+        ttlBuilder_ = null;
+      }
       return this;
     }
 
@@ -353,7 +400,7 @@ public final class NextTransactionToken extends com.google.protobuf.GeneratedMes
         result.token_ = token_;
       }
       if (((from_bitField0_ & 0x00000002) != 0)) {
-        result.ttlMillis_ = ttlMillis_;
+        result.ttl_ = ttlBuilder_ == null ? ttl_ : ttlBuilder_.build();
       }
     }
 
@@ -405,8 +452,8 @@ public final class NextTransactionToken extends com.google.protobuf.GeneratedMes
       if (other.getToken() != com.google.protobuf.ByteString.EMPTY) {
         setToken(other.getToken());
       }
-      if (other.getTtlMillis() != 0L) {
-        setTtlMillis(other.getTtlMillis());
+      if (other.hasTtl()) {
+        mergeTtl(other.getTtl());
       }
       this.mergeUnknownFields(other.getUnknownFields());
       onChanged();
@@ -440,12 +487,12 @@ public final class NextTransactionToken extends com.google.protobuf.GeneratedMes
                 bitField0_ |= 0x00000001;
                 break;
               } // case 10
-            case 16:
+            case 18:
               {
-                ttlMillis_ = input.readInt64();
+                input.readMessage(getTtlFieldBuilder().getBuilder(), extensionRegistry);
                 bitField0_ |= 0x00000002;
                 break;
-              } // case 16
+              } // case 18
             default:
               {
                 if (!super.parseUnknownField(input, extensionRegistry, tag)) {
@@ -470,10 +517,14 @@ public final class NextTransactionToken extends com.google.protobuf.GeneratedMes
      *
      *
      * <pre>
-     * Token used to identify the transaction to be created next. Used in
-     * [BeginTransaction][google.spanner.v1.Spanner.BeginTransaction]
-     * [ExecuteSql][google.spanner.v1.Spanner.ExecuteSql] in case of inline begin
-     * [Commit][google.spanner.v1.Spanner.Commit] in case of single use transaction
+     * An opaque identifier representing the next transaction created in a
+     * session.`token` can be passed as the
+     * [TransactionOptions.ReadWrite.next_transaction_token] in an
+     * [ExecuteSql][google.spanner.v1.Spanner.ExecuteSql] request, allowing a
+     * transaction to be both started and committed in a single request when
+     * [ExecuteSql.autocommit][google.spanner.v1.Spanner.ExecuteSql.autocommit] is
+     * enabled. `token` should only be used before `ttl`. Using `token` post
+     * expiration may generate an error.
      * </pre>
      *
      * <code>bytes token = 1;</code>
@@ -488,10 +539,14 @@ public final class NextTransactionToken extends com.google.protobuf.GeneratedMes
      *
      *
      * <pre>
-     * Token used to identify the transaction to be created next. Used in
-     * [BeginTransaction][google.spanner.v1.Spanner.BeginTransaction]
-     * [ExecuteSql][google.spanner.v1.Spanner.ExecuteSql] in case of inline begin
-     * [Commit][google.spanner.v1.Spanner.Commit] in case of single use transaction
+     * An opaque identifier representing the next transaction created in a
+     * session.`token` can be passed as the
+     * [TransactionOptions.ReadWrite.next_transaction_token] in an
+     * [ExecuteSql][google.spanner.v1.Spanner.ExecuteSql] request, allowing a
+     * transaction to be both started and committed in a single request when
+     * [ExecuteSql.autocommit][google.spanner.v1.Spanner.ExecuteSql.autocommit] is
+     * enabled. `token` should only be used before `ttl`. Using `token` post
+     * expiration may generate an error.
      * </pre>
      *
      * <code>bytes token = 1;</code>
@@ -512,10 +567,14 @@ public final class NextTransactionToken extends com.google.protobuf.GeneratedMes
      *
      *
      * <pre>
-     * Token used to identify the transaction to be created next. Used in
-     * [BeginTransaction][google.spanner.v1.Spanner.BeginTransaction]
-     * [ExecuteSql][google.spanner.v1.Spanner.ExecuteSql] in case of inline begin
-     * [Commit][google.spanner.v1.Spanner.Commit] in case of single use transaction
+     * An opaque identifier representing the next transaction created in a
+     * session.`token` can be passed as the
+     * [TransactionOptions.ReadWrite.next_transaction_token] in an
+     * [ExecuteSql][google.spanner.v1.Spanner.ExecuteSql] request, allowing a
+     * transaction to be both started and committed in a single request when
+     * [ExecuteSql.autocommit][google.spanner.v1.Spanner.ExecuteSql.autocommit] is
+     * enabled. `token` should only be used before `ttl`. Using `token` post
+     * expiration may generate an error.
      * </pre>
      *
      * <code>bytes token = 1;</code>
@@ -529,43 +588,71 @@ public final class NextTransactionToken extends com.google.protobuf.GeneratedMes
       return this;
     }
 
-    private long ttlMillis_;
+    private com.google.protobuf.Duration ttl_;
+    private com.google.protobuf.SingleFieldBuilderV3<
+            com.google.protobuf.Duration,
+            com.google.protobuf.Duration.Builder,
+            com.google.protobuf.DurationOrBuilder>
+        ttlBuilder_;
     /**
      *
      *
      * <pre>
-     * Token used to identify the transaction to be created next. Used in
-     * [BeginTransaction][google.spanner.v1.Spanner.BeginTransaction]
-     * [ExecuteSql][google.spanner.v1.Spanner.ExecuteSql] in case of inline begin
-     * [Commit][google.spanner.v1.Spanner.Commit] in case of single use transaction
+     * Time to live (TTL) of the `token` in milliseconds to be applied by client.
+     * `token` is only applicable for the duration specified in `ttl`. 'ttl' will
+     * start when the response in received. It can be refreshed on a successful
+     * commit.
      * </pre>
      *
-     * <code>int64 ttl_millis = 2;</code>
+     * <code>.google.protobuf.Duration ttl = 2;</code>
      *
-     * @return The ttlMillis.
+     * @return Whether the ttl field is set.
      */
-    @java.lang.Override
-    public long getTtlMillis() {
-      return ttlMillis_;
+    public boolean hasTtl() {
+      return ((bitField0_ & 0x00000002) != 0);
     }
     /**
      *
      *
      * <pre>
-     * Token used to identify the transaction to be created next. Used in
-     * [BeginTransaction][google.spanner.v1.Spanner.BeginTransaction]
-     * [ExecuteSql][google.spanner.v1.Spanner.ExecuteSql] in case of inline begin
-     * [Commit][google.spanner.v1.Spanner.Commit] in case of single use transaction
+     * Time to live (TTL) of the `token` in milliseconds to be applied by client.
+     * `token` is only applicable for the duration specified in `ttl`. 'ttl' will
+     * start when the response in received. It can be refreshed on a successful
+     * commit.
      * </pre>
      *
-     * <code>int64 ttl_millis = 2;</code>
+     * <code>.google.protobuf.Duration ttl = 2;</code>
      *
-     * @param value The ttlMillis to set.
-     * @return This builder for chaining.
+     * @return The ttl.
      */
-    public Builder setTtlMillis(long value) {
-
-      ttlMillis_ = value;
+    public com.google.protobuf.Duration getTtl() {
+      if (ttlBuilder_ == null) {
+        return ttl_ == null ? com.google.protobuf.Duration.getDefaultInstance() : ttl_;
+      } else {
+        return ttlBuilder_.getMessage();
+      }
+    }
+    /**
+     *
+     *
+     * <pre>
+     * Time to live (TTL) of the `token` in milliseconds to be applied by client.
+     * `token` is only applicable for the duration specified in `ttl`. 'ttl' will
+     * start when the response in received. It can be refreshed on a successful
+     * commit.
+     * </pre>
+     *
+     * <code>.google.protobuf.Duration ttl = 2;</code>
+     */
+    public Builder setTtl(com.google.protobuf.Duration value) {
+      if (ttlBuilder_ == null) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        ttl_ = value;
+      } else {
+        ttlBuilder_.setMessage(value);
+      }
       bitField0_ |= 0x00000002;
       onChanged();
       return this;
@@ -574,21 +661,136 @@ public final class NextTransactionToken extends com.google.protobuf.GeneratedMes
      *
      *
      * <pre>
-     * Token used to identify the transaction to be created next. Used in
-     * [BeginTransaction][google.spanner.v1.Spanner.BeginTransaction]
-     * [ExecuteSql][google.spanner.v1.Spanner.ExecuteSql] in case of inline begin
-     * [Commit][google.spanner.v1.Spanner.Commit] in case of single use transaction
+     * Time to live (TTL) of the `token` in milliseconds to be applied by client.
+     * `token` is only applicable for the duration specified in `ttl`. 'ttl' will
+     * start when the response in received. It can be refreshed on a successful
+     * commit.
      * </pre>
      *
-     * <code>int64 ttl_millis = 2;</code>
-     *
-     * @return This builder for chaining.
+     * <code>.google.protobuf.Duration ttl = 2;</code>
      */
-    public Builder clearTtlMillis() {
-      bitField0_ = (bitField0_ & ~0x00000002);
-      ttlMillis_ = 0L;
+    public Builder setTtl(com.google.protobuf.Duration.Builder builderForValue) {
+      if (ttlBuilder_ == null) {
+        ttl_ = builderForValue.build();
+      } else {
+        ttlBuilder_.setMessage(builderForValue.build());
+      }
+      bitField0_ |= 0x00000002;
       onChanged();
       return this;
+    }
+    /**
+     *
+     *
+     * <pre>
+     * Time to live (TTL) of the `token` in milliseconds to be applied by client.
+     * `token` is only applicable for the duration specified in `ttl`. 'ttl' will
+     * start when the response in received. It can be refreshed on a successful
+     * commit.
+     * </pre>
+     *
+     * <code>.google.protobuf.Duration ttl = 2;</code>
+     */
+    public Builder mergeTtl(com.google.protobuf.Duration value) {
+      if (ttlBuilder_ == null) {
+        if (((bitField0_ & 0x00000002) != 0)
+            && ttl_ != null
+            && ttl_ != com.google.protobuf.Duration.getDefaultInstance()) {
+          getTtlBuilder().mergeFrom(value);
+        } else {
+          ttl_ = value;
+        }
+      } else {
+        ttlBuilder_.mergeFrom(value);
+      }
+      bitField0_ |= 0x00000002;
+      onChanged();
+      return this;
+    }
+    /**
+     *
+     *
+     * <pre>
+     * Time to live (TTL) of the `token` in milliseconds to be applied by client.
+     * `token` is only applicable for the duration specified in `ttl`. 'ttl' will
+     * start when the response in received. It can be refreshed on a successful
+     * commit.
+     * </pre>
+     *
+     * <code>.google.protobuf.Duration ttl = 2;</code>
+     */
+    public Builder clearTtl() {
+      bitField0_ = (bitField0_ & ~0x00000002);
+      ttl_ = null;
+      if (ttlBuilder_ != null) {
+        ttlBuilder_.dispose();
+        ttlBuilder_ = null;
+      }
+      onChanged();
+      return this;
+    }
+    /**
+     *
+     *
+     * <pre>
+     * Time to live (TTL) of the `token` in milliseconds to be applied by client.
+     * `token` is only applicable for the duration specified in `ttl`. 'ttl' will
+     * start when the response in received. It can be refreshed on a successful
+     * commit.
+     * </pre>
+     *
+     * <code>.google.protobuf.Duration ttl = 2;</code>
+     */
+    public com.google.protobuf.Duration.Builder getTtlBuilder() {
+      bitField0_ |= 0x00000002;
+      onChanged();
+      return getTtlFieldBuilder().getBuilder();
+    }
+    /**
+     *
+     *
+     * <pre>
+     * Time to live (TTL) of the `token` in milliseconds to be applied by client.
+     * `token` is only applicable for the duration specified in `ttl`. 'ttl' will
+     * start when the response in received. It can be refreshed on a successful
+     * commit.
+     * </pre>
+     *
+     * <code>.google.protobuf.Duration ttl = 2;</code>
+     */
+    public com.google.protobuf.DurationOrBuilder getTtlOrBuilder() {
+      if (ttlBuilder_ != null) {
+        return ttlBuilder_.getMessageOrBuilder();
+      } else {
+        return ttl_ == null ? com.google.protobuf.Duration.getDefaultInstance() : ttl_;
+      }
+    }
+    /**
+     *
+     *
+     * <pre>
+     * Time to live (TTL) of the `token` in milliseconds to be applied by client.
+     * `token` is only applicable for the duration specified in `ttl`. 'ttl' will
+     * start when the response in received. It can be refreshed on a successful
+     * commit.
+     * </pre>
+     *
+     * <code>.google.protobuf.Duration ttl = 2;</code>
+     */
+    private com.google.protobuf.SingleFieldBuilderV3<
+            com.google.protobuf.Duration,
+            com.google.protobuf.Duration.Builder,
+            com.google.protobuf.DurationOrBuilder>
+        getTtlFieldBuilder() {
+      if (ttlBuilder_ == null) {
+        ttlBuilder_ =
+            new com.google.protobuf.SingleFieldBuilderV3<
+                com.google.protobuf.Duration,
+                com.google.protobuf.Duration.Builder,
+                com.google.protobuf.DurationOrBuilder>(getTtl(), getParentForChildren(), isClean());
+        ttl_ = null;
+      }
+      return ttlBuilder_;
     }
 
     @java.lang.Override

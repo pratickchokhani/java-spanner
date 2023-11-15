@@ -558,10 +558,12 @@ public interface PartialResultSetOrBuilder
    *
    *
    * <pre>
-   * When [ExecuteStreamingSql][google.spanner.v1.Spanner.ExecuteSql] is called
-   * with [ExecuteSqlRequest.autocommit][] set to true, the last
-   * PartialResultSet message in the streaming response will contain a
-   * CommitResponse.
+   * When [ExecuteSql][google.spanner.v1.Spanner.ExecuteSql] or
+   * [ExecuteStreamingSql][google.spanner.v1.Spanner.ExecuteStreamingSql] is
+   * called with [ExecuteSqlRequest.autocommit][] set to true, the returned
+   * ResultSet will include a CommitResponse if the transaction was committed.
+   * If this CommitResponse is absent, a follow up Commit request will be
+   * required to commit the transaction.
    * </pre>
    *
    * <code>.google.spanner.v1.CommitResponse commit_response = 6;</code>
@@ -573,10 +575,12 @@ public interface PartialResultSetOrBuilder
    *
    *
    * <pre>
-   * When [ExecuteStreamingSql][google.spanner.v1.Spanner.ExecuteSql] is called
-   * with [ExecuteSqlRequest.autocommit][] set to true, the last
-   * PartialResultSet message in the streaming response will contain a
-   * CommitResponse.
+   * When [ExecuteSql][google.spanner.v1.Spanner.ExecuteSql] or
+   * [ExecuteStreamingSql][google.spanner.v1.Spanner.ExecuteStreamingSql] is
+   * called with [ExecuteSqlRequest.autocommit][] set to true, the returned
+   * ResultSet will include a CommitResponse if the transaction was committed.
+   * If this CommitResponse is absent, a follow up Commit request will be
+   * required to commit the transaction.
    * </pre>
    *
    * <code>.google.spanner.v1.CommitResponse commit_response = 6;</code>
@@ -588,10 +592,12 @@ public interface PartialResultSetOrBuilder
    *
    *
    * <pre>
-   * When [ExecuteStreamingSql][google.spanner.v1.Spanner.ExecuteSql] is called
-   * with [ExecuteSqlRequest.autocommit][] set to true, the last
-   * PartialResultSet message in the streaming response will contain a
-   * CommitResponse.
+   * When [ExecuteSql][google.spanner.v1.Spanner.ExecuteSql] or
+   * [ExecuteStreamingSql][google.spanner.v1.Spanner.ExecuteStreamingSql] is
+   * called with [ExecuteSqlRequest.autocommit][] set to true, the returned
+   * ResultSet will include a CommitResponse if the transaction was committed.
+   * If this CommitResponse is absent, a follow up Commit request will be
+   * required to commit the transaction.
    * </pre>
    *
    * <code>.google.spanner.v1.CommitResponse commit_response = 6;</code>

@@ -27,8 +27,8 @@ public class NextTransactionTokenHandler {
   private ByteString issuerTransactionId = null;
   private long refreshTime = Long.MAX_VALUE;
 
-  public void setNtt(NextTransactionToken nextTransactionToken,
-      @Nullable ByteString issuerTransactionId) {
+  public void setNtt(
+      NextTransactionToken nextTransactionToken, @Nullable ByteString issuerTransactionId) {
     if (nextTransactionToken == null || nextTransactionToken.getToken() == ByteString.EMPTY) {
       return;
     }

@@ -261,8 +261,7 @@ class SingleUseTransaction extends AbstractBaseUnitOfWork {
                     transaction ->
                         DirectExecuteResultSet.ofResultSet(
                             transaction.executeQuery(
-                                update.getStatement(),
-                                appendAutocommitOption(options))));
+                                update.getStatement(), appendAutocommitOption(options))));
             state = UnitOfWorkState.COMMITTED;
             return resultSet;
           } catch (Throwable t) {
@@ -494,7 +493,8 @@ class SingleUseTransaction extends AbstractBaseUnitOfWork {
                       if (analyzeMode == AnalyzeMode.NONE) {
                         return Tuple.of(
                             transaction.executeUpdate(
-                                update.getStatement(), appendAutocommitOption(options)), null);
+                                update.getStatement(), appendAutocommitOption(options)),
+                            null);
                       }
                       ResultSet resultSet =
                           transaction.analyzeUpdateStatement(
