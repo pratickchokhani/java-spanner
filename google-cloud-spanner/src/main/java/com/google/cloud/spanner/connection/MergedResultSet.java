@@ -26,6 +26,7 @@ import com.google.cloud.spanner.Struct;
 import com.google.cloud.spanner.Type;
 import com.google.common.base.Preconditions;
 import com.google.common.base.Supplier;
+import com.google.spanner.v1.CommitResponse;
 import com.google.spanner.v1.ResultSetMetadata;
 import com.google.spanner.v1.ResultSetStats;
 import java.util.ArrayList;
@@ -36,6 +37,7 @@ import java.util.concurrent.LinkedBlockingDeque;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 /**
  * {@link MergedResultSet} is a {@link ResultSet} implementation that combines the results from
@@ -380,6 +382,13 @@ class MergedResultSet extends ForwardingStructReader implements PartitionedQuery
   public ResultSetStats getStats() {
     throw new UnsupportedOperationException(
         "ResultSetStats are available only for results returned from analyzeQuery() calls");
+  }
+
+  @Nullable
+  @Override
+  public CommitResponse getCommitResponse() {
+    throw new UnsupportedOperationException(
+        "CommitResponse are available only for ReadWrite transactions.");
   }
 
   @Override
