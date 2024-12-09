@@ -36,6 +36,7 @@ import com.google.protobuf.util.Timestamps;
 import com.google.spanner.v1.Session;
 import com.google.spanner.v1.Transaction;
 import io.opentelemetry.api.OpenTelemetry;
+import java.time.Duration;
 import java.util.Collections;
 import java.util.Map;
 import org.junit.Before;
@@ -96,6 +97,7 @@ public final class BatchClientImplTest {
     when(sessionPoolOptions.getPoolMaintainerClock()).thenReturn(Clock.INSTANCE);
     when(sessionPoolOptions.getUseMultiplexedSessionPartitionedOps())
         .thenReturn(isMultiplexedSession);
+    when(sessionPoolOptions.getMultiplexedSessionMaintenanceDuration()).thenReturn(Duration.ZERO);
     when(spannerOptions.getSessionPoolOptions()).thenReturn(sessionPoolOptions);
     @SuppressWarnings("resource")
     SpannerImpl spanner = new SpannerImpl(gapicRpc, spannerOptions);
